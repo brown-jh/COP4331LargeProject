@@ -6,7 +6,7 @@ import Login from '../components/Login';
 const LoginPage = () =>
 {
     
-    return(      
+    return (      
         <div>        
             <PageTitle />
             <Login />      
