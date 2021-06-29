@@ -12,7 +12,7 @@ exports.setApp = function (app, client)
         try  
         {    
             const db = client.db();    
-            const result = db.collection('Cards').insertOne(newCard);  
+            const result = await db.collection('Cards').insertOne(newCard);  
         }  
         catch(e)  
         {    
