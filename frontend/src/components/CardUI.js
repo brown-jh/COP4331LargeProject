@@ -25,10 +25,10 @@ function CardUI(){
         var obj = {userId:userId,card:card.value};        
         var js = JSON.stringify(obj);        
         try        
-        {            
+        {   alert("Alert before line 29");         
             const response = await fetch(bp.buildPath('api/addcard'),            
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var txt = await response.text();            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}}); alert("Alert after line 29 and before line 31"); 
+            var txt = await response.text();  alert("Alert after line 31");           
             var res = JSON.parse(txt);            
             if( res.error.length > 0 )            
             {                
