@@ -1,4 +1,4 @@
-const app_name = 'cop4331-demo2'
+const app_name = 'cop4331-eventmaneger'
 
 exports.buildPath = 
 function buildPath(route)
