@@ -32,15 +32,18 @@ function CardUI(){
             var res = JSON.parse(txt);            
             if( res.error.length > 0 )            
             {                
+                alert("Alert! API Error");
                 setMessage( "API Error:" + res.error );            
             }            
             else            
-            {                
+            {     
+                alert("Alert! Card has been added");
                 setMessage('Card has been added');            
             }        
         }        
         catch(e)        
-        {            
+        {        
+            alert("Alert! We're having an issue in the catch block");    
             setMessage(e.toString());        
         }
     };    
