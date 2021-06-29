@@ -28,7 +28,7 @@ function CardUI(){
         {   alert("Alert before line 29");         
             const response = await fetch(bp.buildPath('api/addcard'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}}); alert("Alert after line 29 and before line 31"); 
-            var txt = await response.text();  alert("Alert after line 31 and before line 32");           
+            var txt = await response.text();  alert("Breaking JSON is " + txt);           
             var res = JSON.parse(txt);  alert("Alert after line 32"); 
             if( res.error.length > 0 )            
             {                
