@@ -16,13 +16,11 @@ exports.setApp = function (app, client)
         }  
         catch(e)  
         {    
-            alert("Alert! We're in the catch block of api.js");
             error = e.toString();  
         }
 
         // cardList.push( card );  
         var ret = { error: error };  
-        alert("The string value of ret is " + JSON.stringify(ret));
         res.status(200).json(ret);
     });
     
