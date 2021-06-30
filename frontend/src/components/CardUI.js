@@ -35,7 +35,8 @@ function CardUI(){
                 setMessage( "API Error:" + res.error );            
             }            
             else            
-            {                
+            {               
+                setCardList(cardList + ", " + card.value);
                 setMessage('Card has been added');            
             }        
         }        
