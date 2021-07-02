@@ -21,7 +21,9 @@ function Login(){
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var storage = require('../tokenStorage.js');
-            var res = JSON.parse(await response.text());              
+		var txt = await response.text();
+		alert(txt);
+            var res = JSON.parse(txt);              
             if (res.error) 
             {
                 setMessage(res.error);//'User/Password combination incorrect');
