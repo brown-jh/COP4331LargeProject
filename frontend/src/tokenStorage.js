@@ -22,4 +22,8 @@ exports.retrieveToken = function ()
         console.log(e.message);    
     }    
     return ud;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 3d6842a220dec775d8586506c41f5a6f1a00b291
