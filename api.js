@@ -48,6 +48,100 @@ exports.setApp = function (app, client)
         var ret = { error: error, jwtToken: refreshedToken };      
         res.status(200).json(ret);
     });
+
+    app.post('/api/adduser', async (req, res, next) =>{  
+        // incoming: FirstName, LastName, Login, Password 
+        // outgoing: error  
+        var error = '';  
+
+        const { firstName, lastName, login, password, jwtToken } = req.body;      
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        
+        const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password};  
+        var error = '';  
+        
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Users').insertOne(newUser);  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+    });
+
+    app.post('/api/removeuser', async (req, res, next) =>{  
+        // incoming: _id 
+        // outgoing: error  
+        var error = '';  
+
+        const { id, jwtToken } = req.body;      
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        
+        const user_id = {_id:id};  
+        var error = '';  
+        
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Users').removeOne(user_id);  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+    });
     
     app.post('/api/login', async (req, res, next) => 
     {  
