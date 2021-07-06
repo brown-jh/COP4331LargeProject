@@ -24,7 +24,6 @@ function Register(){
             setMessage("Please include a first and last name.");
             return;
         }
-        alert(registerPassword.value + " " + registerPasswordCheck.value);
         if (registerPassword.value != registerPasswordCheck.value)
         {
             setMessage("Passwords do not match.");
@@ -65,6 +64,7 @@ function Register(){
                 setMessage('user has been added');            
                 var retTok = res.jwtToken;
                 storage.storeToken( retTok );
+                window.location.href = '/';
             }        
         }        
         catch(e)        
