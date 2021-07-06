@@ -14,6 +14,9 @@ function App() {
         </Route>        
         <Route path="/cards" exact>          
           <CardPage />        
+        </Route>
+        <Route path="/register" exact>          
+          <RegisterPage />        
         </Route>        
         <Redirect to="/" />      
       </Switch>      

@@ -9,6 +9,11 @@ function Login(){
     var loginPassword;
     const [message, setMessage] = useState('');
 
+    const gotoRegister = async event =>
+    {
+        window.location.href = '/register';
+    }
+
     const doLogin = async event =>     
     {        
         event.preventDefault();       
@@ -59,7 +64,9 @@ function Login(){
                 ref ={(c) => loginPassword = c}/><br />
             <input type="submit" id="loginButton" class="buttons" value = "Do It"          
                 onClick={doLogin} />
-            <span id="loginResult">{message}</span>     
+            <span id="loginResult">{message}</span> <br />
+            <input type="submit" id="RegisterButton" class="buttons" value = "Register"          
+                onClick={gotoRegister} /><br /> 
         </div>    
     );
 };
