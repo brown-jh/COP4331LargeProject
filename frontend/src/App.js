@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-d
 import './App.css';
 import LoginPage from './pages/LoginPage';
 import CardPage from './pages/CardPage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {  
   return (    
