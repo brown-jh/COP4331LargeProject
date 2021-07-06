@@ -24,6 +24,7 @@ function Register(){
             setMessage("Please include a first and last name.");
             return;
         }
+        alert(registerPassword + " " + registerPasswordCheck);
         if (registerPassword != registerPasswordCheck)
         {
             setMessage("Passwords do not match.");
