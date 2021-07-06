@@ -1,4 +1,4 @@
-const app_name = 'get-togather'
+const app_name = 'cop4331-eventmanager'
 
 exports.buildPath = 
 function buildPath(route)
