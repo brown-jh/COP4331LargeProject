@@ -24,7 +24,7 @@ function Register(){
             setMessage("Please include a first and last name.");
             return;
         }
-        if (obj.password != registerPasswordCheck)
+        if (registerPassword != registerPasswordCheck)
         {
             setMessage("Passwords do not match.");
             return;
