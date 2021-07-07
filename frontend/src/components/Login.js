@@ -56,17 +56,18 @@ function Login(){
     };  
     
     return(      
-        <div id="loginDiv">               
-            <span id="inner-title">PLEASE LOG IN</span><br />        
+        <div id="mainDiv">               
+            <span id="inner-title">Log in!</span><br />        
             <input type="text" id="loginName" placeholder="Username" 
                 ref ={(c) => loginName = c} /><br />        
             <input type="password" id="loginPassword" placeholder="Password" 
                 ref ={(c) => loginPassword = c}/><br />
-            <input type="submit" id="loginButton" class="buttons" value = "Do It"          
+            <input type="submit" id="loginButton" class="buttons" value = "Log in"          
                 onClick={doLogin} />
-            <span id="loginResult">{message}</span> <br />
-            <input type="submit" id="RegisterButton" class="buttons" value = "Register"          
-                onClick={gotoRegister} /><br /> 
+            <span id="loginResult">{message}</span> <br /> 
+            <span id="smaller-inner-title">Not registered with us yet?<a href={'/register'}> Sign up.</a></span><br />
+            <span id="smaller-inner-title"><a href={'/register'}>Forgot your password?</a></span><br />
+            
         </div>    
     );
 };

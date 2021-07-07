@@ -41,8 +41,8 @@ function Register(){
     };
     
     return(      
-        <div id="loginDiv">               
-            <span id="inner-title">REGISTER</span><br />        
+        <div id="mainDiv">               
+            <span id="inner-title">Sign up</span><br />        
             <input type="text" id="loginName" placeholder="First Name" 
                 ref ={(c) => registerFirstName = c} /><br />
             <input type="text" id="loginName" placeholder="Last Name" 
@@ -53,7 +53,8 @@ function Register(){
                 ref ={(c) => registerPassword = c}/><br />
             <input type="submit" id="registerButton" class="buttons" value = "Register"          
                 onClick={Register} />
-            <span id="registerResult">{message}</span>     
+            <span id="registerResult">{message}</span> 
+            <span id="smaller-inner-title">Already have an account?<a href={'/login'}> Log in.</a></span><br />    
         </div>    
     );
 };
