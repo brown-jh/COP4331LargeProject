@@ -88,7 +88,7 @@ function CardUI(){
     };  
 
     return(
-        <div id="cardUIDiv">  <br />
+        <div id="mainDiv">  <br />
             <input type="text" id="searchText" placeholder="Card To Search For"
                 ref={(c) => search = c} />
             <button type="button" id="searchCardButton" class="buttons"

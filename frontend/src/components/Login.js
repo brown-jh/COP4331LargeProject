@@ -26,8 +26,7 @@ function Login(){
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
             var storage = require('../tokenStorage.js');
-		var txt = await response.text();
-		alert(txt);
+		    var txt = await response.text();
             var res = JSON.parse(txt);              
             if (res.error) 
             {
@@ -50,21 +49,21 @@ function Login(){
         }        
         catch(e)        
         {            
-            alert(e.toString());            
+            setMessage(e.toString());         
             return;        
         }        
     };  
     
     return(      
         <div id="mainDiv">               
-            <span id="inner-title">Log in!</span><br />        
+            <span id="inner-title">Log in</span><br />        
             <input type="text" id="loginName" placeholder="Username" 
                 ref ={(c) => loginName = c} /><br />        
             <input type="password" id="loginPassword" placeholder="Password" 
                 ref ={(c) => loginPassword = c}/><br />
             <input type="submit" id="loginButton" class="buttons" value = "Log in"          
                 onClick={doLogin} />
-            <span id="loginResult">{message}</span> <br /> 
+            <span id="error-text">{message}</span> <br /> 
             <span id="smaller-inner-title">Not registered with us yet?<a href={'/register'}> Sign up.</a></span><br />
             <span id="smaller-inner-title"><a href={'/register'}>Forgot your password?</a></span><br />
             

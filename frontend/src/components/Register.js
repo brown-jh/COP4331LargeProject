@@ -88,7 +88,7 @@ function Register(){
                 ref ={(c) => registerPasswordCheck = c}/><br />
             <input type="submit" id="registerButton" class="buttons" value = "Register"          
                 onClick={Register} />
-            <span id="registerResult">{message}</span> 
+            <span id="error-text">{message}</span> 
             <span id="smaller-inner-title">Already have an account?<a href={'/login'}> Log in.</a></span><br />    
         </div>    
     );
