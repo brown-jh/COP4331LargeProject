@@ -96,6 +96,97 @@ exports.setApp = function (app, client)
         res.status(200).json(ret);
     });
 
+    app.post('/api/addevent', async (req, res, next) =>{  
+        // incoming: EventName, EventDescription, EventDate, EventTime, EventLocation
+        // outgoing: error  
+        var error = '';  
+
+        const { eventName, eventDescription, eventDate, eventTime, eventLocation, jwtToken } = req.body;      
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        
+        const newEvent = {EventName:eventName, EventDescription:eventDescription, EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
+        var error = '';  
+        
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Events').insertOne(newEvent);  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+    });
+
+    app.post('/api/searchevents', async (req, res, next) => {  
+        // incoming: userId(will be implemented later), search  
+        // outgoing: results[], error  
+        var error = '';  
+        const { userId, search, jwtToken } = req.body;    
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        var _search = search.trim();  
+
+        const db = client.db();  
+        const results = await db.collection('Events').find({"Event":{$regex:_search+'.*', $options:'r'}}).toArray();
+
+        var _ret = [];  
+        for( var i=0; i<results.length; i++ )  
+        {    
+            _ret.push( results[i].Event );  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+
+    });
+
     app.post('/api/removeuser', async (req, res, next) =>{  
         // incoming: _id 
         // outgoing: error  
