@@ -3,9 +3,9 @@ import React from 'react';
 function TagMarker(props)
 {
     return(
-        <div style={{display: "inline-block", fontSize: "15px", height: "30px", borderRadius:"15px", borderStyle: "solid", borderColor: "#000000"}}>
+        <span style={{display: "inline-block", fontSize: "15px", color: "#CCCCCC", border: "1px solid black", borderRadius:"15px"}}>
             <p>{props.txt}</p>
-        </div>
+        </span>
     );
 }
 
