@@ -64,11 +64,12 @@ const SearchPage = () =>{
 
     return(     
         <div>
-            <input type="text" ref={(c) => searchParams = c} />
-            <button type="button" class="buttons"
-                onClick={searchEvents}> Search Card</button><br />
+            <h1 style={{textAlign:"center"}}>Search Events</h1>
+            <input style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="text" 
+                ref={(c) => searchParams = c} />
+            <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons" onClick={searchEvents}>Search</button><br />
             <div id="searchResultDiv">{searchResults}</div>
-
         </div>
     );
 };
