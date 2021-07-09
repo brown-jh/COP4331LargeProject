@@ -6,6 +6,7 @@ import LoginPage from './pages/LoginPage';
 import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchPage from './pages/SearchPage';
+import HomePage from './pages/HomePage';
 
 function App() {  
   return (    
@@ -13,7 +14,10 @@ function App() {
       <Switch>        
         <Route path="/" exact>          
           <LoginPage />        
-        </Route>        
+        </Route>   
+        <Route path="/home" exact>          
+          <HomePage />        
+        </Route>
         <Route path="/cards" exact>          
           <CardPage />        
         </Route>
