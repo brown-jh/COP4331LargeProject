@@ -60,7 +60,7 @@ const SearchPage = () =>
             <br/>
             <button type="button" class="buttons" onClick={LogOut}>Log Out</button>
         </div>
-        
-
     );
 }
+
+export default HomePage;
