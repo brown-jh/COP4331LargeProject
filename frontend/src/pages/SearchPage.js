@@ -4,7 +4,7 @@ import EventBox from '../components/EventBox';
 
 const SearchPage = () =>{  
     
-    var bp = require('./Path.js');
+    var bp = require('../components/Path.js');
 
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
