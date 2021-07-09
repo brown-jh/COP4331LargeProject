@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SearchPage = () =>
+const HomePage = () =>
 {
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
