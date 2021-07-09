@@ -10,7 +10,7 @@ function EventBox(props)
     }
 
     return(
-        <div style={{width:"30%", border : "2px solid black", backgroundColor: "#CCCCCC"}} onClick={() => clickThis(props.title)}>
+        <div style={{width:"30%", margin: "1%", border : "2px solid black", backgroundColor: "#CCCCCC", float:"left"}} onClick={() => clickThis(props.title)}>
             <h1>{props.title}</h1>
             <h2>{props.group}</h2>
             <br/><br/>
