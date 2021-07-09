@@ -1,5 +1,7 @@
 import React from 'react';
 
+import FrontButton from '../components/FrontButton';
+
 const HomePage = () =>
 {
     var _ud = localStorage.getItem('user_data');    
@@ -42,23 +44,16 @@ const HomePage = () =>
         <div>
             <h2>Hello {firstName} {lastName}! What would you like to do?</h2><br/>
             <h3 style={{textAlign:"center"}}>Search</h3>
-            <div style={{width: "40%", margin:"5%", float: "left", backgroundColor: "#FFFF80"}}>
-                <p style={{textAlign:"center"}} onClick={ToSearchEvents}>Search Events</p>
-            </div>
-            <div style={{width: "40%", margin:"5%", float: "left", backgroundColor: "#FFFF80"}}>
-                <p style={{textAlign:"center"}} onClick={ToSearchGroups}>Search Groups</p>
-            </div>
+            <FrontButton txt="Search Events" clickAct={toSearchEvents}/>
+            <FrontButton txt="Search Groups" clickAct={toSearchGroups}/>
 
             <h3 style={{textAlign:"center"}}>Manage</h3>
-            <div style={{width: "40%", margin:"5%", float: "left", backgroundColor: "#FFFF80"}}>
-                <p style={{textAlign:"center"}} onClick={ToManageEvents}>Manage My Events</p>
-            </div>
-            <div style={{width: "40%", margin:"5%", float: "left", backgroundColor: "#FFFF80"}}>
-                <p style={{textAlign:"center"}} onClick={ToManageGroups}>Manage My Groups</p>
-            </div>
+
+            <FrontButton txt="Manage My Events" clickAct={toManageEvents}/>
+            <FrontButton txt="Manage My Groups" clickAct={toManageGroups}/>
 
             <br/>
-            <button type="button" class="buttons" onClick={LogOut}>Log Out</button>
+            <button type="button" style={{width: "25%"}} class="buttons" onClick={LogOut}>Log Out</button>
         </div>
     );
 }
