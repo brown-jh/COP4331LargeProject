@@ -5,7 +5,7 @@ import './App.css';
 import LoginPage from './pages/LoginPage';
 import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
-import TestPage from './pages/TestPage';
+import SearchPage from './pages/SearchPage';
 
 function App() {  
   return (    
@@ -20,8 +20,8 @@ function App() {
         <Route path="/register" exact>          
           <RegisterPage />        
         </Route>  
-        <Route path="/test" exact>          
-          <TestPage />        
+        <Route path="/search" exact>          
+          <SearchPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      
