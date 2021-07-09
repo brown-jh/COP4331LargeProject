@@ -44,13 +44,13 @@ const HomePage = () =>
         <div>
             <h2>Hello {firstName} {lastName}! What would you like to do?</h2><br/>
             <h3 style={{textAlign:"center"}}>Search</h3>
-            <FrontButton txt="Search Events" clickAct={toSearchEvents}/>
-            <FrontButton txt="Search Groups" clickAct={toSearchGroups}/>
+            <FrontButton txt="Search Events" clickAct={ToSearchEvents}/>
+            <FrontButton txt="Search Groups" clickAct={ToSearchGroups}/>
 
             <h3 style={{textAlign:"center"}}>Manage</h3>
 
-            <FrontButton txt="Manage My Events" clickAct={toManageEvents}/>
-            <FrontButton txt="Manage My Groups" clickAct={toManageGroups}/>
+            <FrontButton txt="Manage My Events" clickAct={ToManageEvents}/>
+            <FrontButton txt="Manage My Groups" clickAct={ToManageGroups}/>
 
             <br/>
             <button type="button" style={{width: "25%"}} class="buttons" onClick={LogOut}>Log Out</button>
