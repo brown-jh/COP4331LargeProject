@@ -47,7 +47,7 @@ const HomePage = () =>
             <FrontButton txt="Search Events" clickAct={ToSearchEvents}/>
             <FrontButton txt="Search Groups" clickAct={ToSearchGroups}/>
 
-            <h3 style={{textAlign:"center"}}>Manage</h3>
+            <br/><h3 style={{textAlign:"center"}}>Manage</h3>
 
             <FrontButton txt="Manage My Events" clickAct={ToManageEvents}/>
             <FrontButton txt="Manage My Groups" clickAct={ToManageGroups}/>
