@@ -25,10 +25,11 @@ exports.setApp = function (app, client)
         
         const newCard = {Card:card,UserId:userId};  
         var error = '';  
-        
+
+
         try  
-        {    
-            const db = client.db();    
+        {       
+            const db = client.db();
             const result = db.collection('Cards').insertOne(newCard);  
         }  
         catch(e)  
@@ -55,45 +56,51 @@ exports.setApp = function (app, client)
         var error = '';  
 
         const { firstName, lastName, login, password } = req.body;      
-        /*try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
-        */
         
         const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password};  
         var error = '';  
         
-        try  
-        {    
-            const db = client.db();    
-            const result = db.collection('Users').insertOne(newUser);  
-        }  
-        catch(e)  
-        {    
-            error = e.toString();  
+        try
+        {
+            const db = client.db();  
+
+        }
+        catch(e)
+        {
+            error = e.toString();
         }
 
-        var refreshedToken = null;      
-        try      
-        {        
-            refreshedToken = token.refresh(jwtToken);      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }      
-        var ret = { error: error, jwtToken: refreshedToken };      
-        res.status(200).json(ret);
+        // This should ensure that only one of any username exists.
+        const results = await db.collection('Users').find({Login:login}).toArray();
+        if (results.length < 1)
+        {
+            try  
+            {       
+                const result = db.collection('Users').insertOne(newUser);  
+            }  
+            catch(e)  
+            {    
+                error = e.toString();  
+            }
+    
+            var refreshedToken = null;      
+            try      
+            {        
+                refreshedToken = token.refresh(jwtToken);      
+            }      
+            catch(e)      
+            {        
+                console.log(e.message);      
+            }      
+            var ret = { error: error, jwtToken: refreshedToken };      
+            res.status(200).json(ret);
+        }
+        else 
+        {
+            error = "Username already exists"
+            var ret = { error: error, jwtToken: ""};
+            res.status(409).json(ret);
+        }
     });
 
     app.post('/api/addevent', async (req, res, next) =>{  
