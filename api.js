@@ -60,18 +60,9 @@ exports.setApp = function (app, client)
         const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password};  
         var error = '';  
         
-        try
-        {
-            const db = client.db();  
-
-        }
-        catch(e)
-        {
-            error = e.toString();
-        }
-
+        const db = client.db();  
         // This should ensure that only one of any username exists.
-        const results = await db.collection('Users').find({Login:login}).toArray();
+        const results = await db.collection('Users').find({ Login:login }).toArray();
         if (results.length > 0)
         {
             error = "Username already exists";
