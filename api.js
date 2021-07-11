@@ -143,6 +143,108 @@ exports.setApp = function (app, client)
         res.status(200).json(ret);
     });
 
+    app.post('/api/deleteevent', async (req, res, next) =>{
+        // Taking in userId and eventId, deletes the corresponding event (if they're the creator)
+        // We aren't actually storing the event creator right now, so this will just delete
+        // Ideally this will change
+        
+        var error = '';
+        const {eventId, jwtToken } = req.body;
+        
+
+        try
+        {
+            if ( token.isExpired(jwtToken))
+            {
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};
+                res.status(200).json(r);
+                return;
+            }
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        try
+        {
+            const db = client.db();
+            const result = await db.collection('Events').deleteOne( {_id:eventId});
+        }
+        catch(e)
+        {
+            console.log(e.toString());
+        }
+
+        try
+        {
+            refreshedToken = token.refresh(jwtToken);
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        var ret = { error: error, jwtToken: refreshedToken };
+        res.status(200).json(ret);
+
+
+
+    });
+
+    app.post('/api/updateevent', async (req, res, next) =>{  
+        // Takes in the eventId, and all of the attributes of the event
+        // (Currently just the event's name, description, date, time, and location)
+        // returns an error and a refreshed token
+        var error = '';  
+
+        const {eventId, eventName, eventDescription, eventDate, eventTime, eventLocation, jwtToken } = req.body;      
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+  
+        var error = '';  
+        
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Events').updateOne(
+                {_id:eventId},
+                {
+                    $set: {EventName: eventName, EventDescription: eventDescription, 
+                        EventDate: eventDate, EventTime: eventTime, EventLocation: eventLocation}
+
+                }
+            )  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+    });
+
     app.post('/api/searchevents', async (req, res, next) => {  
         // incoming: userId(will be implemented later), search  
         // outgoing: results[], error  
