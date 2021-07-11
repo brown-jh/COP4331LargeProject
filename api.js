@@ -72,7 +72,13 @@ exports.setApp = function (app, client)
 
         // This should ensure that only one of any username exists.
         const results = await db.collection('Users').find({Login:login}).toArray();
-        if (results.length < 1)
+        if (results.length > 0)
+        {
+            error = "Username already exists"
+            var ret = { error: error };
+            res.status(409).json(ret);
+        }
+        else 
         {
             try  
             {       
@@ -82,24 +88,10 @@ exports.setApp = function (app, client)
             {    
                 error = e.toString();  
             }
-    
-            var refreshedToken = null;      
-            try      
-            {        
-                refreshedToken = token.refresh(jwtToken);      
-            }      
-            catch(e)      
-            {        
-                console.log(e.message);      
-            }      
-            var ret = { error: error, jwtToken: refreshedToken };      
+         
+            var ret = { error: error };      
             res.status(200).json(ret);
-        }
-        else 
-        {
-            error = "Username already exists"
-            var ret = { error: error, jwtToken: ""};
-            res.status(409).json(ret);
+
         }
     });
 
