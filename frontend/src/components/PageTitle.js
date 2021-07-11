@@ -2,7 +2,7 @@ import React from 'react';
 
 function PageTitle(){   
     return(     
-        <h1 id="title">Get2Gather</h1>   
+        <h1 id="title">-Get2Gather-</h1>   
     );
 };
 

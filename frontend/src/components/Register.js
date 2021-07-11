@@ -75,7 +75,7 @@ function Register(){
     
     return(      
         <div id="mainDiv">               
-            <span id="inner-title">Sign up</span><br />        
+            <span class="inner-title">Sign up</span><br />        
             <input type="text" id="loginName" placeholder="First Name" 
                 ref ={(c) => registerFirstName = c} /><br />
             <input type="text" id="loginName" placeholder="Last Name" 
@@ -89,7 +89,7 @@ function Register(){
             <input type="submit" id="registerButton" class="buttons" value = "Register"          
                 onClick={Register} />
             <span id="error-text">{message}</span> 
-            <span id="smaller-inner-title">Already have an account?<a href={'/login'}> Log in.</a></span><br />    
+            <span class="smaller-inner-title">Already have an account?<a href={'/login'}> Log in.</a></span><br />    
         </div>    
     );
 };

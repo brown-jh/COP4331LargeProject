@@ -40,6 +40,7 @@ body
 #mainDiv
 {
     font-size: 30px;
+    border-radius: 15px;
     width: 40%;
     margin: 0 auto;
     text-align: center;
@@ -50,7 +51,7 @@ body
     border: 7px dotted rgb(235, 114, 114);
 }
 
-#inner-title{
+.inner-title{
     display: inline-block;
     font-size: 1.0em;
     border-bottom: 7px dotted rgb(235, 114, 114);
@@ -58,10 +59,22 @@ body
     text-align: center;
     margin-bottom: 5%;
     padding-bottom: 3%;
+    padding-top: 1%;
     font-family: var(--font);
 }
 
-#smaller-inner-title{
+.it_orange
+{
+    border-bottom: 7px dotted rgb(235, 162, 114);
+}
+
+.it_yellow
+{
+    border-bottom: 7px dotted rgb(235, 207, 114);
+}
+
+
+.smaller-inner-title{
   display: inline-block;
   font-size: 0.6em;
   width: 90%;
@@ -74,6 +87,7 @@ body
 .buttons
 {
     font-size: 20px;
+    margin: 0 auto;
     border-radius: 5px;
     width: 50%;
     transition-duration: 0.2s;
@@ -81,9 +95,14 @@ body
     border: 2px solid rgb(117, 114, 114);
 }
 
+.btn_home
+{
+    margin-bottom: 30px;
+}
+
 .buttons:hover
 {
-    background-color: #fa5f5f;
+    background-color: #fa8181;
     color: white;
 }
 
@@ -92,6 +111,7 @@ body
     background-color: #ad3e3e;
     transform: translateY(4px);
 }
+
 
 .smallButton
 {

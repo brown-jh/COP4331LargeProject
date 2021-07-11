@@ -25,6 +25,13 @@ function Login(){
             const response = await fetch(bp.buildPath('api/login'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
+            // Ensures user cannot enter in empty username / password.
+            if (obj.loginName == "" || obj.password == "")
+            {
+                setMessage("Please include your email and password.");
+                return;
+            }
+
             var storage = require('../tokenStorage.js');
 		    var txt = await response.text();
             var res = JSON.parse(txt);              
@@ -56,7 +63,7 @@ function Login(){
     
     return(      
         <div id="mainDiv">               
-            <span id="inner-title">Log in</span><br />        
+            <span class="inner-title">Log in</span><br />        
             <input type="text" id="loginName" placeholder="Username" 
                 ref ={(c) => loginName = c} /><br />        
             <input type="password" id="loginPassword" placeholder="Password" 
@@ -64,8 +71,8 @@ function Login(){
             <input type="submit" id="loginButton" class="buttons" value = "Log in"          
                 onClick={doLogin} />
             <span id="error-text">{message}</span> <br /> 
-            <span id="smaller-inner-title">Not registered with us yet?<a href={'/register'}> Sign up.</a></span><br />
-            <span id="smaller-inner-title"><a href={'/register'}>Forgot your password?</a></span><br />
+            <span class="smaller-inner-title">Not registered with us yet?<a href={'/register'}> Sign up.</a></span><br />
+            <span class="smaller-inner-title"><a href={'/register'}>Forgot your password?</a></span><br />
             
         </div>    
     );
