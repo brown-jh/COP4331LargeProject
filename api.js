@@ -74,7 +74,7 @@ exports.setApp = function (app, client)
         const results = await db.collection('Users').find({Login:login}).toArray();
         if (results.length > 0)
         {
-            error = "Username already exists"
+            error = "Username already exists";
             var ret = { error: error };
             res.status(409).json(ret);
         }
