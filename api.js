@@ -54,8 +54,8 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
 
-        const { firstName, lastName, login, password, jwtToken } = req.body;      
-        try      
+        const { firstName, lastName, login, password } = req.body;      
+        /*try      
         {        
             if( token.isExpired(jwtToken))        
             {          
@@ -68,7 +68,7 @@ exports.setApp = function (app, client)
         {        
             console.log(e.message);      
         }
-
+        */
         
         const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password};  
         var error = '';  
