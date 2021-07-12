@@ -107,7 +107,8 @@ exports.setApp = function (app, client)
         }
 
         
-        const newEvent = {EventName:eventName, EventDescription:eventDescription, EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
+        const newEvent = {EventName:eventName, EventDescription:eventDescription, 
+            EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
         var error = '';  
         
         try  

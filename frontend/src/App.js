@@ -7,6 +7,7 @@ import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchPage from './pages/SearchPage';
 import HomePage from './pages/HomePage';
+import MakeEventPage from './pages/MakeEventPage';
 
 function App() {  
   return (    
@@ -26,6 +27,9 @@ function App() {
         </Route>  
         <Route path="/search" exact>          
           <SearchPage />        
+        </Route>
+        <Route path="/newevent" exact>          
+          <MakeEventPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      
