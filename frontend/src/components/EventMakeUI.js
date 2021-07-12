@@ -33,36 +33,37 @@ function EventMakeUI()
         setLocationError("");
         setEventMakeResult("");
 
-        if (eventName == "") //Check for any missing information.
+        if (eventName.value == "") //Check for any missing information.
         {
             setNameError("Please give a name.");
             setEventMakeResult("Information missing; check above.");
         }
-        if (eventDesc == "")
+        if (eventDesc.value == "")
         {
             setDescError("Please give a description.");
             setEventMakeResult("Information missing; check above.");
         }
-        if (eventTime == "")
+        if (eventTime.value == "")
         {
             setTimeError("Please give a time.");
             setEventMakeResult("Information missing; check above.");
         }
-        if (eventPlace == "" && !isOnline)
+        if (eventPlace.value == "" && !isOnline.value)
         {
             setLocationError("Please give a location or check \"Online\".");
             setEventMakeResult("Information missing; check above.");
         }
 
-        if (eventMakeResult == "") //If no errors, submit.
+        if (eventMakeResult.value == "") //If no errors, submit.
         {
-            if (isOnline)
+            if (isOnline.value)
             {
-                eventPlace = ""; // No place if online.
+                eventPlace.value = ""; // No place if online.
             }
 
-            alert("Name: " + eventName + "\nDescription: " + eventDesc + "\nTime: " + eventTime + 
-            "\nPlace: " + eventPlace + "\nTODO: Add group dropdown, checks for time/place.")
+            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nTime: " + 
+            eventTime.value + "\nPlace: " + eventPlace.value + 
+            "\nTODO: Add group dropdown, checks for time/place.");
         }
     }
 
