@@ -22,7 +22,7 @@ function EventMakeUI()
 
     const flipOnlineCheck = async event =>
     {
-        setIsOnline(!isOnline);
+        setIsOnline(!isOnline.value);
     }
 
     const addNewEvent = async event =>
@@ -89,7 +89,7 @@ function EventMakeUI()
             <br/>
             <h3>Description</h3>
             <p>Tell your attendees about the event; what it involves, what they should bring, etc.</p>
-            <input type="textarea" ref={(c) => eventDesc = c} />
+            <input type="textarea" rows="5" cols= "100" ref={(c) => eventDesc = c} />
             <p style={{color: "red"}}>{descError}</p>
             
             <br/>
@@ -101,10 +101,8 @@ function EventMakeUI()
             <br/>
             <h3>Location</h3>
             <p>Where is the event going to happen? If online, instead check the box.</p>
-            <span>
-            <input type="checkbox" clicked={isOnline} onChange={flipOnlineCheck}/>
-            <p>"  Online"</p>
-            </span>
+            <input type="checkbox" id="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
+            <label for="onlineCheck">Online</label>
             <br/>
             <input type="text" ref={(c) => eventPlace = c} />
             <p style={{color: "red"}}>{locationError}</p>
