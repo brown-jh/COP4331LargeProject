@@ -77,46 +77,56 @@ function EventMakeUI()
     }
 
     return(
-        <div>
-            <h2>Create Event</h2>
+        <div id="mainDiv" style={{width: "60%"}}>
+            <span class="inner-title">Create Event</span><br /><br />
 
-            <br/>
-            <h3>Name</h3>
-            <p>Give the event a short, descriptive name.</p>
+
+            <span class="inner-title it_orange">Name</span><br />
+            <p><i>Give the event a short, descriptive name.</i></p>
             <input type="text" ref={(c) => eventName = c} />
-            <p style={{color: "red"}}>{nameError}</p>
+            <span id="error-text">{nameError}</span> <br /> 
+            <span class="inner-title it_orange"></span><br />
+
             
             <br/>
-            <h3>Description</h3>
-            <p>Tell your attendees about the event; what it involves, what they should bring, etc.</p>
-            <input type="textarea" rows="5" cols= "100" ref={(c) => eventDesc = c} />
-            <p style={{color: "red"}}>{descError}</p>
+            <span class="inner-title it_yellow">Description</span><br />
+            <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
+            <textarea rows="8" cols= "40" ref={(c) => eventDesc = c} />
+            <span id="error-text">{descError}</span> <br /> 
+            <span class="inner-title it_yellow"></span><br />
+
             
             <br/>
-            <h3>Date/Time</h3>
-            <p>When is the event going to happen?</p>
-            <input type="text" ref={(c) => eventTime = c} />
-            <p style={{color: "red"}}>{timeError}</p>
+            <span class="inner-title it_green">Date/Time</span><br />
+            <p><i>When is the event going to happen?</i></p>
+            <input type="datetime-local" class="meeting-time"
+                name="meeting-time" ref={(c) => eventTime = c} />
+            <span id="error-text">{timeError}</span> <br /> 
+            <span class="inner-title it_green"></span><br />
+
                         
             <br/>
-            <h3>Location</h3>
-            <p>Where is the event going to happen? If online, instead check the box.</p>
-            <input type="checkbox" id="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
-            <label for="onlineCheck">Online</label>
+            <span class="inner-title it_blue">Location</span><br />
+            <p><i>Where is the event going to happen? If online, instead check the box.</i></p>
+            <input type="checkbox" class="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
+            <label for="onlineCheck"> Online</label>
             <br/>
             <input type="text" ref={(c) => eventPlace = c} />
-            <p style={{color: "red"}}>{locationError}</p>
+            <span id="error-text">{locationError}</span> <br /> 
+            <span class="inner-title it_blue"></span><br />
+
 
                         
             <br/>
-            <h3>Group</h3>
-            <p>If this is for a group, select it from the dropdown; otherwise pick "None".</p>
+            <span class="inner-title it_purple"><b>Group</b></span><br />
+            <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
             <p>TODO: How do we do a dropdown in React?</p>
+            <span class="inner-title it_purple"><b></b></span><br />
 
-            <button type="button" style={{width: "50%", marginLeft: "25%"}} 
+            <button type="button" style={{width: "50%"}} 
             class="buttons" onClick={addNewEvent}>Submit</button>
-
-            <div>{eventMakeResult}</div>
+            <span class="smaller-inner-title">Please make sure to review your event before you submit!</span><br />
+            <div><span id="error-text">{eventMakeResult}</span> <br /> </div>
         </div>
     );
 }
