@@ -110,10 +110,15 @@ exports.setApp = function (app, client)
         const newEvent = {EventName:eventName, EventDescription:eventDescription, EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
         var error = '';  
         
-  
-        const db = client.db();    
-        const result = db.collection('Events').insertOne(newEvent);  
-
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Events').insertOne(newEvent);  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
 
         var refreshedToken = null;      
         try      
