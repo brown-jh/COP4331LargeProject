@@ -16,6 +16,12 @@ const SearchPage = () =>{
     var ud = JSON.parse(_ud);    
     var userId = ud.id;    
 
+    const searchGroups = async event =>
+    {
+        event.preventDefault();
+        alert("Allan please add function");
+    }
+
     const searchEvents = async event =>
     {
         event.preventDefault();
@@ -57,10 +63,12 @@ const SearchPage = () =>{
     return(     
         <div>
             <h1 style={{textAlign:"center"}}>Search Events</h1>
-            <input style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="text" 
+            <input style={{width: "50%", marginLeft:"25%"}} type="text" 
                 ref={(c) => searchParams = c} />
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons" onClick={searchEvents}>Search</button><br />
+                class="buttons" onClick={searchEvents}>Search Events</button>
+            <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons" onClick={searchGroups}>Search Groups</button><br />
             <div id="searchResultDiv">{searchResults}</div>
         </div>
     );
