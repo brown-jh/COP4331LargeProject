@@ -27,6 +27,7 @@ function EventMakeUI()
 
     const addNewEvent = async event =>
     {
+        var isError = false;
         setNameError(""); //Clear any errors from the last submit.
         setDescError("");
         setTimeError("");
@@ -37,24 +38,32 @@ function EventMakeUI()
         {
             setNameError("Please give a name.");
             setEventMakeResult("Information missing; check above.");
+            isError = true;
         }
         if (eventDesc.value == "")
         {
             setDescError("Please give a description.");
             setEventMakeResult("Information missing; check above.");
+            isError = true;
         }
         if (eventTime.value == "")
         {
             setTimeError("Please give a time.");
             setEventMakeResult("Information missing; check above.");
+            isError = true;
         }
         if (eventPlace.value == "" && !isOnline.value)
         {
             setLocationError("Please give a location or check \"Online\".");
             setEventMakeResult("Information missing; check above.");
+            isError = true;
         }
 
-        if (eventMakeResult.value == "") //If no errors, submit.
+        if (isError) //Notify the user if any info is missing, otherwise submit.
+        {
+            setEventMakeResult("Information missing or invalid; check above.");
+        }
+        else
         {
             if (isOnline.value)
             {
@@ -92,8 +101,11 @@ function EventMakeUI()
             <br/>
             <h3>Location</h3>
             <p>Where is the event going to happen? If online, instead check the box.</p>
+            <span>
             <input type="checkbox" clicked={isOnline} onChange={flipOnlineCheck}/>
-            <p>"  Online"</p><br/>
+            <p>"  Online"</p>
+            </span>
+            <br/>
             <input type="text" ref={(c) => eventPlace = c} />
             <p style={{color: "red"}}>{locationError}</p>
 
