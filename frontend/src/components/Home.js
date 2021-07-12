@@ -16,16 +16,10 @@ const Home = () =>
         alert("Log out");
     }
 
-    const ToSearchEvents = async event =>     
+    const ToSearchPage = async event =>     
     {    
         event.preventDefault();    
         window.location.href="/search";
-    }
-
-    const ToSearchGroups = async event =>     
-    {    
-        event.preventDefault();    
-        alert("Go to group search page");
     }
 
     const ToManageEvents = async event =>     
@@ -49,8 +43,7 @@ const Home = () =>
             {/* <span class="inner-title">Hello {firstName} {lastName}! What would you like to do?</span><br /> */}
             
             <span class="inner-title it_orange">Search</span><br />
-            <FrontButton txt="Search Events" clickAct={ToSearchEvents}/>
-            <FrontButton txt="Search Groups" clickAct={ToSearchGroups}/>
+            <FrontButton txt="Search Events and Groups" clickAct={ToSearchPage}/>
             <span class="inner-title it_orange"></span><br />
 
 
