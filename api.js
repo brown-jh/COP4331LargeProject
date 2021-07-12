@@ -257,12 +257,12 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Events').find({$or: [ { EventName: {$regex:_search+'.*', $options:'r'} }, {EventDescription: {$regex:_search+'.*', $options:'r'} } ] }).toArray();
+        const results = await db.collection('Events').find({$or: [ { "EventName": {$regex:_search+'.*', $options:'r'} }, {"EventDescription": {$regex:_search+'.*', $options:'r'} } ] }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
         {    
-            _ret.push( results[i].Event );  
+            _ret.push( results[i]);  
         }
 
         var refreshedToken = null;      
