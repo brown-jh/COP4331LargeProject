@@ -29,12 +29,14 @@ body
     opacity: 1;
     animation-name: opacityChange;
     animation-duration: 2s;
+    user-select: none;
 }
 
 @keyframes opacityChange {
     from{ opacity: 0; font-size: 90px;}
     to {opacity: 1; font-size: 100px;}
 }
+
 
 /* Changes font of title for website responsiveness */
 @media screen and (max-width: 820px) {
@@ -49,9 +51,14 @@ body
         color: #f75555;
         filter: drop-shadow(4px 4px 0px rgb(141, 19, 19));
         opacity: 1;
-        animation-name: opacityChange;
+        animation-name: smallOpacityChange;
         animation-duration: 2s;
     }
+}
+
+@keyframes smallOpacityChange {
+    from{ opacity: 0; font-size: 70px;}
+    to {opacity: 1; font-size: 80px;}
 }
 
 @media screen and (max-width: 650px) {
@@ -66,10 +73,16 @@ body
         color: #f75555;
         filter: drop-shadow(4px 4px 0px rgb(141, 19, 19));
         opacity: 1;
-        animation-name: opacityChange;
+        animation-name: smallerOpacityChange;
         animation-duration: 2s;
     }
 }
+
+@keyframes smallerOpacityChange {
+    from{ opacity: 0; font-size: 50px;}
+    to {opacity: 1; font-size: 60px;}
+}
+
 
 @media screen and (max-width: 490px) {
     #title 
@@ -83,9 +96,14 @@ body
         color: #f75555;
         filter: drop-shadow(3px 3px 0px rgb(141, 19, 19));
         opacity: 1;
-        animation-name: opacityChange;
+        animation-name: smallestOpacityChange;
         animation-duration: 2s;
     }
+}
+
+@keyframes smallestOpacityChange {
+    from{ opacity: 0; font-size: 30px;}
+    to {opacity: 1; font-size: 40px;}
 }
 
 
