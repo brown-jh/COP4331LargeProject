@@ -51,23 +51,22 @@ function EventDisplay()
                 </div>
             }
 
-            <div style={{width:"40%", marginLeft:"9%", float:"left"}}>
-                <p>TODO: Add photos?</p>
-                <h2>Decsription</h2>
+            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
+                <p>TODO: Add photo?</p>
+                <h2>Description</h2>
                 <p>{eventDesc}</p>
 
                 <p>Attendees:</p>
                 {attendeeList}
 
             </div>
-            <div style={{width:"40%", marginLeft:"9%", float:"left"}}>
+            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
                 <p>{eventGroup}</p>
                 <p>{eventTime}</p>
                 <p>{eventLocation}</p>
             </div>
 
-            <br/>
-            <div>
+            <div style={{clear: "left"}}>
                 <p>TODO: Add comments?</p>
             </div>
 
