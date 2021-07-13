@@ -8,6 +8,7 @@ import RegisterPage from './pages/RegisterPage';
 import SearchPage from './pages/SearchPage';
 import HomePage from './pages/HomePage';
 import MakeEventPage from './pages/MakeEventPage';
+import EventPage from './pages/EventPage';
 
 function App() {  
   return (    
@@ -30,6 +31,9 @@ function App() {
         </Route>
         <Route path="/newevent" exact>          
           <MakeEventPage />        
+        </Route>
+        <Route path="/events" exact>          
+          <EventPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      
