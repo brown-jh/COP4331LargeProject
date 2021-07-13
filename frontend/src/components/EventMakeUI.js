@@ -35,6 +35,7 @@ function EventMakeUI()
         eventGroup = event.target.value;
         alert("Updated group to event: " + event + "\nTarget: " + event.target + 
         "\nValue: " + event.target.value);
+        alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
     }
 
     const addNewEvent = async event =>
@@ -83,7 +84,7 @@ function EventMakeUI()
             }
 
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
+            eventGroup.value + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
             "\nTODO: Add group dropdown, checks for time/place.");
         }
     }
