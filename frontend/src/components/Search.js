@@ -14,7 +14,7 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id;  
+    var userId = ud.id;   
 
     const searchGroups = async event =>
     {
@@ -77,7 +77,7 @@ const Search = () =>{
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
-                        place={"UCF Campus"}/>}
+                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
                 </div>  
                 
                 <div>{ 
