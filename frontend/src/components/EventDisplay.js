@@ -16,7 +16,7 @@ function EventDisplay()
         //Here, we would normally pull the event ID from the URL, get the event via API, 
         // and use it to get the event's data, but we'll use dummy data for now.
 
-        thisEvent={
+        var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
             host: "Hannah Wrigley",
             description: "NerdKnighteria is holding a Smash 4 tournament at the Student Union at 3 on Monday. Bring snacks and controllers, cash prizes to be awarded up to 50$.",
