@@ -3,8 +3,8 @@ import React from 'react';
 function FrontButton(props)
 {
     return(
-        <div class="buttons btn_home">
-            <p style={{textAlign:"center", userSelect:"none"}} onClick={props.clickAct}>{props.txt}</p>
+        <div class="buttons btn-home">
+            <p style={{userSelect:"none"}} onClick={props.clickAct}>{props.txt}</p>
         </div>
     )
 }

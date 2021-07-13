@@ -193,39 +193,6 @@ label
 }
 
 
-/* Event Box */
-.eventBox
-{
-    font-family: var(--font);
-    margin-right: 50px;
-}
-
-.searchResultDiv
-{
-    cursor: pointer;
-    width: 45%;
-    margin-top: 50px;
-    margin-left: 20px;
-    margin-right: auto;
-    text-align: right;
-    border: 7px dotted rgb(235, 114, 114);
-    border-radius: 25px;
-    background: rgb(255, 238, 238);
-}
-
-.searchResultDiv:hover
-{
-    background: rgb(233, 210, 210);
-    transform: translateY(4px);
-}
-
-.flex-container
-{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-
 /* Button CSS */
 .buttons
 {
@@ -238,9 +205,14 @@ label
     border: 2px solid rgb(117, 114, 114);
 }
 
-.btn_home
+.btn-home
 {
     margin-bottom: 30px;
+}
+
+.btn-search
+{
+    height: 50px;
 }
 
 .buttons:hover
@@ -270,7 +242,7 @@ input[type="text"],input[type="password"]{
 
 input[type="text"]:focus,input[type="password"]:focus{
     background-color: #ffd4d4;
-    width: 60%;
+    width: 50%;
 }
 
 textarea
@@ -330,3 +302,109 @@ textarea:focus
     padding-left: 10px;
 }
 
+
+/* Event Box */
+/* With help of: https://www.youtube.com/watch?v=cwC1qdPWBKo&list=LL&index=4  */
+.flex-container
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.eventBox 
+{
+    display: grid;
+    grid-template-columns: 292px;
+    grid-template-rows: 210px 210px 80px;
+    grid-template-areas: "image" "text" "stats";
+    border-radius: 18px;
+    background: white;
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+    font-family: var(--font);
+    text-align: center;
+    transition: 0.5s ease;
+    cursor: pointer;
+    margin: 30px;
+    margin-top: 70px;
+}
+
+.eventBox-image 
+{
+    grid-area: image;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+}
+  
+.eventBox-text 
+{
+    grid-area: text;
+}
+
+.eventBox-text .date 
+{
+    color: rgb(255, 7, 19);
+    font-size:13px;
+}
+
+.eventBox-text p 
+{
+    color: rgb(94, 94, 94);
+    font-size:15px;
+    font-weight: 300;
+}
+
+.eventBox-text h2 
+{
+    margin-top:0px;
+    font-size:28px;
+}
+
+.eventBox-stats 
+{
+    grid-area: stats; 
+    display: flexbox;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background: rgb(248, 66, 75);
+}
+
+.eventBox-stats .stat 
+{
+    padding: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+    font-size:22px;
+    font-weight: 500;
+}
+
+
+.eventBox-stats .type
+{
+    font-size:11px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+
+.eventBox-stats .border 
+{
+    border-left: 1px solid rgb(248, 66, 75);
+    border-right: 1px solid rgb(248, 66, 75);
+}
+
+
+.eventBox:hover 
+{
+    transform: scale(1.05);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+
+.eventBox:active
+{
+    transform: translateY(5px);
+}
+  

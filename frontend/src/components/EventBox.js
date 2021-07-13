@@ -11,16 +11,27 @@ function EventBox(props)
     }
 
     return(
-        <div class="eventBox" 
-            onClick={() => clickThis(props.title)}>
+        <div onClick={() => clickThis(props.title)}>
             
-            {/* Placeholder photo */}
-            <img src="/images/download.png" class="imgresponsive eventpic"/>
-            <h4>{props.title}</h4>
-            <p class="event">{props.group}</p>
-            <span class="inner-title it_orange"></span>
-            <p class="event">{props.time}</p>
-            <p class="event">{props.place}</p>
+            <div class="eventBox">
+                        {/* Placeholder Image */}
+                        <div class="eventBox-image" style={{background: `url("https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM=")`, backgroundSize: "cover" }}></div>
+                        <div class="eventBox-text">
+                            <span class="date">{props.time}</span>
+                            <h2>{props.title}</h2>
+                            <p>
+                            {props.group}
+                            </p>
+                        </div>
+                        <div class="eventBox-stats">
+                            <div class="stat border">
+                            </div>
+                            <div class="stat">
+                            <div class="value">{props.place}</div>
+                            <div class="type">{"Location"}</div>
+                            </div>
+                        </div>
+                        </div>
         </div>
     );
 }

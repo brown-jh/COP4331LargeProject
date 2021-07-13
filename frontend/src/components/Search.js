@@ -12,9 +12,9 @@ const Search = () =>{
     var searchParams;
     const [searchResults, setSearchResults] = useState('');
 
-    var _ud = localStorage.getItem('user_data');    
-    var ud = JSON.parse(_ud);    
-    var userId = ud.id;   
+    // var _ud = localStorage.getItem('user_data');    
+    // var ud = JSON.parse(_ud);    
+    var userId = 0;   
 
     const searchGroups = async event =>
     {
@@ -66,12 +66,53 @@ const Search = () =>{
             <span class="inner-title">Search Events and Groups</span><br />
             <input type="text" ref={(c) => searchParams = c} /><br / >
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons" onClick={searchEvents}>Search Events</button>
+                class="buttons buttons btn-search" onClick={searchEvents}>Search Events</button>
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons" onClick={searchGroups}>Search Groups</button><br />
+                class="buttons btn-search" onClick={searchGroups}>Search Groups</button><br />
             
             <div class = "flex-container">
-                <div class="searchResultDiv">{searchResults}</div>       
+            <div>{searchResults}</div>
+                <div>{ 
+                <EventBox 
+                        title={"Tennis Practice Placeholder"}
+                        group={"A group for making friends and playing tennis!"}
+                        time={"May 27th, 2021 10:00AM"}
+                        place={"UCF Campus"}/>}
+                </div>  
+                
+                <div>{ 
+                <EventBox 
+                        title={"Tennis Practice Placeholder"}
+                        group={"A group for making friends and playing tennis!"}
+                        time={"May 27th, 2021 10:00AM"}
+                        place={"UCF Campus"}/>}
+                </div> 
+
+                <div>{ 
+                <EventBox 
+                        title={"Tennis Practice Placeholder"}
+                        group={"A group for making friends and playing tennis!"}
+                        time={"May 27th, 2021 10:00AM"}
+                        place={"UCF Campus"}/>}
+                </div>  
+
+                <div>{ 
+                <EventBox 
+                        title={"Tennis Practice Placeholder"}
+                        group={"A group for making friends and playing tennis!"}
+                        time={"May 27th, 2021 10:00AM"}
+                        place={"UCF Campus"}/>}
+                </div>
+                <div>{ 
+                <EventBox 
+                        title={"Tennis Practice Placeholder"}
+                        group={"A group for making friends and playing tennis!"}
+                        time={"May 27th, 2021 10:00AM"}
+                        place={"UCF Campus"}/>}
+                </div> 
+                
+                
+                   
             </div>
             
         </div>
