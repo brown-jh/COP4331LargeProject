@@ -33,7 +33,8 @@ function EventMakeUI()
     function changeGroup(event)
     {
         eventGroup = event.target.value;
-        alert("Updated group");
+        alert("Updated group to event: " + event + "\nTarget: " + event.target + 
+        "\nValue: " + event.target.value);
     }
 
     const addNewEvent = async event =>
