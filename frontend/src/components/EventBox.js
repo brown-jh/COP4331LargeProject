@@ -11,14 +11,16 @@ function EventBox(props)
     }
 
     return(
-        <div style={{width:"80%", margin: "10%", border : "2px solid black"}} 
+        <div class="eventBox" 
             onClick={() => clickThis(props.title)}>
-                
-            <h3>{props.title}</h3>
-            <p>{props.group}</p>
-            <br/><br/>
-            <p>{props.time}</p>
-            <p>{props.place}</p>
+            
+            {/* Placeholder photo */}
+            <img src="/images/download.png" class="imgresponsive eventpic"/>
+            <h4>{props.title}</h4>
+            <p class="event">{props.group}</p>
+            <span class="inner-title it_orange"></span>
+            <p class="event">{props.time}</p>
+            <p class="event">{props.place}</p>
         </div>
     );
 }

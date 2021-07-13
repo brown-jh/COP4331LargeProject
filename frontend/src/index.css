@@ -22,6 +22,15 @@ p
     padding-right: 10px;
 }
 
+.event
+{
+    font-size: 22px;
+    margin: 3px;
+    padding-left: 0px;
+    padding-right: 0px;
+    padding-bottom: 5px;
+}
+
 label
 {
     font-family: var(--font);
@@ -184,12 +193,44 @@ label
 }
 
 
+/* Event Box */
+.eventBox
+{
+    font-family: var(--font);
+    margin-right: 50px;
+}
+
+.searchResultDiv
+{
+    cursor: pointer;
+    width: 45%;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: auto;
+    text-align: right;
+    border: 7px dotted rgb(235, 114, 114);
+    border-radius: 25px;
+    background: rgb(255, 238, 238);
+}
+
+.searchResultDiv:hover
+{
+    background: rgb(233, 210, 210);
+    transform: translateY(4px);
+}
+
+.flex-container
+{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
 /* Button CSS */
 .buttons
 {
     font-size: 20px;
     margin: 0 auto;
-
     border-radius: 5px;
     width: 50%;
     transition-duration: 0.2s;
@@ -282,3 +323,10 @@ textarea:focus
     border-radius: 20%;
     height: auto;
 }
+
+.eventpic
+{
+    float: left;
+    padding-left: 10px;
+}
+

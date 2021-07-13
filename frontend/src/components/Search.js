@@ -14,7 +14,7 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id;    
+    var userId = ud.id;   
 
     const searchGroups = async event =>
     {
@@ -38,7 +38,8 @@ const Search = () =>{
             var res = JSON.parse(txt);            
             if( res.error.length > 0 )            
             {                
-                setSearchResults( "API Error:" + res.error );            
+                setSearchResults( "API Error:" + res.error );     
+                       
             }            
             else            
             {            
@@ -61,15 +62,18 @@ const Search = () =>{
     }
 
     return(     
-        <div>
-            <h1 style={{textAlign:"center"}}>Search Events</h1>
-            <input style={{width: "50%", marginLeft:"25%"}} type="text" 
-                ref={(c) => searchParams = c} />
+        <div id="mainDiv" style={{width: "80%"}}>
+            <span class="inner-title">Search Events and Groups</span><br />
+            <input type="text" ref={(c) => searchParams = c} /><br / >
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
                 class="buttons" onClick={searchEvents}>Search Events</button>
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
                 class="buttons" onClick={searchGroups}>Search Groups</button><br />
-            <div id="searchResultDiv">{searchResults}</div>
+            
+            <div class = "flex-container">
+                <div id="searchResultDiv">{searchResults}</div>       
+            </div>
+            
         </div>
     );
 };
