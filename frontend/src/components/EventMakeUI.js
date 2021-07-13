@@ -83,7 +83,7 @@ function EventMakeUI()
             }
 
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup.value + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
+            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
             "\nTODO: Add group dropdown, checks for time/place.");
         }
     }
