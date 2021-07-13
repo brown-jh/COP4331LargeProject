@@ -89,6 +89,7 @@ function EventMakeUI()
     useEffect(() => {
         // Here we would find the user's groups and put them in here.
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+        alert("userGroups = " + userGroups + "\nuserGroups.value = " + userGroups.value);
     });
 
     return(
