@@ -4,11 +4,12 @@ function EventMakeUI()
 {
     var bp = require('./Path.js');
 
-    var userGroups;
+
 
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
+    var userGroups = '';
     var eventName = '';
     var eventDesc = '';
     var eventGroup = '';
