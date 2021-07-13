@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 function EventMakeUI()
 {
     var bp = require('./Path.js');
 
-    var userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+    var userGroups;
 
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
@@ -84,6 +84,11 @@ function EventMakeUI()
             "\nTODO: Add group dropdown, checks for time/place.");
         }
     }
+
+    useEffect(() => {
+        // Here we would find the user's groups and put them in here.
+        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+    });
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
