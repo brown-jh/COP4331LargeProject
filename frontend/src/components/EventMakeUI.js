@@ -9,7 +9,7 @@ function EventMakeUI()
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
-    var userGroups = '';
+    var userGroups = [];
     var eventName = '';
     var eventDesc = '';
     var eventGroup = '';
