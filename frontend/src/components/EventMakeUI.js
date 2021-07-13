@@ -28,7 +28,7 @@ function EventMakeUI()
         alert("Flipped online value");
     }
 
-    changeGroup(event)
+    function changeGroup(event)
     {
         eventGroup = event.target.value;
         alert("Updated group");
