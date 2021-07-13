@@ -19,6 +19,7 @@ p
     font-family: var(--font);
     font-size: 25px;
     padding-left: 10px;
+    padding-right: 10px;
 }
 
 label

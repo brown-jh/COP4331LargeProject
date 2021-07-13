@@ -118,7 +118,7 @@ function EventMakeUI()
 
                         
             <br/>
-            <span class="inner-title it_purple"><b>Group</b></span><br />
+            <span class="inner-title it_purple">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
             <p>TODO: How do we do a dropdown in React?</p>
             <span class="inner-title it_purple"><b></b></span><br />
