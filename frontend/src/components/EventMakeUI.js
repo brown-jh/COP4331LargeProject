@@ -21,6 +21,7 @@ function EventMakeUI()
     const [timeError, setTimeError] = useState('');
     const [locationError, setLocationError] = useState('');
     const [eventMakeResult, setEventMakeResult] = useState('');
+    const [groupSelector, setGroupSelector] = useState('');
     const [isOnline, setIsOnline] = useState(false);
 
     const flipOnlineCheck = async event =>
@@ -90,6 +91,12 @@ function EventMakeUI()
         // Here we would find the user's groups and put them in here.
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         alert("userGroups = " + userGroups + "\nuserGroups.value = " + userGroups.value);
+        setGroupSelector(
+            <select onChange={changeGroup}>
+                <option value="">None</option>
+                {userGroups.value.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+            </select>
+        );
     });
 
     return(
@@ -136,10 +143,7 @@ function EventMakeUI()
             <br/>
             <span class="inner-title it_purple">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
-            <select onChange={changeGroup}>
-                <option value="">None</option>
-                {userGroups.value.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-            </select>
+            {groupSelector}
             <span class="inner-title it_purple"><b></b></span><br />
 
             <button type="button" style={{width: "50%"}} 
