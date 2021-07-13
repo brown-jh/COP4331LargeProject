@@ -12,9 +12,9 @@ const Search = () =>{
     var searchParams;
     const [searchResults, setSearchResults] = useState('');
 
-    // var _ud = localStorage.getItem('user_data');    
-    // var ud = JSON.parse(_ud);    
-    var userId = 0;   
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;  
 
     const searchGroups = async event =>
     {
