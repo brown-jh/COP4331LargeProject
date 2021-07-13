@@ -4,6 +4,8 @@ function EventMakeUI()
 {
     var bp = require('./Path.js');
 
+    var userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
@@ -23,6 +25,13 @@ function EventMakeUI()
     const flipOnlineCheck = async event =>
     {
         setIsOnline(!isOnline.value);
+        alert("Flipped online value");
+    }
+
+    changeGroup(event)
+    {
+        eventGroup = event.target.value;
+        alert("Updated group");
     }
 
     const addNewEvent = async event =>
@@ -70,8 +79,8 @@ function EventMakeUI()
                 eventPlace.value = ""; // No place if online.
             }
 
-            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nTime: " + 
-            eventTime.value + "\nPlace: " + eventPlace.value + 
+            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            eventGroup.value + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
             "\nTODO: Add group dropdown, checks for time/place.");
         }
     }
@@ -120,7 +129,10 @@ function EventMakeUI()
             <br/>
             <span class="inner-title it_purple">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
-            <p>TODO: How do we do a dropdown in React?</p>
+            <select onChange={changeGroup}>
+                <option value="">None</option>
+                {userGroups.value.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+            </select>
             <span class="inner-title it_purple"><b></b></span><br />
 
             <button type="button" style={{width: "50%"}} 
