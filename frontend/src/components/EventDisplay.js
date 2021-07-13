@@ -29,17 +29,17 @@ function EventDisplay()
         setEventTitle(thisEvent.name);
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
-        setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p><br/></div>));
+        setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
     });
 
     return(
-        <div>
-            <h1>{eventTitle}</h1>
-            <p>Hosted by {eventHost}</p>
-
+        <div id="mainDiv" style={{width: "80%"}}>
+            <span class="inner-title"><h2>{eventTitle}</h2></span><br />
+            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
+            <p>Hosted by: {eventHost}</p>
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
                 eventHost == userId.value ?
@@ -50,23 +50,25 @@ function EventDisplay()
                     <label for="attendingCheck">Attending</label>
                 </div>
             }
+            <span class="inner-title"></span><br />
 
-            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
-                <p>TODO: Add photo?</p>
-                <h2>Description</h2>
-                <p>{eventDesc}</p>
-
-                <p>Attendees:</p>
-                {attendeeList}
-
-            </div>
+            <span class="inner-title it_yellow"></span><br />
             <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
                 <p>{eventGroup}</p>
                 <p>{eventTime}</p>
                 <p>{eventLocation}</p>
             </div>
 
-            <div style={{clear: "left"}}>
+            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
+                <p>{eventDesc}</p>
+            </div>
+            <span class="inner-title it_yellow"></span><br />
+
+            
+
+            <div>
+            <p>Attendees:</p>
+                {attendeeList}
                 <p>TODO: Add comments?</p>
             </div>
 

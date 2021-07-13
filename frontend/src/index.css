@@ -293,7 +293,7 @@ textarea:focus
 .imgresponsive 
 {
     max-width: 50%;
-    border-radius: 20%;
+    border-radius: 5%;
     height: auto;
 }
 
