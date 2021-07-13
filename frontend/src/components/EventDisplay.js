@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function EventDisplay()
 {
-    var userId;
+    var userId = "Eddie Johnson";
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -25,8 +25,6 @@ function EventDisplay()
             time: "July 31 2021, 3:00 PM",
             place: "Student Union, University of Central Florida, Orlando"
         };
-
-        userId = "Eddie Johnson";
 
         setEventTitle(thisEvent.name);
         setEventDesc(thisEvent.description);
