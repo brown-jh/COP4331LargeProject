@@ -12,8 +12,7 @@ class GoogleAutocomplete extends React.Component {
   }
 
   componentDidMount() {
-    this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current,
-        {"types": ["geocode"]});
+    this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current);
 
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
   }
@@ -29,8 +28,8 @@ class GoogleAutocomplete extends React.Component {
   render() {
     return (
         
-        <input ref={this.autocompleteInput} id="autocomplete" placeholder="Enter desired location"
-         type="text"></input>
+        <input ref={this.autocompleteInput} placeholder="Enter desired location"
+         type="text" id="location"></input>
     );
   }
 }
