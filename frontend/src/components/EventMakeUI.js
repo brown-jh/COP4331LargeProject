@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import GoogleAutocomplete from '../components/GoogleAutocomplete';
 
 function EventMakeUI()
 {
     var bp = require('./Path.js');
-
-
-
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
@@ -71,6 +69,7 @@ function EventMakeUI()
             setEventMakeResult("Information missing; check above.");
             isError = true;
         }
+        alert("EventPlace is: " + eventPlace.value);
 
         if (isError) //Notify the user if any info is missing, otherwise submit.
         {
@@ -135,7 +134,8 @@ function EventMakeUI()
             <input type="checkbox" class="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
             <label for="onlineCheck"> Online</label>
             <br/>
-            <input type="text" ref={(c) => eventPlace = c} />
+            <GoogleAutocomplete />
+            
             <span id="error-text">{locationError}</span> <br /> 
             <span class="inner-title it_blue"></span><br />
          
