@@ -138,9 +138,7 @@ function EventMakeUI()
             <input type="text" ref={(c) => eventPlace = c} />
             <span id="error-text">{locationError}</span> <br /> 
             <span class="inner-title it_blue"></span><br />
-
-
-                        
+         
             <br/>
             <span class="inner-title it_purple">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>

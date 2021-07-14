@@ -9,6 +9,9 @@ import SearchPage from './pages/SearchPage';
 import HomePage from './pages/HomePage';
 import MakeEventPage from './pages/MakeEventPage';
 import EventPage from './pages/EventPage';
+import ForgotPasswordPage from './pages/ForgotPasswordPage';
+import FinishPasswordPage from './pages/FinishPasswordPage';
+import FinishRegisterPage from './pages/FinishRegisterPage';
 
 function App() {  
   return (    
@@ -26,6 +29,9 @@ function App() {
         <Route path="/register" exact>          
           <RegisterPage />        
         </Route>  
+        <Route path="/completeregister" exact>          
+          <FinishRegisterPage />        
+        </Route>
         <Route path="/search" exact>          
           <SearchPage />        
         </Route>
@@ -34,6 +40,12 @@ function App() {
         </Route>
         <Route path="/events" exact>          
           <EventPage />        
+        </Route>
+        <Route path="/forgotpassword" exact>          
+          <ForgotPasswordPage />        
+        </Route>
+        <Route path="/resetpassword" exact>          
+          <FinishPasswordPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      

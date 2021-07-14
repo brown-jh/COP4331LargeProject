@@ -64,7 +64,7 @@ function Register(){
                 setMessage('user has been added');            
                 var retTok = res.jwtToken;
                 storage.storeToken( retTok );
-                window.location.href = '/';
+                window.location.href = '/completeregister';
             }        
         }        
         catch(e)        

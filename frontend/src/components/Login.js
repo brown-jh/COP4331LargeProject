@@ -72,7 +72,7 @@ function Login(){
                 onClick={doLogin} />
             <span id="error-text">{message}</span> <br /> 
             <span class="smaller-inner-title">Not registered with us yet?<a href={'/register'}> Sign up.</a></span><br />
-            <span class="smaller-inner-title"><a href={'/register'}>Forgot your password?</a></span><br />
+            <span class="smaller-inner-title"><a href={'/forgotpassword'}>Forgot your password?</a></span><br />
         </div>    
     );
 };
