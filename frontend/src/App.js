@@ -3,7 +3,6 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Redirect, Switch } from 'react-router-dom';
 import './App.css';
 import LoginPage from './pages/LoginPage';
-import CardPage from './pages/CardPage';
 import RegisterPage from './pages/RegisterPage';
 import SearchPage from './pages/SearchPage';
 import HomePage from './pages/HomePage';
@@ -22,9 +21,6 @@ function App() {
         </Route>   
         <Route path="/home" exact>          
           <HomePage />        
-        </Route>
-        <Route path="/cards" exact>          
-          <CardPage />        
         </Route>
         <Route path="/register" exact>          
           <RegisterPage />        

@@ -139,6 +139,7 @@ label
     border-radius: 15px;
     width: 40%;
     min-width: 360px;
+    max-width: 1600px;
     margin: 0 auto;
     text-align: center;
     position: relative;
@@ -310,6 +311,7 @@ textarea:focus
 {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .eventBox 
