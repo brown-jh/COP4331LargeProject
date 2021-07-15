@@ -48,8 +48,9 @@ const Search = () =>{
                 setSearchResults(res.results.map((eventData) => (
                     <EventBox title={eventData.EventName}
                         group={"Allan please add group"}
-                        time={new Date(eventData.EventTime).localdate.toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + localdate.toLocaleTimeString()}
+                        // Ensures dates are in: Month Day, Year Time format
+                        time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
                         place={eventData.EventLocation}/>)));
                 
                 var retTok = res.jwtToken;
