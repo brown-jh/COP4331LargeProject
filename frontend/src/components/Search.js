@@ -48,7 +48,7 @@ const Search = () =>{
                 setSearchResults(res.results.map((eventData) => (
                     <EventBox title={eventData.EventName}
                         group={"Allan please add group"}
-                        time={eventData.EventTime}
+                        time={new Date(eventData.EventTime)}
                         place={eventData.EventLocation}/>)));
                 
                 var retTok = res.jwtToken;
