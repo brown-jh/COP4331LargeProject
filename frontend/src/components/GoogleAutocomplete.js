@@ -13,21 +13,16 @@ class GoogleAutocomplete extends React.Component {
 
   componentDidMount() {
     this.autocomplete = new google.maps.places.Autocomplete(this.autocompleteInput.current);
-
     this.autocomplete.addListener('place_changed', this.handlePlaceChanged);
   }
 
   handlePlaceChanged(){
-    this.autocompleteInput = this.autocomplete.getPlace().formatted_address;
-    
-    //TODO: Not sure how but we need to return this value (this.autocompleteInput) to EventMakeUI.
-    alert(this.autocompleteInput);
-
+    const place = this.autocomplete.getPlace().formatted_address;
+    this.props.onPlaceLoaded(place);
   }
 
   render() {
     return (
-        
         <input ref={this.autocompleteInput} placeholder="Enter desired location"
          type="text" id="location"></input>
     );

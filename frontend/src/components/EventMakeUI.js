@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import GoogleAutocomplete from '../components/GoogleAutocomplete';
 
+// Global variables, these we're getting reset for some reason.
+var eventPlace = '';
+var eventGroup = '';
+
 function EventMakeUI()
 {
+ 
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
@@ -10,9 +15,7 @@ function EventMakeUI()
     var userGroups = [];
     var eventName = '';
     var eventDesc = '';
-    var eventGroup = '';
     var eventTime = '';
-    var eventPlace = '';
     
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
@@ -24,16 +27,22 @@ function EventMakeUI()
 
     const flipOnlineCheck = async event =>
     {
-        setIsOnline(!isOnline.value);
+        setIsOnline(!isOnline);
         alert("Flipped online value");
     }
 
     function changeGroup(event)
     {
         eventGroup = event.target.value;
-        alert("Updated group to event: " + event + "\nTarget: " + event.target + 
-        "\nValue: " + event.target.value);
-        alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
+        // alert("Updated group to event: " + event + "\nTarget: " + event.target + 
+        // "\nValue: " + event.target.value);
+        // alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
+    }
+
+    // Updates eventPlace variable when user selects a location from Google API.
+    const getGoogleData = (e) =>
+    {
+        eventPlace = e;
     }
 
     const addNewEvent = async event =>
@@ -63,13 +72,12 @@ function EventMakeUI()
             setEventMakeResult("Information missing; check above.");
             isError = true;
         }
-        if (eventPlace.value == "" && !isOnline.value)
+        if (eventPlace == "" && !isOnline)
         {
             setLocationError("Please give a location or check \"Online\".");
             setEventMakeResult("Information missing; check above.");
             isError = true;
         }
-        alert("EventPlace is: " + eventPlace.value);
 
         if (isError) //Notify the user if any info is missing, otherwise submit.
         {
@@ -77,14 +85,14 @@ function EventMakeUI()
         }
         else
         {
-            if (isOnline.value)
+            if (isOnline)
             {
-                eventPlace.value = ""; // No place if online.
+                eventPlace = ""; // No place if online.
             }
 
+            // May need to append :00.000Z to eventTime.value to add to database
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.value + 
-            "\nTODO: Add group dropdown, checks for time/place.");
+            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString());
         }
     }
 
@@ -134,7 +142,7 @@ function EventMakeUI()
             <input type="checkbox" class="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
             <label for="onlineCheck"> Online</label>
             <br/>
-            <GoogleAutocomplete />
+            <GoogleAutocomplete onPlaceLoaded={getGoogleData}/>
             
             <span id="error-text">{locationError}</span> <br /> 
             <span class="inner-title it_blue"></span><br />
