@@ -97,7 +97,7 @@ function EventMakeUI()
     }
 
     useEffect(() => {
-        // Here we would find the user's groups and put them in here.
+        // TODO: Here we would find the user's groups and put them in here.
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         setGroupSelector(
             <select class="meeting-time" onChange={changeGroup}>

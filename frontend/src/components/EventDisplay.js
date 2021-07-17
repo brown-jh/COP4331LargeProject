@@ -13,7 +13,7 @@ function EventDisplay()
     const[eventLocation, setEventLocation] = useState('');
 
     useEffect(() => {
-        //Here, we would normally pull the event ID from the URL, get the event via API, 
+        //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
         // and use it to get the event's data, but we'll use dummy data for now.
 
         var thisEvent={
