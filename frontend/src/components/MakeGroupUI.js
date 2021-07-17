@@ -67,12 +67,12 @@ function MakeGroupUI()
         setMemberError("");
         setGroupSubmitResult("");
 
-        if (eventName.value == "") //Check for any missing information.
+        if (groupName.value == "") //Check for any missing information.
         {
             setNameError("Please give a name.");
             isError = true;
         }
-        if (eventDesc.value == "")
+        if (groupDesc.value == "")
         {
             setDescError("Please give a description.");
             isError = true;
@@ -85,8 +85,8 @@ function MakeGroupUI()
         }
         else
         {
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + "\nGroup: " + 
-            eventGroup + "\nAdmins: " + admins.toString() + "\nMembers: " + members.toString() + 
+            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
+            "\nAdmins: " + admins.toString() + "\nMembers: " + members.toString() + 
             "TODO: Add current user as admin, call API, cleanup after");
         }
     }
