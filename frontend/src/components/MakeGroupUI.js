@@ -23,7 +23,7 @@ function MakeGroupUI()
         return(
             <div>
                 <p>{userName}</p>
-                <button type="button" onClick={alert("TODO: Remove " + {userName})}>Remove</button>
+                <button type="button" onClick={() => alert("TODO: Remove " + {userName})}>Remove</button>
             </div>
         )
     }
