@@ -117,7 +117,7 @@ function MakeGroupUI()
 
             <button type="button" onClick={submitGroup}>Submit</button>
             <p>{groupSubmitResult}</p>
-        </div>
+        </div> 
     )
 }
 
