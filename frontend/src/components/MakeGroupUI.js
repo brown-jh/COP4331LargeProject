@@ -32,14 +32,14 @@ function MakeGroupUI()
     {
         // Check if the username is long enough. TODO: Do API call to check if user exists.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
-        if (!loginRegex.test(adminName))
+        if (!loginRegex.test(adminName.value))
         {
             setAdminError("That user does not exist.");
             return;
         }
 
         // Put the user in the admin list and display it.
-        admins.push(adminName);
+        admins.push(adminName.value);
         setAdminList(admins.map(makeUserEntry));
     }
 
@@ -47,14 +47,14 @@ function MakeGroupUI()
     {
         // Check if the username is long enough. TODO: Do API call to check if user exists.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
-        if (!loginRegex.test(memberName))
+        if (!loginRegex.test(memberName.value))
         {
             setAdminError("That user does not exist.");
             return;
         }
 
         // Put the user in the admin list and display it.
-        members.push(memberName);
+        members.push(memberName.value);
         setMemberList(members.map(makeUserEntry));
     }
 
