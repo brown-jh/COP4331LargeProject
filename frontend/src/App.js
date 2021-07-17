@@ -11,6 +11,7 @@ import EventPage from './pages/EventPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import FinishPasswordPage from './pages/FinishPasswordPage';
 import FinishRegisterPage from './pages/FinishRegisterPage';
+import MakeGroupPage from './pages/MakeGroupPage';
 
 function App() {  
   return (    
@@ -42,6 +43,9 @@ function App() {
         </Route>
         <Route path="/resetpassword" exact>          
           <FinishPasswordPage />        
+        </Route>
+        <Route path="/newgroup" exact>          
+          <MakeGroupPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      
