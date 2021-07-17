@@ -39,7 +39,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        admins.push(adminName.value);
+        admins.push(adminName.value); 
         setAdminList(admins.map(makeUserEntry));
     }
 
