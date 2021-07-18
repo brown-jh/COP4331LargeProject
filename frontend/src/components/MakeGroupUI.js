@@ -12,9 +12,9 @@ function MakeGroupUI()
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [adminError, setAdminError] = useState('');
-    const [adminList, setAdminList] = useState('');
+    const [adminList, setAdminList] = useState([]);
     const [memberError, setMemberError] = useState('');
-    const [memberList, setMemberList] = useState('');
+    const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
 
     // This function is used in the map to turn a user into a visible entry.
@@ -23,7 +23,7 @@ function MakeGroupUI()
         return(
             <div>
                 <p>{userName}</p>
-                <button type="button" onClick={() => alert("TODO: Remove " + {userName})}>Remove</button>
+                <button type="button" style={{width: "25%"}} class="buttons"  onClick={() => alert("TODO: Remove " + {userName})}>Remove</button>
             </div>
         )
     }
@@ -39,9 +39,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        admins.push(adminName.value); 
-        alert("Added " + adminName.value);
-        setAdminList(admins.map(makeUserEntry));
+        setAdminList( admins => [...admins, makeUserEntry(adminName.value)]);
     }
 
     const addMember = async event =>
@@ -50,13 +48,12 @@ function MakeGroupUI()
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         if (!loginRegex.test(memberName.value))
         {
-            setAdminError("That user does not exist.");
+            setMemberError("That user does not exist.");
             return;
         }
 
         // Put the user in the admin list and display it.
-        members.push(memberName.value);
-        setMemberList(members.map(makeUserEntry));
+        setMemberList( members => [...members, makeUserEntry(memberName.value)]);
     }
 
     const submitGroup = async event =>
@@ -82,42 +79,59 @@ function MakeGroupUI()
         //Notify the user of any errors, otherwise submit.
         if (isError)
         {
-            setGroupSubmitResult("Information missing; check above.");
+            setGroupSubmitResult("Information missing or invalid; check above.");
         }
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + admins.toString() + "\nMembers: " + members.toString() + 
-            "TODO: Add current user as admin, call API, cleanup after");
+            "\nAdmins: " + adminList + "\nMembers: " + memberList + 
+            "\nTODO: Add current user as admin, call API, cleanup after");
         }
     }
 
     return(
-        <div>
+        <div id="mainDiv" style={{width: "60%"}}>
             <span class="inner-title">Create Group</span><br/><br/>
 
-            <p>Give the group a short, descriptive name.</p>
+            <span class="inner-title it_orange">Name</span><br />
+            <p><i>Give the group a short, descriptive name.</i></p>
             <input type="text" ref={(c) => groupName = c} />
             <span id="error-text">{nameError}</span> <br /> 
+            <span class="inner-title it_orange"></span><br />
 
-            <p>Describe the group you're making: what will you do, when and where, who is invited, etc.</p>
+
+            <br/>
+            <span class="inner-title it_yellow">Description</span><br />
+            <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
             <textarea rows="8" cols= "40" ref={(c) => groupDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
+            <span class="inner-title it_yellow"></span><br />
 
-            <p>If you want to include other users as group admins, enter their names here.</p>
-            <input type="text" ref={(c) => adminName = c} />
-            <button type="button" onClick={addAdmin}>Add User as Admin</button>
-            <p>{adminError}</p>
+            <br/>
+            <span class="inner-title it_green">Admins</span><br />
+            <p><i>If you want to include other users as group admins, enter their names here.</i></p>
+            <input type="text" ref={(c) => adminName = c} /><br />
+            <button type="button" style={{width: "30%"}} 
+            class="buttons" onClick={addAdmin}>Add User as Admin</button>
+            <span id="error-text">{adminError}</span> <br /> 
             {adminList}
+            <span class="inner-title it_green"></span><br />
+            <br />
 
-            <p>If you want to invite users as group attendees, enter their names here.</p>
-            <input type="text" ref={(c) => memberName = c} />
-            <p>{memberError}</p>
-            <button type="button" onClick={addMember}>Add User as Member</button>
+            <span class="inner-title it_blue">Invites</span><br />
+            <p><i>If you want to invite users as group attendees, enter their names here.</i></p>
+            <input type="text" ref={(c) => memberName = c} /><br />
+            <button type="button" style={{width: "30%"}} 
+            class="buttons" onClick={addMember}>Add User as Member</button>
+            <span id="error-text">{memberError}</span> <br /> 
             {memberList}
+            <span class="inner-title it_blue"></span><br />
 
-            <button type="button" onClick={submitGroup}>Submit</button>
-            <p>{groupSubmitResult}</p>
+
+            <button type="button" style={{width: "50%"}} 
+            class="buttons" onClick={submitGroup}>Submit</button>
+            <span class="smaller-inner-title">Please make sure to review your group before you submit!</span><br />
+            <div><span id="error-text">{groupSubmitResult}</span> <br /> </div>
         </div> 
     )
 }
