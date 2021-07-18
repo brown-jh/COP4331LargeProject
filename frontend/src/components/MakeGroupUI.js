@@ -22,8 +22,8 @@ function MakeGroupUI()
     {
         return(
             <div>
-                <p>{userName}</p>
-                <button type="button" style={{width: "25%"}} class="buttons"  onClick={() => alert("TODO: Remove " + {userName})}>Remove</button>
+                <p class="group-remove">{userName}</p>
+                <i class="fa fa-trash-o fa-color" aria-hidden="true" onClick={() => alert("TODO: Remove " + {userName})}></i>
             </div>
         )
     }
@@ -32,6 +32,9 @@ function MakeGroupUI()
     {
         // Check if the username is long enough. TODO: Do API call to check if user exists.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
+
+        // Clears text when user adds another user.
+        setAdminError("");
         if (!loginRegex.test(adminName.value))
         {
             setAdminError("That user does not exist.");
@@ -46,6 +49,9 @@ function MakeGroupUI()
     {
         // Check if the username is long enough. TODO: Do API call to check if user exists.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
+        
+        // Clears text when user adds another user.
+        setMemberError("");
         if (!loginRegex.test(memberName.value))
         {
             setMemberError("That user does not exist.");
