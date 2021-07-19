@@ -38,6 +38,9 @@ function App() {
         <Route path="/events" exact>          
           <EventPage />        
         </Route>
+        <Route path="/groups" exact>          
+          <GroupPage />        
+        </Route>
         <Route path="/forgotpassword" exact>          
           <ForgotPasswordPage />        
         </Route>
