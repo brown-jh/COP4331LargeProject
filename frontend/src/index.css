@@ -444,6 +444,12 @@ textarea:focus
     border-right: 1px solid rgb(248, 66, 75);
 }
 
+.eventBox-stats .groupborder 
+{
+    border-left: 1px solid rgb(66, 115, 248);
+    border-right: 1px solid rgb(66, 115, 248);
+}
+
 
 .eventBox:hover 
 {

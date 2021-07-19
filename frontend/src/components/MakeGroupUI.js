@@ -1,9 +1,13 @@
 import React, {useState } from 'react';
+import GroupBoxPreview from './GroupBoxPreview';
+
 
 function MakeGroupUI()
 {
     var groupName = '';
     var groupDesc = '';
+    var groupPictureURL = '';
+
     var adminName = '';
     var memberName = '';
     var admins = [];
@@ -11,11 +15,28 @@ function MakeGroupUI()
 
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
+    const [pictureError, setPictureError] = useState('');
     const [adminError, setAdminError] = useState('');
     const [adminList, setAdminList] = useState([]);
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
+
+    const [cardResults, setCardResults] = useState('');
+
+    const refreshCard = async event =>
+    {
+        setCardResults(
+            <div>{ 
+                <GroupBoxPreview 
+                        imageURL={groupPictureURL.value}
+                        title={groupName.value}
+                        group={groupDesc.value}
+                        />}
+            </div>  
+
+        )
+    }
 
     // This function is used in the map to turn a user into a visible entry.
     function makeUserEntry(userName)
@@ -110,29 +131,47 @@ function MakeGroupUI()
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength="250" ref={(c) => groupDesc = c} />
+            <textarea rows="7" cols= "40" maxLength="290" ref={(c) => groupDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             <br/>
-            <span class="inner-title it_green">Admins</span><br />
+            <span class="inner-title it_green">Group Image</span><br />
+            <p><i>Give a image to represent your group; this must be uploaded as a url.</i></p>
+            <input type="text" id="location" ref={(c) => groupPictureURL = c} />
+            <span id="error-text">{pictureError}</span> <br /> 
+            <span class="inner-title it_green"></span><br />
+
+            <br/>
+            <span class="inner-title it_blue">Admins</span><br />
             <p><i>If you want to include other users as group admins, enter their names here.</i></p>
             <input type="text" ref={(c) => adminName = c} /><br />
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
             <span id="error-text">{adminError}</span> <br /> 
             {adminList}
-            <span class="inner-title it_green"></span><br />
+            <span class="inner-title it_blue"></span><br />
             <br />
 
-            <span class="inner-title it_blue">Invitees</span><br />
+            <span class="inner-title it_purple">Invitees</span><br />
             <p><i>If you want to invite users as group attendees, enter their names here.</i></p>
             <input type="text" ref={(c) => memberName = c} /><br />
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addMember}>Invite User</button>
             <span id="error-text">{memberError}</span> <br /> 
             {memberList}
-            <span class="inner-title it_blue"></span><br />
+            <span class="inner-title it_purple"></span><br />
+
+            <br/>
+            <span class="inner-title it_pink">Review</span><br />
+            <p><i>Please review your group, as this is what users will view on the Search page.</i></p>
+            
+            <button type="button" style={{width: "30%"}} 
+            class="buttons" onClick={refreshCard}>Refresh</button>
+            <div class = "flex-container">
+            <div>{cardResults}</div>
+            </div>
+            <span class="inner-title it_pink"><b></b></span><br />
 
 
             <button type="button" style={{width: "50%"}} 

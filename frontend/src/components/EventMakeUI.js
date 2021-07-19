@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GoogleAutocomplete from '../components/GoogleAutocomplete';
-import EventBox from '../components/EventBox';
+import EventBoxPreview from './EventBoxPreview';
 
 // Global variables, these we're getting reset for some reason.
 var eventPlace = '';
@@ -55,7 +55,7 @@ function EventMakeUI()
     {
         setCardResults(
             <div>{ 
-                <EventBox 
+                <EventBoxPreview 
                         imageURL={eventPictureURL.value}
                         title={eventName.value}
                         group={eventDesc.value}
@@ -152,7 +152,7 @@ function EventMakeUI()
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength= "250" ref={(c) => eventDesc = c} />
+            <textarea rows="7" cols= "40" maxLength= "210" ref={(c) => eventDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
