@@ -27,6 +27,7 @@ function MakeGroupUI()
             </div>
         )
     }
+    
 
     const addAdmin = async event =>
     {
@@ -124,11 +125,11 @@ function MakeGroupUI()
             <span class="inner-title it_green"></span><br />
             <br />
 
-            <span class="inner-title it_blue">Invites</span><br />
+            <span class="inner-title it_blue">Invitees</span><br />
             <p><i>If you want to invite users as group attendees, enter their names here.</i></p>
             <input type="text" ref={(c) => memberName = c} /><br />
             <button type="button" style={{width: "30%"}} 
-            class="buttons" onClick={addMember}>Add User as Member</button>
+            class="buttons" onClick={addMember}>Invite User</button>
             <span id="error-text">{memberError}</span> <br /> 
             {memberList}
             <span class="inner-title it_blue"></span><br />

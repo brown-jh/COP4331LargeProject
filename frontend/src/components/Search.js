@@ -76,6 +76,7 @@ const Search = () =>{
             <div>{searchResults}</div>
                 <div>{ 
                 <EventBox 
+                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
@@ -84,33 +85,37 @@ const Search = () =>{
                 
                 <div>{ 
                 <EventBox 
+                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
-                        place={"UCF Campus"}/>}
+                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
                 </div> 
 
                 <div>{ 
                 <EventBox 
+                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
-                        place={"UCF Campus"}/>}
-                </div>  
+                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
+                </div> 
 
                 <div>{ 
                 <EventBox 
+                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
-                        place={"UCF Campus"}/>}
-                </div>
+                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
+                </div> 
                 <div>{ 
                 <EventBox 
+                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
                         title={"Tennis Practice Placeholder"}
                         group={"A group for making friends and playing tennis!"}
                         time={"May 27th, 2021 10:00AM"}
-                        place={"UCF Campus"}/>}
+                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
                 </div> 
                 
                 

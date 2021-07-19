@@ -209,6 +209,16 @@ label
     border-bottom: 7px dotted rgb(197, 114, 235);
 }
 
+.it_pink
+{
+    border-bottom: 7px dotted rgb(235, 114, 171);
+}
+
+.it_lightred
+{
+    border-bottom: 7px dotted rgb(235, 114, 114);
+}
+
 .smaller-inner-title{
   display: inline-block;
   font-size: 0.6em;
@@ -371,7 +381,7 @@ textarea:focus
     grid-area: image;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
-    background-size: cover;
+    background-size: 100% 100%;
 }
   
 .eventBox-text 
@@ -395,7 +405,7 @@ textarea:focus
 .eventBox-text h2 
 {
     margin-top:0px;
-    font-size:28px;
+    font-size:26px;
 }
 
 .eventBox-stats 
@@ -415,7 +425,7 @@ textarea:focus
     justify-content: center;
     flex-direction: column;
     color: white;
-    font-size:22px;
+    font-size:20px;
     font-weight: 500;
 }
 
@@ -424,6 +434,7 @@ textarea:focus
 {
     font-size:11px;
     font-weight: 300;
+    margin: 5px;
     text-transform: uppercase;
 }
 

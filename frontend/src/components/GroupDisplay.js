@@ -107,7 +107,9 @@ function GroupDisplay()
 
             <div>
             <p>Events:</p>
-                {eventList}
+                <div class = "flex-container">
+                    {eventList}
+                </div>
             </div>
 
         </div>

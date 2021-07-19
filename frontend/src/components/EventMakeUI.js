@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import GoogleAutocomplete from '../components/GoogleAutocomplete';
+import EventBox from '../components/EventBox';
 
 // Global variables, these we're getting reset for some reason.
 var eventPlace = '';
@@ -16,14 +17,19 @@ function EventMakeUI()
     var eventName = '';
     var eventDesc = '';
     var eventTime = '';
+    var eventPictureURL = '';
     
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [timeError, setTimeError] = useState('');
     const [locationError, setLocationError] = useState('');
+    const [pictureError, setPictureError] = useState('');
     const [eventMakeResult, setEventMakeResult] = useState('');
     const [groupSelector, setGroupSelector] = useState('');
     const [isOnline, setIsOnline] = useState(false);
+
+    const [cardResults, setCardResults] = useState('');
+
 
     const flipOnlineCheck = async event =>
     {
@@ -45,6 +51,22 @@ function EventMakeUI()
         eventPlace = e;
     }
 
+    const refreshCard = async event =>
+    {
+        setCardResults(
+            <div>{ 
+                <EventBox 
+                        imageURL={eventPictureURL.value}
+                        title={eventName.value}
+                        group={eventDesc.value}
+                        time={new Date(eventTime.value).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventTime.value).toLocaleTimeString()}
+                        place={eventPlace.toString()}/>}
+            </div>  
+
+        )
+    }
+
     const addNewEvent = async event =>
     {
         var isError = false;
@@ -52,6 +74,7 @@ function EventMakeUI()
         setDescError("");
         setTimeError("");
         setLocationError("");
+        setPictureError("");
         setEventMakeResult("");
 
         if (eventName.value == "") //Check for any missing information.
@@ -78,6 +101,12 @@ function EventMakeUI()
             setEventMakeResult("Information missing; check above.");
             isError = true;
         }
+        if (eventPictureURL.value == "")
+        {
+            setPictureError("Please enter a URL that contains desired image.");
+            setEventMakeResult("Information missing; check above.");
+            isError = true;
+        }
 
         if (isError) //Notify the user if any info is missing, otherwise submit.
         {
@@ -92,7 +121,8 @@ function EventMakeUI()
 
             // May need to append :00.000Z to eventTime.value to add to database
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString());
+            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
+            "\nURL: " + eventPictureURL.value);
         }
     }
 
@@ -146,12 +176,30 @@ function EventMakeUI()
             
             <span id="error-text">{locationError}</span> <br /> 
             <span class="inner-title it_blue"></span><br />
+
+            <br/>
+            <span class="inner-title it_purple">Event Image</span><br />
+            <p><i>Give a image to represent your event; this must be uploaded as a url.</i></p>
+            <input type="text" id="location" ref={(c) => eventPictureURL = c} />
+            <span id="error-text">{pictureError}</span> <br /> 
+            <span class="inner-title it_purple"></span><br />
          
             <br/>
-            <span class="inner-title it_purple">Group</span><br />
+            <span class="inner-title it_pink">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
             {groupSelector}
-            <span class="inner-title it_purple"><b></b></span><br />
+            <span class="inner-title it_pink"><b></b></span><br />
+
+            <br/>
+            <span class="inner-title it_lightred">Review</span><br />
+            <p><i>Please review your event, as this is what users will view on the Search page.</i></p>
+            
+            <button type="button" style={{width: "30%"}} 
+            class="buttons" onClick={refreshCard}>Refresh</button>
+            <div class = "flex-container">
+            <div>{cardResults}</div>
+            </div>
+            <span class="inner-title it_lightred"><b></b></span><br />
 
             <button type="button" style={{width: "50%"}} 
             class="buttons" onClick={addNewEvent}>Submit</button>
