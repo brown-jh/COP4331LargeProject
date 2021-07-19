@@ -8,6 +8,7 @@ import SearchPage from './pages/SearchPage';
 import HomePage from './pages/HomePage';
 import MakeEventPage from './pages/MakeEventPage';
 import EventPage from './pages/EventPage';
+import GroupPage from './pages/GroupPage';
 import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import FinishPasswordPage from './pages/FinishPasswordPage';
 import FinishRegisterPage from './pages/FinishRegisterPage';
