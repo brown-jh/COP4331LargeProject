@@ -152,7 +152,7 @@ function EventMakeUI()
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
-            <textarea rows="8" cols= "40" ref={(c) => eventDesc = c} />
+            <textarea rows="8" cols= "40" maxLength= "285" ref={(c) => eventDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 

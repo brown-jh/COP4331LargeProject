@@ -110,7 +110,7 @@ function MakeGroupUI()
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
-            <textarea rows="8" cols= "40" ref={(c) => groupDesc = c} />
+            <textarea rows="8" cols= "40" maxLength="285" ref={(c) => groupDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
