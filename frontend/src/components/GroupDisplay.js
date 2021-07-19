@@ -59,7 +59,7 @@ function GroupDisplay()
         setGroupTitle(thisGroup.name);
         setGroupDesc(thisGroup.description);
         setAdminList(thisGroup.admins.map((groupAdmin) => <div><p>{groupAdmin}</p></div>));
-        adminVar = thisgroup.admins;
+        adminVar = thisGroup.admins;
         setMemberList(thisGroup.members.map((groupMember) => <div><p>{groupMember}</p></div>));
 
         // For each event, make an EventBox with its data.
@@ -68,7 +68,7 @@ function GroupDisplay()
                 group={eventData.group}
                 // Ensures dates are in: Month Day, Year Time format
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
+                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
     });
 
