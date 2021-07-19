@@ -13,7 +13,7 @@ const Home = () =>
     const LogOut = async event =>     
     {    
         event.preventDefault();    
-        alert("Log out");
+        window.location.href="/";
     }
 
     const ToSearchPage = async event =>     
