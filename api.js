@@ -2,6 +2,44 @@ exports.setApp = function (app, client)
 {
     var token = require('./createJWT.js');
 
+    // This is for NODEMAILER, I put it at the top because it probably
+    // won't work
+    // (If it does, remove this)
+    app.post('/api/sendemail', async (req, res, next) =>{
+
+        var error = '';
+        const { email } = req.body;
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user:'cop4331get2gather@gmail.com',
+                pass: 'COP4331Group25!'
+            }
+        })
+        
+        message = {
+            to:'${email}',
+            
+            subject:'Account Verification for Get2Gather',
+            text:'Yes let us verify you with this: jkbfkhbad',
+            
+        }
+        transporter.sendMail(message, function(err, res)
+        {
+            if (err)
+            {
+                
+            }
+            else
+            {
+
+            }
+        })
+
+
+
+    });
+
     app.post('/api/adduser', async (req, res, next) =>{  
         // incoming: FirstName, LastName, Login, Password 
         // outgoing: error  
