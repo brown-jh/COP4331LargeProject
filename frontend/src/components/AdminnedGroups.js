@@ -34,7 +34,7 @@ function AdminnedGroups()
     return (
         <div>
             <button type="button" onClick={() => window.location.href="/joinedgroups"}>Attending Groups</button>
-            <button type="button" onClick={() => window.location.href="/newevent"}>Create Group</button>
+            <button type="button" onClick={() => window.location.href="/newgroup"}>Create Group</button>
             <div>
                 <h1>Your Adminned Groups</h1>
                 {adminnedGroups}
