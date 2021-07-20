@@ -33,7 +33,7 @@ function JoinedGroups()
 
     return (
         <div>
-            <button type="button" onClick={() => location.href="/adminnedgroups"}>Adminning Groups</button>
+            <button type="button" onClick={() => window.location.href="/adminnedgroups"}>Adminning Groups</button>
             <div>
                 <h1>Your Attending Groups</h1>
                 {joinedGroups}

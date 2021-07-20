@@ -41,7 +41,7 @@ function JoinedEvents()
                 place: "4143 Woodmere Park Blvd, Venice, FL 34293"
             }
         ]
-        setHostedEvents(dummyJoinedEvents.map((eventData) => (
+        setJoinedEvents(dummyJoinedEvents.map((eventData) => (
             <EventBox title={eventData.title}
                 group={eventData.group}
                 // Ensures dates are in: Month Day, Year Time format
@@ -52,7 +52,7 @@ function JoinedEvents()
 
     return (
         <div>
-            <button type="button" onClick={() => location.href="/hostedevents"}>Hosted Events</button>
+            <button type="button" onClick={() => window.location.href="/hostedevents"}>Hosted Events</button>
             <div>
                 <h1>Your Joined Events</h1>
                 {joinedEvents}

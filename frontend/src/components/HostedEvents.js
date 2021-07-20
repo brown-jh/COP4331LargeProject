@@ -52,8 +52,8 @@ function HostedEvents()
 
     return (
         <div>
-            <button type="button" onClick={() => location.href="/joinedevents"}>Attending Events</button>
-            <button type="button" onClick={() => location.href="/newevent"}>Create Event</button>
+            <button type="button" onClick={() => window.location.href="/joinedevents"}>Attending Events</button>
+            <button type="button" onClick={() => window.location.href="/newevent"}>Create Event</button>
             <div>
                 <h1>Your Hosted Events</h1>
                 {hostedEvents}
