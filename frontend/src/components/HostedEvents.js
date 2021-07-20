@@ -51,11 +51,13 @@ function HostedEvents()
     });
 
     return (
-        <div>
-            <button type="button" onClick={() => window.location.href="/joinedevents"}>Attending Events</button>
-            <button type="button" onClick={() => window.location.href="/newevent"}>Create Event</button>
-            <div>
-                <h1>Your Hosted Events</h1>
+        <div id="mainDiv" style={{width: "80%"}}>
+             <span class="inner-title">Your Hosted Events</span><br />
+             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons buttons btn-search" onClick={() => window.location.href="/joinedevents"}>Joined Events</button>
+            <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons btn-search"onClick={() => window.location.href="/newevent"}>Create Event</button><br />
+            <div class = "flex-container">
                 {hostedEvents}
             </div>
         </div>

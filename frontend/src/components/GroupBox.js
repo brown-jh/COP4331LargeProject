@@ -3,8 +3,7 @@ import React from 'react';
 // This, when given the information regarding a group (name, image and description),
 // creates a clickable box with all the relevant information.
 
-//TODO: Add separate CSS.
-function GroupBoxPreview(props)
+function GroupBox(props)
 {
 
     const clickThis = (title) =>
@@ -32,4 +31,4 @@ function GroupBoxPreview(props)
     );
 }
 
-export default GroupBoxPreview;
+export default GroupBox;

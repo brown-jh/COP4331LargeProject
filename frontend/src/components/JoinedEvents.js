@@ -51,10 +51,11 @@ function JoinedEvents()
     });
 
     return (
-        <div>
-            <button type="button" onClick={() => window.location.href="/hostedevents"}>Hosted Events</button>
-            <div>
-                <h1>Your Joined Events</h1>
+        <div id="mainDiv" style={{width: "80%"}}>
+             <span class="inner-title">Your Joined Events</span><br />
+              <button type="button" 
+                class="buttons buttons btn-search" onClick={() => window.location.href="/hostedevents"}>Hosted Events</button>
+            <div class = "flex-container">
                 {joinedEvents}
             </div>
         </div>
