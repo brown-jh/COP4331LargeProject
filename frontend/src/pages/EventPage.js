@@ -1,13 +1,14 @@
-import React from 'react';
+import React, {useParams} from 'react';
 
 import PageTitle from '../components/PageTitle';
 import EventDisplay from '../components/EventDisplay';
 
-const EventPage = () =>{    
+const EventPage = () =>{ 
+    const {eventId} = useParams();  
     return(      
         <div>        
             <PageTitle />        
-            <EventDisplay eventId={this.props.params.id}/>  
+            <EventDisplay eventId={eventId}/>  
         </div>
     );
 };

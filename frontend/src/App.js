@@ -40,7 +40,7 @@ function App() {
         <Route path="/newevent" exact>          
           <MakeEventPage />        
         </Route>
-        <Route path="/events" exact>          
+        <Route path="/events/:eventId">          
           <EventPage />        
         </Route>
         <Route path="/groups" exact>          
