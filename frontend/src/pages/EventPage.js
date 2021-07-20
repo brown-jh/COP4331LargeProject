@@ -7,7 +7,7 @@ const EventPage = () =>{
     return(      
         <div>        
             <PageTitle />        
-            <EventDisplay />  
+            <EventDisplay eventId={this.props.params.id}/>  
         </div>
     );
 };

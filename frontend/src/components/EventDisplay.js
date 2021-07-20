@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-function EventDisplay()
+function EventDisplay(props)
 {
     var userId = "Eddie Johnson";
 
@@ -15,6 +15,7 @@ function EventDisplay()
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
         // and use it to get the event's data, but we'll use dummy data for now.
+        alert("Look up event " + props.eventId); //To check if the parameter pass-in works.
 
         var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
