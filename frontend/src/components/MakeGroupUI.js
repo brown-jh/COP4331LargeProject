@@ -31,7 +31,7 @@ function MakeGroupUI()
                 <GroupBoxPreview 
                         imageURL={groupPictureURL.value}
                         title={groupName.value}
-                        group={groupDesc.value}
+                        desc={groupDesc.value}
                         />}
             </div>  
 
