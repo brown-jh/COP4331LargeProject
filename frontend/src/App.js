@@ -13,6 +13,10 @@ import ForgotPasswordPage from './pages/ForgotPasswordPage';
 import FinishPasswordPage from './pages/FinishPasswordPage';
 import FinishRegisterPage from './pages/FinishRegisterPage';
 import MakeGroupPage from './pages/MakeGroupPage';
+import HostedEventsPage from './pages/HostedEventsPage';
+import JoinedEventsPage from './pages/JoinedEventsPage';
+import AdminnedGroupsPage from './pages/AdminnedGroupsPage';
+import JoinedGroupsPage from './pages/JoinedGroupsPage';
 
 function App() {  
   return (    
@@ -50,6 +54,18 @@ function App() {
         </Route>
         <Route path="/newgroup" exact>          
           <MakeGroupPage />        
+        </Route>
+        <Route path="/hostedevents" exact>          
+          <HostedEventsPage />        
+        </Route>
+        <Route path="/joinedevents" exact>          
+          <JoinedEventsPage />        
+        </Route>
+        <Route path="/adminnedgroups" exact>          
+          <AdminnedGroupsPage />        
+        </Route>
+        <Route path="/joinedgroups" exact>          
+          <JoinedGroupsPage />        
         </Route>
         <Redirect to="/" />      
       </Switch>      

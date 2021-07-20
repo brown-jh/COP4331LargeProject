@@ -25,13 +25,13 @@ const Home = () =>
     const ToManageEvents = async event =>     
     {    
         event.preventDefault();    
-        alert("Go to event manage page");
+        window.location.href = "/joinedevents";
     }
 
     const ToManageGroups = async event =>     
     {    
         event.preventDefault();    
-        alert("Go to group manage page");
+        window.location.href = "/joinedgroups";
     }
 
     return(
