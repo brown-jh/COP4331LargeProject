@@ -32,12 +32,15 @@ function AdminnedGroups()
     });
 
     return (
-        <div>
-            <button type="button" onClick={() => window.location.href="/joinedgroups"}>Attending Groups</button>
-            <button type="button" onClick={() => window.location.href="/newgroup"}>Create Group</button>
-            <div>
-                <h1>Your Adminned Groups</h1>
-                {adminnedGroups}
+
+        <div id="mainDiv" style={{width: "80%"}}>
+             <span class="inner-title">Your Adminned Groups</span><br />
+             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons buttons btn-search" onClick={() => window.location.href="/joinedgroups"}>Joined Groups</button>
+            <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
+                class="buttons btn-search"onClick={() => window.location.href="/newgroup"}>Create Group</button><br />
+            <div class = "flex-container">
+            {adminnedGroups}
             </div>
         </div>
     )
