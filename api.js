@@ -357,31 +357,3 @@ exports.setApp = function (app, client)
         res.status(200).json(ret);
     });
 }
-
-app.post('/api/deletegroup', async (req, res, next) =>{
-    
-    var error = '';
-    const {groupId, jwtToken } = req.body;
-
-    try
-    {
-        const db = client.db();
-        const result = await db.collection('Groups').deleteOne( {_id:groupId});
-    }
-    catch(e)
-    {
-        console.log(e.toString());
-    }
-
-    try
-    {
-        refreshedToken = token.refresh(jwtToken);
-    }
-    catch(e)
-    {
-        console.log(e.message);
-    }
-
-    var ret = { error: error, jwtToken: refreshedToken };
-    res.status(200).json(ret);
-});
