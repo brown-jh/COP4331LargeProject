@@ -2,7 +2,7 @@ exports.setApp = function (app, client)
 {
     var token = require('./createJWT.js');
 
-    /*// This is for NODEMAILER, I put it at the top because it probably
+    // This is for NODEMAILER, I put it at the top because it probably
     // won't work
     // (If it does, remove this)
     app.post('/api/sendemail', async (req, res, next) =>{
@@ -38,7 +38,7 @@ exports.setApp = function (app, client)
 
 
 
-    });*/
+    });
 
     app.post('/api/adduser', async (req, res, next) =>{  
         // incoming: FirstName, LastName, Login, Password 
