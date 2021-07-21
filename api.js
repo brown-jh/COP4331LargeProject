@@ -18,23 +18,16 @@ exports.setApp = function (app, client)
         });
         
         var message = {
-            from: 'cop4331get2gather@gmail.com',
+            from: "cop4331get2gather@gmail.com",
             to:'${email}',
             
             subject:'Account Verification for Get2Gather',
             text:'Yes let us verify you with this: jkbfkhbad'
             
         };
-        transporter.sendMail(message, function(err, res)
-        {
-            if (err)
-            {
-                
-            }
-            else
-            {
-
-            }
+        transporter.sendMail(message, (error, response) => {
+            error ? console.log(error) : console.log(response);
+            smtpTransport.close();
         });
 
 
