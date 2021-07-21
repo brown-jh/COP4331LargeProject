@@ -30,7 +30,7 @@ exports.setApp = function (app, client)
 
         transporter.sendMail(message, (error, response) => {
             error ? console.log(error) : console.log(response);
-            smtpTransport.close();
+            transporter.close();
         });
 
 
