@@ -64,6 +64,7 @@ function MakeGroupUI()
         alert("Remove " + userName + " from " + userList);
         if (userList == "adminList")
         {
+            alert("If this shows up, we have the newest code.");
             setAdminList(removeEntry(adminList, userName));
         }
         else if (userList == "memberList")
