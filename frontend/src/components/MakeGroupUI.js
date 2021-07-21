@@ -41,6 +41,7 @@ function MakeGroupUI()
     // We would use filter(), but it was misbehaving for some reason.
     function removeEntry (userArray, removeKey)
     {
+        alert("In the function");
         var newArray = []; //The modified array we will return.
         for (var i = 0; i < userArray.length; i++)
         {
@@ -64,7 +65,7 @@ function MakeGroupUI()
         alert("Remove " + userName + " from " + userList);
         if (userList == "adminList")
         {
-            alert("If this shows up, we have the newest code.");
+            alert("You should see the function being called next.");
             setAdminList(removeEntry(adminList, userName));
         }
         else if (userList == "memberList")
