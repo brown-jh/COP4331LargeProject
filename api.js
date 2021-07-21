@@ -15,15 +15,16 @@ exports.setApp = function (app, client)
                 user:'cop4331get2gather@gmail.com',
                 pass: 'COP4331Group25!'
             }
-        })
+        });
         
-        message = {
+        var message = {
+            from: 'cop4331get2gather@gmail.com',
             to:'${email}',
             
             subject:'Account Verification for Get2Gather',
             text:'Yes let us verify you with this: jkbfkhbad'
             
-        }
+        };
         transporter.sendMail(message, function(err, res)
         {
             if (err)
@@ -34,7 +35,7 @@ exports.setApp = function (app, client)
             {
 
             }
-        })
+        });
 
 
 
