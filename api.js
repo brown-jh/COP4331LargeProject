@@ -21,7 +21,7 @@ exports.setApp = function (app, client)
         
         var message = {
             from: "cop4331get2gather@gmail.com",
-            to:'${email}',
+            to:email,
             
             subject:'Account Verification for Get2Gather',
             text:'Yes let us verify you with this: jkbfkhbad'
