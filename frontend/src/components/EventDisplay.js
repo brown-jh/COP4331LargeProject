@@ -26,7 +26,7 @@ function EventDisplay(props)
             place: "Student Union, University of Central Florida, Orlando"
         };
 
-        setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId);
+        setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
         setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import EventBox from '../components/EventBox';
 
-function GroupDisplay()
+function GroupDisplay(props)
 {
     var userId = "Hannah Wrigley"; //Dummy value, should be set in UseEffect(). Should see edit button.
     var adminVar = [];
@@ -56,7 +56,7 @@ function GroupDisplay()
             ]
         };
 
-        setGroupTitle(thisGroup.name);
+        setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
         setGroupDesc(thisGroup.description);
         setAdminList(thisGroup.admins.map((groupAdmin) => <div><p>{groupAdmin}</p></div>));
         adminVar = thisGroup.admins;
