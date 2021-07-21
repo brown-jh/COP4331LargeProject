@@ -35,7 +35,7 @@ exports.setApp = function (app, client)
             else
             {
                 console.log("Email sent: " + response.response);
-                res.status(200);
+                res.status(200).json({error: error});
             }
             //error ? console.log(error) : console.log(response);
             transporter.close();
