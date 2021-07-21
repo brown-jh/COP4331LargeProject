@@ -1,6 +1,7 @@
 exports.setApp = function (app, client)
 {
     var token = require('./createJWT.js');
+    const nodemailer = require('nodemailer');
 
     // This is for NODEMAILER, I put it at the top because it probably
     // won't work
