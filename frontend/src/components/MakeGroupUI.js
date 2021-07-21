@@ -42,7 +42,8 @@ function MakeGroupUI()
     function removeEntry (userArray, removeKey)
     {
         alert("In the function");
-        alert("Going through " + userArray.length); //Is there something up with the array length?
+        alert("Going through " + userArray.length + ":\n" + userArray.map(member => member.key)); 
+        //Is there something up with the array length?
         var newArray = []; //The modified array we will return.
         for (var i = 0; i < userArray.length; i++)
         {
