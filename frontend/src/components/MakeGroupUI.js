@@ -67,6 +67,7 @@ function MakeGroupUI()
         alert("Remove " + userName + " from " + userList);
         if (userList == "adminList")
         {
+            alert("List outside of function is " + userArray.map(member => member.key);
             alert("You should see the function being called next.");
             setAdminList(removeEntry(adminList, userName));
         }
