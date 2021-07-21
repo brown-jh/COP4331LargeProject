@@ -236,6 +236,8 @@ function MakeGroupUI()
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
             <span id="error-text">{adminError}</span> <br /> 
             {adminList}
+            {/*DEBUG*/}
+            <button type="button" onClick={alert(adminList.map(member => member.key).toString())}>Debug Admins</button>
             <span class="inner-title it_blue"></span><br />
             <br />
 
