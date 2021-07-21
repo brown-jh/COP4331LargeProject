@@ -40,7 +40,7 @@ function MakeGroupUI()
         // This function is called to remove a user from the admin or member list.
     function removeUser(userName, userList)
     {
-        alert("Remove " + userName);
+        alert("Remove " + userName + " from " + userList);
         if (userList == "adminList")
         {
             setAdminList(adminList.filter(entry => entry.key != userName));
