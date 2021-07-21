@@ -132,7 +132,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        setAdminList( adminList => [...adminList, makeUserEntry(adminName.value, "adminList")]);
+        setAdminList( () => [...adminList, makeUserEntry(adminName.value, "adminList")]);
         setAdminError(adminList.map(member => member.key).toString());
     }
 
