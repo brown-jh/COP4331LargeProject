@@ -10,8 +10,6 @@ function MakeGroupUI()
 
     var adminName = '';
     var memberName = '';
-    var admins = [];
-    var members = [];
 
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
@@ -42,13 +40,41 @@ function MakeGroupUI()
     function makeUserEntry(userName)
     {
         return(
-            <div>
+            <div key={userName}>
                 <p class="group-remove">{userName}</p>
-                <i class="fa fa-trash-o fa-color" aria-hidden="true" onClick={() => alert("TODO: Remove " + {userName})}></i>
+                <i class="fa fa-trash-o fa-color" aria-hidden="true" onClick={() => alert("TODO: DELETE:" + userName)}></i>
             </div>
         )
     }
-    
+
+    // This function determines if their already exists an admin with the same name.
+    function compareAdminNames(userName)
+    {
+        for(var i = 0; i < adminList.length; i++)
+        {
+            if (adminList[i].key === userName)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    // This function determines if their already exists an invitee with the same name.
+    function compareMemberNames(userName)
+    {
+        for(var i = 0; i < memberList.length; i++)
+        {
+            if (memberList[i].key === userName)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 
     const addAdmin = async event =>
     {
@@ -63,9 +89,16 @@ function MakeGroupUI()
             return;
         }
 
+        if (!compareAdminNames(adminName.value))
+        {
+            setAdminError("That user is already an admin.");
+            return;
+        }
+
         // Put the user in the admin list and display it.
-        setAdminList( admins => [...admins, makeUserEntry(adminName.value)]);
+        setAdminList( adminList => [...adminList, makeUserEntry(adminName.value)]);
     }
+
 
     const addMember = async event =>
     {
@@ -80,8 +113,14 @@ function MakeGroupUI()
             return;
         }
 
+        if (!compareMemberNames(memberName.value))
+        {
+            setMemberError("That user is already an invitee.");
+            return;
+        }
+
         // Put the user in the admin list and display it.
-        setMemberList( members => [...members, makeUserEntry(memberName.value)]);
+        setMemberList( memberList => [...memberList, makeUserEntry(memberName.value)]);
     }
 
     const submitGroup = async event =>
@@ -103,6 +142,13 @@ function MakeGroupUI()
             setDescError("Please give a description.");
             isError = true;
         }
+        if (groupPictureURL.value == "")
+        {
+            setPictureError("Please enter a URL that contains desired image.");
+            setGroupSubmitResult("Information missing; check above.");
+            isError = true;
+        }
+
 
         //Notify the user of any errors, otherwise submit.
         if (isError)
