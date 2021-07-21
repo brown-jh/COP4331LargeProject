@@ -29,8 +29,17 @@ exports.setApp = function (app, client)
         };
 
         transporter.sendMail(message, (error, response) => {
-            error ? console.log(error) : console.log(response);
+            if (error)
+            {
+               console.log(response); 
+            }
+            else
+            {
+                res.status(200);
+            }
+            //error ? console.log(error) : console.log(response);
             transporter.close();
+
         });
 
 
