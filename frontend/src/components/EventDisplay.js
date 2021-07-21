@@ -15,7 +15,6 @@ function EventDisplay(props)
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
         // and use it to get the event's data, but we'll use dummy data for now.
-        alert("Look up event " + props.eventId); //To check if the parameter pass-in works.
 
         var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
@@ -27,7 +26,7 @@ function EventDisplay(props)
             place: "Student Union, University of Central Florida, Orlando"
         };
 
-        setEventTitle(thisEvent.name);
+        setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId);
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
         setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));
