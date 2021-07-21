@@ -1,7 +1,9 @@
+const nodemailer = require('nodemailer');
+
 exports.setApp = function (app, client)
 {
     var token = require('./createJWT.js');
-    const nodemailer = require('nodemailer');
+
 
     // This is for NODEMAILER, I put it at the top because it probably
     // won't work
@@ -26,6 +28,7 @@ exports.setApp = function (app, client)
             text:'Yes let us verify you with this: jkbfkhbad'
             
         };
+
         transporter.sendMail(message, (error, response) => {
             error ? console.log(error) : console.log(response);
             smtpTransport.close();
