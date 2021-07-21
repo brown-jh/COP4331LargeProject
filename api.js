@@ -362,26 +362,11 @@ app.post('/api/deletegroup', async (req, res, next) =>{
     
     var error = '';
     const {groupId, jwtToken } = req.body;
-    
-
-    try
-    {
-        if ( token.isExpired(jwtToken))
-        {
-            var r = {error:'The JWT is no longer valid', jwtToken: ''};
-            res.status(200).json(r);
-            return;
-        }
-    }
-    catch(e)
-    {
-        console.log(e.message);
-    }
 
     try
     {
         const db = client.db();
-        const result = await db.collection('Events').deleteOne( {_id:groupId});
+        const result = await db.collection('Groups').deleteOne( {_id:groupId});
     }
     catch(e)
     {
