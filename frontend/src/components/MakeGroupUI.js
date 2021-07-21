@@ -15,8 +15,10 @@ function MakeGroupUI()
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
+    const [adminValues, setAdminValues] = useState([]);
     const [adminError, setAdminError] = useState('');
     const [adminList, setAdminList] = useState([]);
+    const [memberValues, setMemberValues] = useState([]);
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
@@ -40,14 +42,20 @@ function MakeGroupUI()
         // This function is called to remove a user from the admin or member list.
     function removeUser(userName, userList)
     {
-        //alert("Remove " + userName + " from " + userList);
-        if (userList == "adminList")
+        alert("Remove " + userName + " from " + userList); //Debug.
+        if (userList == "admin")
         {
-            setAdminList(adminList.filter(entry => entry.key != userName));
+            alert("Before delete: [" + adminValues.toString() + "]");
+            setAdminValues(adminValues.filter(entry => entry !== userName));
+            setAdminList(adminValues.map(adminName => makeUserEntry(adminName, "admin")));
+            alert("After delete: [" + adminValues.toString() + "]");
         }
-        else if (userList == "memberList")
+        else if (userList == "member")
         {
-            setMemberList(memberList.filter(entry => entry.key != userName));
+            alert("Before delete: [" + memberValues.toString() + "]");
+            setMemberValues(memberValues.filter(entry => entry !== userName));
+            setMemberList(memberValues.map(memberName => makeUserEntry(memberName, "member")));
+            alert("After delete: [" + memberValues.toString() + "]");
         }
     }
 
@@ -66,17 +74,17 @@ function MakeGroupUI()
     // This function determines if there is already an admin or invitee with the same name.
     function compareUserNames(userName)
     {
-        for(var i = 0; i < adminList.length; i++)
+        for(var i = 0; i < adminValues.length; i++)
         {
-            if (adminList[i].key === userName)
+            if (adminValues[i] === userName)
             {
                 return false;
             }
         }
 
-        for(var i = 0; i < memberList.length; i++)
+        for(var i = 0; i < memberValues.length; i++)
         {
-            if (memberList[i].key === userName)
+            if (memberValues[i] === userName)
             {
                 return false;
             }
@@ -106,7 +114,10 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        setAdminList( adminList => [...adminList, makeUserEntry(adminName.value, "adminList")]);
+        alert("Before add: [" + adminValues.toString() + "]");
+        setAdminValues( adminValues => [...adminValues, adminName.value]);
+        alert("After add: [" + adminValues.toString() + "]");
+        setAdminList(adminValues.map(userName => makeUserEntry(userName, "admin")));
     }
 
 
@@ -130,7 +141,10 @@ function MakeGroupUI()
         }
 
         // Put the user in the member list and display it.
-        setMemberList( memberList => [...memberList, makeUserEntry(memberName.value, "memberList")]);
+        alert("Before add: [" + memberValues.toString() + "]");
+        setMemberValues( memberValues => [...memberValues, memberName.value]);
+        alert("After add: [" + adminValues.toString() + "]");
+        setMemberList(memberValues.map(userName => makeUserEntry(userName, "member")));
     }
 
     const submitGroup = async event =>
@@ -167,8 +181,7 @@ function MakeGroupUI()
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList.map(admin => admin.key) + "\nMembers: " + 
-            memberList.map(member => member.key) + 
+            "\nAdmins: " + adminValues + "\nMembers: " + memberValues + 
             "\nTODO: Add current user as admin, call API, cleanup after");
 
             setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
