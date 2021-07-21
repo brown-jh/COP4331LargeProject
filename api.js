@@ -21,7 +21,7 @@ exports.setApp = function (app, client)
             to:'${email}',
             
             subject:'Account Verification for Get2Gather',
-            text:'Yes let us verify you with this: jkbfkhbad',
+            text:'Yes let us verify you with this: jkbfkhbad'
             
         }
         transporter.sendMail(message, function(err, res)
