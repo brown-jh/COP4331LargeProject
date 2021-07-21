@@ -114,6 +114,9 @@ function MakeGroupUI()
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
             "\nAdmins: " + adminList + "\nMembers: " + memberList + 
             "\nTODO: Add current user as admin, call API, cleanup after");
+
+            setGroupSubmitResult("Successfully created group! Redirecting back to search.");
+            window.location.href = "/search";
         }
     }
 

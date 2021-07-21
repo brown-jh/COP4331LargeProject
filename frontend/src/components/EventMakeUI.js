@@ -123,6 +123,9 @@ function EventMakeUI()
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
             eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
             "\nURL: " + eventPictureURL.value);
+
+            setEventMakeResult("Successfully created event! Redirecting back to search.");
+            window.location.href = "/search";
         }
     }
 
