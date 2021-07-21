@@ -1,5 +1,9 @@
 exports.setApp = function (app, client)
 {
+    // Potentially a bad idea
+    var bp = require('./frontend/src/components/Path.js');
+    var authcode = require('./createAuth.js');
+
     var token = require('./createJWT.js');
     const nodemailer = require('nodemailer');
 
@@ -10,7 +14,9 @@ exports.setApp = function (app, client)
     app.post('/api/sendemail', async (req, res, next) =>{
 
         var error = '';
-        const { email } = req.body;
+        const { email, authentication } = req.body;
+        var text = "Your verification code is: ";
+        text += authentication;
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -24,7 +30,7 @@ exports.setApp = function (app, client)
             to:email,
             
             subject:'Account Verification for Get2Gather',
-            text:'Yes let us verify you with this: jkbfkhbad'
+            text:text
             
         };
 
@@ -50,11 +56,16 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
 
-        const { firstName, lastName, login, password } = req.body;      
+        const { firstName, lastName, login, password, email } = req.body; 
         
-        const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password};  
-        var error = '';  
+        const verificationCode = authcode.createAuthentication();
         
+        const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password, 
+        Email:email, Authentication:verificationCode, AuthStatus:0};  
+        var error = ''; 
+        var obj = {email:email, authentication:verificationCode};
+        var js = JSON.stringify(obj);
+
         const db = client.db();  
         // This should ensure that only one of any username exists.
         const results = await db.collection('Users').find({ Login:login }).toArray();
@@ -74,7 +85,10 @@ exports.setApp = function (app, client)
             {    
                 error = e.toString();  
             }
-         
+            // THIS HERE SEEMS TERRIBLE
+            // BE WARY, THIS IS PROBABLY A BAD IDEA
+            const response = await fetch(bp.buildPath('api/sendemail'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var ret = { error: error };      
             res.status(200).json(ret);
 
@@ -335,25 +349,80 @@ exports.setApp = function (app, client)
         var id = -1;  
         var fn = '';  
         var ln = '';  
+        var verStatus = 0;
         if( results.length > 0 )  
         {    
             id = results[0].UserId;    
             fn = results[0].FirstName;    
-            ln = results[0].LastName;  
-            try        
-            {          
-                const token = require("./createJWT.js");          
-                ret = token.createToken( fn, ln, id );        
-            }        
-            catch(e)        
-            {          
-                ret = {error:e.message};        
-            }      
+            ln = results[0].LastName;
+            verStatus = results[0].AuthStatus;
+            if (verStatus == 0)
+            {
+                ret = {error:"Account not verified"};
+            }
+            else
+            {
+                try        
+                {          
+                    const token = require("./createJWT.js");          
+                    ret = token.createToken( fn, ln, id );        
+                }        
+                catch(e)        
+                {          
+                    ret = {error:e.message};        
+                }  
+            }  
+    
         }      
         else      
         {          
             ret = {error:"Login/Password incorrect."};      
         }
         res.status(200).json(ret);
+    });
+    app.post('api/verifyaccount', async( req, res, next) =>
+    {
+        const { login, password, verificationCode} = req.body;
+
+        const db = client.db();
+        const results = await db.collection('Users').find({Login:login,Password:password}).toArray();
+        if (results.length > 0)
+        {
+            var auth = results[0].Authentication;
+            var stat = results[0].AuthStatus;
+            var userID = results[0].UserId;
+            if (stat > 0)
+            {
+                ret = {error:"Your account is already verified!"};
+                res.status(418).json(ret);
+            }
+            else
+            {
+                if (verificationCode != auth)
+                {
+                    ret = {error:"Verification code is incorrect"};
+                    res.status(403).json(ret);
+                }
+                else
+                {
+                    const result = db.collection('Users').updateOne(
+                        {_id:userID},
+                        {
+                            $set: {Authentication: '0', AuthStatus: 1}  
+                        }
+                    )
+                    ret = {error:""};
+                    res.status(200).json(ret); 
+    
+                }
+            }
+        }
+        else
+        {
+            ret = {error:"Username/Password incorrect!"};
+            res.status(401).json(ret);
+        }
+
+
     });
 }
