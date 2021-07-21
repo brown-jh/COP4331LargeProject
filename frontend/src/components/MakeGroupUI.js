@@ -10,6 +10,7 @@ function MakeGroupUI()
 
     var adminName = '';
     var memberName = '';
+    
 
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
@@ -36,9 +37,18 @@ function MakeGroupUI()
         )
     }
 
+        // This function is called to remove a user from the admin or member list.
     function removeUser(userName, userList)
     {
         alert("Remove " + userName);
+        if (userList == "adminList")
+        {
+            setAdminList(adminList.filter(entry => entry.key != userName));
+        }
+        else if (userList == "memberList")
+        {
+            setMemberList(memberList.filter(entry => entry.key != userName));
+        }
     }
 
     // This function is used in the map to turn a user into a visible entry.
@@ -96,7 +106,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        setAdminList( adminList => [...adminList, makeUserEntry(adminName.value, adminList)]);
+        setAdminList( adminList => [...adminList, makeUserEntry(adminName.value, "adminList")]);
     }
 
 
@@ -119,8 +129,8 @@ function MakeGroupUI()
             return;
         }
 
-        // Put the user in the admin list and display it.
-        setMemberList( memberList => [...memberList, makeUserEntry(memberName.value, memberList)]);
+        // Put the user in the member list and display it.
+        setMemberList( memberList => [...memberList, makeUserEntry(memberName.value, "memberList")]);
     }
 
     const submitGroup = async event =>
@@ -157,11 +167,12 @@ function MakeGroupUI()
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + memberList + 
+            "\nAdmins: " + adminList.map(admin => admin.key) + "\nMembers: " + 
+            memberList.amp(member => member.key) + 
             "\nTODO: Add current user as admin, call API, cleanup after");
 
-            setGroupSubmitResult("Successfully created group! Redirecting back to search.");
-            window.location.href = "/search";
+            setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
+            window.location.href = "/adminnedgroups";
         }
     }
 
