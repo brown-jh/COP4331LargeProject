@@ -17,7 +17,7 @@ function MakeGroupUI()
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
     const [adminError, setAdminError] = useState('');
-    const [adminList, setAdminList] = useState(["Hannah", "Alyx", "Terry"]); //DEBUG.
+    const [adminList, setAdminList] = useState([]); //DEBUG.
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
@@ -38,46 +38,6 @@ function MakeGroupUI()
         )
     }
 
-    //This function removes a specific entry from one of the div arrays.
-    // We would use filter(), but it was misbehaving for some reason.
-    function removeEntry (userArray, removeKey)
-    {
-        alert("In the function");
-        alert("Going through " + userArray.length + ":\n" + userArray.map(member => member.key)); 
-        //Is there something up with the array length?
-        var newArray = []; //The modified array we will return.
-        for (var i = 0; i < userArray.length; i++)
-        {
-            alert("Comparing " + userArray[i].key + " to " + removeKey);
-            if (userArray[i].key !== removeKey)
-            {
-                newArray.push(userArray[i]);
-                alert("Added");
-            }
-            else
-            {
-                alert("Entry removed");
-            }
-        }
-        return newArray;
-    }
-
-    // This function is called to remove a user from the admin or member list.
-    function removeUser(userName, userList)
-    {
-        alert("Remove " + userName + " from " + userList);
-        if (userList == "adminList")
-        {
-            alert("List outside of function is " + adminList.map(member => member.key));
-            alert("You should see the function being called next.");
-            setAdminList(removeEntry(adminList, userName));
-        }
-        else if (userList == "memberList")
-        {
-            setMemberList(removeEntry(memberList, userName));
-        }
-    }
-
     function removeAdmin(name)
     {
         setAdminList(adminList.filter(user => user !== name));
@@ -86,19 +46,6 @@ function MakeGroupUI()
     function removeMember(name)
     {
         setMemberList(memberList.filter(user => user !== name));
-    }
-
-    // This function is used in the map to turn a user into a visible entry.
-    function makeUserEntry(userName, userList)
-    {
-        return(
-            <div key={userName}>
-                <p class="group-remove">{userName}</p>
-                <i class="fa fa-trash-o fa-color" aria-hidden="true" 
-                    onClick={() => /*removeUser(userName, userList)*/
-                        alert(adminList.map(member => member.key).toString())}></i>
-            </div>
-        )
     }
 
     // This function determines if there is already an admin or invitee with the same name.
@@ -205,8 +152,7 @@ function MakeGroupUI()
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + 
-            memberList + 
+            "\nAdmins: " + adminList + "\nMembers: " + memberList + 
             "\nTODO: Add current user as admin, call API, cleanup after");
 
             setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
@@ -246,9 +192,7 @@ function MakeGroupUI()
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
             <span id="error-text">{adminError}</span> <br /> 
-            {adminList}
             <GroupUserList users={adminList} delFunc={removeAdmin}/>
-            <button type="button" onClick={() => alert(adminList.map(member => member.key).toString())}>Debug Admins</button>
             <span class="inner-title it_blue"></span><br />
             <br />
 
@@ -257,8 +201,7 @@ function MakeGroupUI()
             <input type="text" ref={(c) => memberName = c} /><br />
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addMember}>Invite User</button>
-            <span id="error-text">{memberError}</span> <br /> 
-            {memberList}
+            <span id="error-text">{memberError}</span> <br />
             <GroupUserList users={memberList} delFunc={removeMember}/>
             <span class="inner-title it_purple"></span><br />
 
