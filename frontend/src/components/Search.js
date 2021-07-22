@@ -3,6 +3,14 @@ import React, { useState } from 'react';
 import EventBox from '../components/EventBox';
 import GroupBox from '../components/GroupBox';
 
+
+const searchingType = {
+    GROUPS : "groups",
+    EVENTS : "events"
+}
+
+var searchType;
+
 const Search = () =>{  
     
     var bp = require('../components/Path.js');
@@ -17,31 +25,21 @@ const Search = () =>{
     var ud = JSON.parse(_ud);    
     var userId = ud.id;  
     
-    const searchingType = {
-        GROUPS : "groups",
-        EVENTS : "events"
-    }
-
-    function setSearchType(type)
+    const setTypeEvent = async event =>
     {
-        if (type == "groups")
-        {
-            searchType = searchingType.GROUPS;
-        }
-
-        if (type == "events")
-        {
-            searchType = searchingType.EVENTS;
-        }
+        searchType = searchingType.EVENTS;
     }
 
+    const setTypeGroup = async event =>
+    {
+        searchType = searchingType.GROUPS;
+    }
 
-    var searchType = '';
     const searchEventsAndGroups = async event =>
     {
         event.preventDefault();
-
-        switch (searchingType)
+        
+        switch (searchType)
         {
             case searchingType.EVENTS:
                 var tok = storage.retrieveToken();       
@@ -57,7 +55,7 @@ const Search = () =>{
                     if( res.error.length > 0 )            
                     {                
                         setSearchResults( "API Error:" + res.error );     
-                            
+                        return;
                     }            
                     else            
                     {            
@@ -75,11 +73,13 @@ const Search = () =>{
                         
                         var retTok = res.jwtToken;
                         storage.storeToken( retTok );
+                        return;
                     }        
                 }        
                 catch(e)        
                 {            
-                    setSearchResults(e.toString());        
+                    setSearchResults(e.toString());  
+                    return;      
                 }
 
             case searchingType.GROUPS:
@@ -104,6 +104,7 @@ const Search = () =>{
                 setSearchResults(dummyAdminGroups.map((groupData) => (
                     <GroupBox title={groupData.title}
                         desc={groupData.desc}/>)));
+                        return;
             default:
                 return;
         }
@@ -115,9 +116,9 @@ const Search = () =>{
             <span class="inner-title">Search Events and Groups</span><br />
             <input type="text" onChange={searchEventsAndGroups} ref={(c) => searchParams = c} /><br / >
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons buttons btn-search" onClick={setSearchType("events")}>View Only Events</button>
+                class="buttons buttons btn-search" onClick={setTypeEvent}>View Only Events</button>
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons btn-search" onClick={setSearchType("groups")}>View Only Groups</button><br />
+                class="buttons btn-search" onClick={setTypeGroup}>View Only Groups</button><br />
             
             <div class = "flex-container">
                 {searchResults}
