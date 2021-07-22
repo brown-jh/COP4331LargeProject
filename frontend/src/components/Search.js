@@ -23,21 +23,22 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id;  
+    var userId = 0;  
     
     const setTypeEvent = async event =>
     {
         searchType = searchingType.EVENTS;
+        searchEventsAndGroups();
     }
 
     const setTypeGroup = async event =>
     {
         searchType = searchingType.GROUPS;
+        searchEventsAndGroups();
     }
 
     const searchEventsAndGroups = async event =>
     {
-        event.preventDefault();
         
         switch (searchType)
         {
@@ -50,7 +51,7 @@ const Search = () =>{
                     const response = await fetch(bp.buildPath('api/searchevents'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                    alert("Events are: " + txt);      
+                    // alert("Events are: " + txt);      
                     var res = JSON.parse(txt);            
                     if( res.error.length > 0 )            
                     {                
