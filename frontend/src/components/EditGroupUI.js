@@ -47,18 +47,21 @@ function EditGroupUI(props)
     function updateName(event)
     {
         event.preventDefault();
+        setNameError(event.target.value);
         setGroupName(event.target.value);
     }
 
     function updateDesc(event)
     {
         event.preventDefault();
+        setDescError(event.target.value);
         setGroupDesc(event.target.value);
     }
 
     function updateURL(event)
     {
         event.preventDefault();
+        setPictureError(event.target.value);
         setGroupPictureURL(event.target.value);
     }
 
