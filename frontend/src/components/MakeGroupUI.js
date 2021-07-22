@@ -1,5 +1,6 @@
 import React, {useState } from 'react';
 import GroupBoxPreview from './GroupBoxPreview';
+import GroupUserList from '../components/GroupUserList';
 
 
 function MakeGroupUI()
@@ -16,7 +17,7 @@ function MakeGroupUI()
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
     const [adminError, setAdminError] = useState('');
-    const [adminList, setAdminList] = useState([]);
+    const [adminList, setAdminList] = useState(["Hannah", "Alyx"]); //DEBUG.
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
@@ -75,6 +76,11 @@ function MakeGroupUI()
         {
             setMemberList(removeEntry(memberList, userName));
         }
+    }
+
+    function removeAdmin(name)
+    {
+        alert("Delete " + name);
     }
 
     // This function is used in the map to turn a user into a visible entry.
@@ -237,7 +243,7 @@ function MakeGroupUI()
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
             <span id="error-text">{adminError}</span> <br /> 
             {adminList}
-            {/*DEBUG*/}
+            <GroupUserList users={adminList} delFunc={removeAdmin}/>
             <button type="button" onClick={() => alert(adminList.map(member => member.key).toString())}>Debug Admins</button>
             <span class="inner-title it_blue"></span><br />
             <br />
