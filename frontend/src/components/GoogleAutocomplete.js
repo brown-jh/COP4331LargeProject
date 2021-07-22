@@ -23,7 +23,7 @@ class GoogleAutocomplete extends React.Component {
 
   render() {
     return (
-        <input ref={this.autocompleteInput} placeholder="Enter desired location"
+        <input ref={this.autocompleteInput} defaultValue={this.props.defaultValue} placeholder="Enter desired location"
          type="text" id="location"></input>
     );
   }

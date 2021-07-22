@@ -18,6 +18,7 @@ import JoinedEventsPage from './pages/JoinedEventsPage';
 import AdminnedGroupsPage from './pages/AdminnedGroupsPage';
 import JoinedGroupsPage from './pages/JoinedGroupsPage';
 import EditGroupPage from './pages/EditGroupPage';
+import EditEventPage from './pages/EditEventPage';
 
 function App() {  
   return (    
@@ -43,6 +44,9 @@ function App() {
         </Route>
         <Route path="/events/:eventId">          
           <EventPage />        
+        </Route>
+        <Route path="/editevent/:eventId" exact>          
+          <EditEventPage />        
         </Route>
         <Route path="/groups/:groupId" exact>          
           <GroupPage />        
