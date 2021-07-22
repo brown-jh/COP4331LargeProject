@@ -51,6 +51,53 @@ exports.setApp = function (app, client)
 
     });
 
+    app.post('/api/addgroup', async (req, res, next) =>{  
+        // incoming: GroupName, GroupDescription
+        // outgoing: error  
+        var error = '';  
+    
+        const { groupName, groupDescription, jwtToken } = req.body;      
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+    
+        
+        const newGroup = {GroupName:groupName, GroupDescription:groupDescription};  
+        var error = '';  
+        
+        try  
+        {    
+            const db = client.db();    
+            const result = db.collection('Groups').insertOne(newGroup);  
+        }  
+        catch(e)  
+        {    
+            error = e.toString();  
+        }
+    
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+    });
+
     app.post('/api/adduser', async (req, res, next) =>{  
         // incoming: FirstName, LastName, Login, Password 
         // outgoing: error  
@@ -95,12 +142,59 @@ exports.setApp = function (app, client)
         }
     });
 
+    app.post('/api/deleteevent', async (req, res, next) =>{
+
+        
+        var error = '';
+        const {groupId, jwtToken } = req.body;
+        
+
+        try
+        {
+            if ( token.isExpired(jwtToken))
+            {
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};
+                res.status(200).json(r);
+                return;
+            }
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        try
+        {
+            const db = client.db();
+            const result = await db.collection('Events').deleteOne( {_id:groupId});
+        }
+        catch(e)
+        {
+            console.log(e.toString());
+        }
+
+        try
+        {
+            refreshedToken = token.refresh(jwtToken);
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        var ret = { error: error, jwtToken: refreshedToken };
+        res.status(200).json(ret);
+
+
+
+    });
+
     app.post('/api/addevent', async (req, res, next) =>{  
         // incoming: EventName, EventDescription, EventDate, EventTime, EventLocation
         // outgoing: error  
         var error = '';  
 
-        const { eventName, eventDescription, eventDate, eventTime, eventLocation, jwtToken } = req.body;      
+        const { eventName, eventDescription, eventDate, eventTime, eventLocation, groupID, imageURL, jwtToken } = req.body;      
         try      
         {        
             if( token.isExpired(jwtToken))        
@@ -117,7 +211,7 @@ exports.setApp = function (app, client)
 
         
         const newEvent = {EventName:eventName, EventDescription:eventDescription, 
-            EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
+            EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation,GroupID:groupID,ImageURL:imageURL};  
         var error = '';  
         
         try  
