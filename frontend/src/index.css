@@ -79,11 +79,6 @@ label
     user-select: none;
 }
 
-#title:hover
-{
-    transform: rotate(2deg)
-}
-
 @keyframes opacityChange {
     from{ opacity: 0; font-size: 90px;}
     to {opacity: 1; font-size: 100px;}
