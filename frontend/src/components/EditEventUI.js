@@ -6,7 +6,7 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
-function EventMakeUI(props)
+function EditEventUI(props)
 {
  
     var bp = require('./Path.js');
