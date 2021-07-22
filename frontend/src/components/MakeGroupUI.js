@@ -17,7 +17,7 @@ function MakeGroupUI()
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
     const [adminError, setAdminError] = useState('');
-    const [adminList, setAdminList] = useState(["Hannah", "Alyx"]); //DEBUG.
+    const [adminList, setAdminList] = useState(["Hannah", "Alyx", "Terry"]); //DEBUG.
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
@@ -80,7 +80,7 @@ function MakeGroupUI()
 
     function removeAdmin(name)
     {
-        alert("Delete " + name);
+        setAdminList(adminList.filter(user => user !== name));
     }
 
     // This function is used in the map to turn a user into a visible entry.
@@ -140,7 +140,6 @@ function MakeGroupUI()
 
         // Put the user in the admin list and display it.
         setAdminList([...adminList, makeUserEntry(adminName.value, "adminList")]);
-        setAdminError(adminList.map(member => member.key).toString());
     }
 
 
