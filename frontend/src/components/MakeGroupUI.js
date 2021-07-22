@@ -139,7 +139,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        setAdminList([...adminList, makeUserEntry(adminName.value, "adminList")]);
+        setAdminList([...adminList, adminName.value]);
     }
 
 
