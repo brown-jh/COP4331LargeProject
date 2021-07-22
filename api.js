@@ -142,7 +142,7 @@ exports.setApp = function (app, client)
         }
     });
 
-    app.post('/api/deleteevent', async (req, res, next) =>{
+    app.post('/api/deletegroup', async (req, res, next) =>{
 
         
         var error = '';
@@ -337,6 +337,49 @@ exports.setApp = function (app, client)
         }      
         var ret = { error: error, jwtToken: refreshedToken };      
         res.status(200).json(ret);
+    });
+
+    app.post('/api/searchgroups', async (req, res, next) => {  
+ 
+        var error = '';  
+        const { userId, search, jwtToken } = req.body;    
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        var _search = search.trim();  
+
+        const db = client.db();  
+        const results = await db.collection('Groupss').find({$or: [ { "GroupName": {$regex:_search+'.*i', $options:'ir'} }, {"GroupDescription": {$regex:_search+'.*i', $options:'ir'} } ] }).toArray();
+
+        var _ret = [];  
+        for( var i=0; i<results.length; i++ )  
+        {    
+            _ret.push( results[i]);  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+
     });
 
     app.post('/api/searchevents', async (req, res, next) => {  
