@@ -101,7 +101,7 @@ function MakeGroupUI()
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i].key === userName)
+            if (adminList[i] === userName)
             {
                 return false;
             }
@@ -109,7 +109,7 @@ function MakeGroupUI()
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i].key === userName)
+            if (memberList[i] === userName)
             {
                 return false;
             }
