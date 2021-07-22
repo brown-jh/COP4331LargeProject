@@ -83,6 +83,11 @@ function MakeGroupUI()
         setAdminList(adminList.filter(user => user !== name));
     }
 
+    function removeMember(name)
+    {
+        setMemberList(memberList.filter(user => user !== name));
+    }
+
     // This function is used in the map to turn a user into a visible entry.
     function makeUserEntry(userName, userList)
     {
@@ -163,7 +168,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the member list and display it.
-        setMemberList( memberList => [...memberList, makeUserEntry(memberName.value, "memberList")]);
+        setMemberList([...memberList, memberName.value]);
     }
 
     const submitGroup = async event =>
@@ -254,6 +259,7 @@ function MakeGroupUI()
             class="buttons" onClick={addMember}>Invite User</button>
             <span id="error-text">{memberError}</span> <br /> 
             {memberList}
+            <GroupUserList users={memberList} delFunc={removeMember}/>
             <span class="inner-title it_purple"></span><br />
 
             <br/>
