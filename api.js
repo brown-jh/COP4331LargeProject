@@ -142,6 +142,53 @@ exports.setApp = function (app, client)
         }
     });
 
+    app.post('/api/deleteevent', async (req, res, next) =>{
+
+        
+        var error = '';
+        const {groupId, jwtToken } = req.body;
+        
+
+        try
+        {
+            if ( token.isExpired(jwtToken))
+            {
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};
+                res.status(200).json(r);
+                return;
+            }
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        try
+        {
+            const db = client.db();
+            const result = await db.collection('Events').deleteOne( {_id:groupId});
+        }
+        catch(e)
+        {
+            console.log(e.toString());
+        }
+
+        try
+        {
+            refreshedToken = token.refresh(jwtToken);
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+
+        var ret = { error: error, jwtToken: refreshedToken };
+        res.status(200).json(ret);
+
+
+
+    });
+
     app.post('/api/addevent', async (req, res, next) =>{  
         // incoming: EventName, EventDescription, EventDate, EventTime, EventLocation
         // outgoing: error  
