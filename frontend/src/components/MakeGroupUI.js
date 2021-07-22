@@ -205,8 +205,8 @@ function MakeGroupUI()
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList.map(admin => admin.key) + "\nMembers: " + 
-            memberList.map(member => member.key) + 
+            "\nAdmins: " + adminList + "\nMembers: " + 
+            memberList + 
             "\nTODO: Add current user as admin, call API, cleanup after");
 
             setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
