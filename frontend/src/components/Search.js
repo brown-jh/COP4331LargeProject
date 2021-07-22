@@ -75,9 +75,7 @@ const Search = () =>{
                 class="buttons btn-search" onClick={searchGroups}>Search Groups</button><br />
             
             <div class = "flex-container">
-                <div>
-                    {searchResults}
-                </div> 
+                {searchResults}
             </div>
             
         </div>
