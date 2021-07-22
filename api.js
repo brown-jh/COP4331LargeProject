@@ -194,7 +194,7 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
 
-        const { eventName, eventDescription, eventDate, eventTime, eventLocation, jwtToken } = req.body;      
+        const { eventName, eventDescription, eventDate, eventTime, eventLocation, groupID, imageURL, jwtToken } = req.body;      
         try      
         {        
             if( token.isExpired(jwtToken))        
@@ -211,7 +211,7 @@ exports.setApp = function (app, client)
 
         
         const newEvent = {EventName:eventName, EventDescription:eventDescription, 
-            EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation};  
+            EventDate:eventDate, EventTime:eventTime, EventLocation:eventLocation,GroupID:groupID,ImageURL:imageURL};  
         var error = '';  
         
         try  
@@ -366,7 +366,7 @@ exports.setApp = function (app, client)
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
         {    
-            _ret.push( results[i]).EventName;  
+            _ret.push( results[i].EventName);  
         }
 
         var refreshedToken = null;      
