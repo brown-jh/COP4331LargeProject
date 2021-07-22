@@ -366,7 +366,7 @@ exports.setApp = function (app, client)
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
         {    
-            _ret.push( results[i].EventName);  
+            _ret.push( results[i]);  
         }
 
         var refreshedToken = null;      
