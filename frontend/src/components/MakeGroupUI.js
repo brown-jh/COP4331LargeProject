@@ -84,7 +84,8 @@ function MakeGroupUI()
             <div key={userName}>
                 <p class="group-remove">{userName}</p>
                 <i class="fa fa-trash-o fa-color" aria-hidden="true" 
-                    onClick={() => removeUser(userName, userList)}></i>
+                    onClick={() => /*removeUser(userName, userList)*/
+                        alert(adminList.map(member => member.key).toString())}></i>
             </div>
         )
     }
