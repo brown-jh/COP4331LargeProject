@@ -46,8 +46,10 @@ const Search = () =>{
 
                 // For each event, make an EventBox with its data.
                 setSearchResults(res.results.map((eventData) => (
-                    <EventBox title={eventData.EventName}
-                        group={"Allan please add group"}
+                    <EventBox 
+                        imageURL={eventData.ImageURL}
+                        title={eventData.EventName}
+                        group={eventData.EventDescription}
                         // Ensures dates are in: Month Day, Year Time format
                         time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                         replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
@@ -73,15 +75,9 @@ const Search = () =>{
                 class="buttons btn-search" onClick={searchGroups}>Search Groups</button><br />
             
             <div class = "flex-container">
-            <div>{searchResults}</div>
-                <div>{ 
-                <EventBox 
-                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
-                        title={"Tennis Practice Placeholder"}
-                        group={"A group for making friends and playing tennis!"}
-                        time={"May 27th, 2021 10:00AM"}
-                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
-                </div>  
+                <div>
+                    {searchResults}
+                </div> 
             </div>
             
         </div>
