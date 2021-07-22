@@ -360,7 +360,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Groupss').find({$or: [ { "GroupName": {$regex:_search+'.*i', $options:'ir'} }, {"GroupDescription": {$regex:_search+'.*i', $options:'ir'} } ] }).toArray();
+        const results = await db.collection('Groups').find({$or: [ { "GroupName": {$regex:_search+'.*i', $options:'ir'} }, {"GroupDescription": {$regex:_search+'.*i', $options:'ir'} } ] }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
