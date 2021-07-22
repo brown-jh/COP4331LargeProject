@@ -28,7 +28,7 @@ function Login(){
             // Ensures user cannot enter in empty username / password.
             if (obj.loginName == "" || obj.password == "")
             {
-                setMessage("Please include your email and password.");
+                setMessage("Please include your username and password.");
                 return;
             }
 
