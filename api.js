@@ -380,6 +380,7 @@ exports.setApp = function (app, client)
         }
         res.status(200).json(ret);
     });
+
     app.post('api/verifyaccount', async( req, res, next) =>
     {
         const { login, password, verificationCode} = req.body;
@@ -424,51 +425,5 @@ exports.setApp = function (app, client)
         }
 
 
-    });
-
-    app.post('/api/addgrou[', async (req, res, next) =>{  
-
-        var error = '';  
-
-        const { groupName, groupDescription, jwtToken } = req.body;      
-        try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
-
-        
-        const newGroup = {GroupName:groupName, GroupDescription:groupDescription};  
-        var error = '';  
-        
-        try  
-        {    
-            const db = client.db();    
-            const result = db.collection('Groups').insertOne(newGroup);  
-        }  
-        catch(e)  
-        {    
-            error = e.toString();  
-        }
-
-        var refreshedToken = null;      
-        try      
-        {        
-            refreshedToken = token.refresh(jwtToken);      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }      
-        var ret = { error: error, jwtToken: refreshedToken };      
-        res.status(200).json(ret);
     });
 }
