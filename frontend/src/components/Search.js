@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import EventBox from '../components/EventBox';
+import GroupBox from '../components/GroupBox';
 
 const Search = () =>{  
     
@@ -14,12 +15,34 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id;   
+    var userId = 0;   
 
     const searchGroups = async event =>
     {
         event.preventDefault();
-        alert("Allan please add function");
+        
+        // TODO: Here we would find the groups the user admins via API and put them in here.
+        var dummyAdminGroups=[
+            {
+                title: "NerdKnighteria of UCF",
+                desc: "This is a club for board and video gamers at UCF.",
+            },
+            {
+                title: "Dark Side Comics Game Night",
+                desc: "We meet at Dark Side Comics on Sundays to play board games.",
+            },
+            {
+                title: "YMCA Swimming Club",
+                desc: "We're here to dive in and have fun!",
+            },
+            {
+                title: "Game Jammers",
+                desc: "Interested in game dev or game jams? Try here!",
+            }
+        ]
+        setSearchResults(dummyAdminGroups.map((groupData) => (
+            <GroupBox title={groupData.title}
+                desc={groupData.desc}/>)));
     }
 
     const searchEvents = async event =>
