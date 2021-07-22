@@ -6,7 +6,7 @@ function GroupUserList(props)
 {
     return(
         <div>
-            {props.users.map(user => <GroupUserEntry name={user} iconAct={delFunc}/>)}
+            {props.users.map(user => <GroupUserEntry name={user} iconAct={props.delFunc}/>)}
         </div>
     )
 }
