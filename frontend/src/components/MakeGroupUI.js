@@ -152,7 +152,7 @@ function MakeGroupUI()
         else
         {
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + memberList + 
+            "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
             "\nTODO: Add current user as admin, call API, cleanup after");
 
             setGroupSubmitResult("Successfully created group! Redirecting to your groups.");

@@ -4,16 +4,17 @@ import GroupBoxPreview from './GroupBoxPreview';
 import GroupUserList from '../components/GroupUserList';
 
 
+
+
 function EditGroupUI(props)
 {
-    const [groupName, setGroupName] = useState('');
-    const [groupDesc, setGroupDesc] = useState('');
-    const [groupPictureURL, setGroupPictureURL] = useState('');
+    var groupName = '';
+    var groupDesc = '';
+    var groupPictureURL = '';
 
     var adminName = '';
     var memberName = '';
     
-
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
@@ -37,32 +38,32 @@ function EditGroupUI(props)
             members: ["Jesse Sampson", "Louis Ferguson", "Isabelle Bathory"]
         };
 
-        setGroupName(thisGroup.name + "\n" + props.groupId);
-        setGroupDesc(thisGroup.desc);
-        setGroupPictureURL(thisGroup.url);
+        groupName.value = thisGroup.name + "\n" + props.groupId;
+        groupDesc.value = thisGroup.description;
+        groupPictureURL.value = thisGroup.url;
+
         setAdminList(thisGroup.admins);
         setMemberList(thisGroup.members);
-    });
+        
+        // This [], ensures useEffect only runs once.
+    }, []);
 
     function updateName(event)
     {
         event.preventDefault();
         setNameError(event.target.value);
-        setGroupName(event.target.value);
     }
 
     function updateDesc(event)
     {
         event.preventDefault();
         setDescError(event.target.value);
-        setGroupDesc(event.target.value);
     }
 
     function updateURL(event)
     {
         event.preventDefault();
         setPictureError(event.target.value);
-        setGroupPictureURL(event.target.value);
     }
 
     const refreshCard = async event =>
@@ -158,6 +159,18 @@ function EditGroupUI(props)
         setMemberList([...memberList, memberName.value]);
     }
 
+    function confirmDelete(groupId)
+    {
+        if(window.confirm("Are you sure you want to disband this group?"))
+        {
+            alert("deleting id: " + groupId)
+        }
+        else
+        {
+            return;
+        }
+    }
+
     const submitGroup = async event =>
     {
         var isError = false;
@@ -193,7 +206,7 @@ function EditGroupUI(props)
         {
             alert("New data for group " + props.groupId + "\nName: " + groupName.value + 
             "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList + 
-            "\nMembers: " + memberList + "\nTODO: Call API, cleanup after");
+            "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
 
             setGroupSubmitResult("Successfully edited group! Redirecting to your groups.");
             window.location.href = "/adminnedgroups";
@@ -202,12 +215,16 @@ function EditGroupUI(props)
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
-            <span class="inner-title">Create Group</span><br/><br/>
-            <button type="button" onClick={() => window.location.href="/joinedgroups"}>Cancel</button>
+            
+            <span class="inner-title">Create Group</span><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedgroups"}>Cancel</button><br/>
+            <br/>
+            <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.groupId)}>Disband Group</button><br/>
+            <br/>
 
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the group a short, descriptive name.</i></p>
-            <input type="text" value={groupName} onChange={updateName} />
+            <input type="text" defaultValue={groupName} onChange={updateName} ref={(c) => groupName = c}/>
             <span id="error-text">{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
@@ -215,14 +232,14 @@ function EditGroupUI(props)
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength="290" value={groupDesc} onChange={updateDesc} />
+            <textarea rows="7" cols= "40" maxLength="290" defaultValue={groupDesc} onChange={updateDesc} ref={(c) => groupDesc = c}></textarea>
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             <br/>
             <span class="inner-title it_green">Group Image</span><br />
             <p><i>Give a image to represent your group; this must be uploaded as a url.</i></p>
-            <input type="text" id="location" value={groupPictureURL} onChange={updateURL} />
+            <input type="text" id="location" defaultValue={groupPictureURL} onChange={updateURL} ref={(c) => groupPictureURL = c} />
             <span id="error-text">{pictureError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
@@ -262,8 +279,7 @@ function EditGroupUI(props)
             class="buttons" onClick={submitGroup}>Submit</button>
             <span class="smaller-inner-title">Please make sure to review your group before you submit!</span><br />
             <div><span id="error-text">{groupSubmitResult}</span> <br /> </div>
-            <button type="button" 
-                onClick={() => alert("TODO: Delete group " + props.groupId)}>Disband Group</button>
+
         </div> 
     )
 }
