@@ -36,7 +36,7 @@ function EditEventUI(props)
         //TODO : Also add groups.
         var thisEvent={
             name: "Firehawks",
-            description: "This is a bird watching group with an unbefitting name.",
+            description: "This is a bird watching group with an unbefitting name. YEE.",
             time: "2021-08-08T00:00:00",
             location: "University of Central Florida",
             url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
