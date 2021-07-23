@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import CommentBlock from '../components/CommentBlock';
 
+var attendeeVar = [];
+
 function EventDisplay(props)
 {
-    var userId = "Hannah Wrigley";
+    var userId = "Test User";
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -13,6 +15,7 @@ function EventDisplay(props)
     const[eventTime, setEventTime] = useState('');
     const[eventLocation, setEventLocation] = useState('');
     const[eventComments, setEventComments] = useState([]);
+    const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
@@ -49,11 +52,36 @@ function EventDisplay(props)
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
         setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
+        attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
         setEventComments(thisEvent.comments);
+        // Flip the status of the join/leave button to Leave if the user has joined the group.
+        if(thisEvent.attendees.indexOf(userId) != -1)
+        {
+            setJoinLeaveButton("Leave");
+        }
     }, []);
+
+    // This function handles the user clicking the Join/Leave button.
+    function joinOrLeave()
+    {
+        if (attendeeVar.indexOf(userId) != -1) //User is an attendee, so remove them.
+        {
+            alert("TODO: use API to remove from group.");
+            attendeeVar = attendeeVar.filter(user => user !== userId);
+            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+            setJoinLeaveButton("Join");
+        }
+        else //User is not attending, so add them.
+        {
+            alert("TODO: use API to add to group.");
+            attendeeVar = [...attendeeVar, userId];
+            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+            setJoinLeaveButton("Leave");
+        }
+    }
 
     // Turn an array of users into a comma-separated string.
     function makeUsernameList(users)
@@ -92,7 +120,7 @@ function EventDisplay(props)
                eventHost == userId ?
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
                 :
-                <button type="button" style={{width: "40%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Join Event</button>
+                <button type="button" style={{width: "40%"}} class="buttons" onClick={joinOrLeave}>{joinLeaveButton}</button>
             }
 
             <span class="inner-title"></span><br />
@@ -113,7 +141,10 @@ function EventDisplay(props)
 
             <div>
             <span class="inner-title it_yellow">Event Attendees</span>
-                {attendeeList}
+                {attendeeList} <br />
+            <span class="inner-title it_yellow"></span>
+
+            <span class="inner-title it_yellow">Comments</span>
                 <CommentBlock comments={eventComments} submitCommand={addComment}/>
             <span class="inner-title it_yellow"></span>
             
