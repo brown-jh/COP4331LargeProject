@@ -59,9 +59,9 @@ function GroupDisplay(props)
 
         setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
         setGroupDesc(thisGroup.description);
-        setAdminList(thisGroup.admins.map((groupAdmin) => <div><p>{groupAdmin}</p></div>));
+        setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
         adminVar = thisGroup.admins;
-        setMemberList(thisGroup.members.map((groupMember) => <div><p>{groupMember}</p></div>));
+        setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
 
         // For each event, make an EventBox with its data.
         setEventList(thisGroup.events.map((eventData) => (
@@ -73,15 +73,33 @@ function GroupDisplay(props)
                 place={eventData.place}/>)));
     }, []);
 
+        // Turn an array of users into a comma-separated string.
+        function makeUsernameList(users)
+        {
+            var userList = "";
+            for (var i = 0; i < users.length; i++)
+            {
+                userList += users[i];
+                if (i < users.length-1)
+                {
+                    userList += ", ";
+                }
+            }
+            return userList;
+        }
+
     return(
         <div id="mainDiv" style={{width: "80%"}}>
             <span class="inner-title"><h2>{groupTitle}</h2></span><br />
             <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
+            <p></p> {/* To make the button below line up properly, like on the event page.*/}
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
                 adminVar.indexOf(userId) != -1 ?
-                <button type="button" style={{width: "50%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Disband Group</button>
+                <button type="button" style={{width: "50%"}} class="buttons" 
+                    onClick={() => window.location.href="/editgroup/" + props.groupId}>
+                    Edit/Disband Group</button>
                 :
                 <div>
                     <input type="checkbox" id="memberCheck"/>
@@ -101,7 +119,7 @@ function GroupDisplay(props)
 
             <div>
             <p>Admins:</p>
-                {adminList}
+                {adminList} <br />
             <p>Members:</p>
                 {memberList}
             </div>

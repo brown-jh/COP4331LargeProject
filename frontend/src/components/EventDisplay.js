@@ -29,11 +29,26 @@ function EventDisplay(props)
         setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
-        setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));
+        setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
     }, []);
+
+    // Turn an array of users into a comma-separated string.
+    function makeUsernameList(users)
+    {
+        var userList = "";
+        for (var i = 0; i < users.length; i++)
+        {
+            userList += users[i];
+            if (i < users.length-1)
+            {
+                userList += ", ";
+            }
+        }
+        return userList;
+    }
 
     return(
         <div id="mainDiv" style={{width: "80%", paddingTop: "7%"}}>
@@ -46,7 +61,7 @@ function EventDisplay(props)
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
                eventHost == userId ?
-                <button type="button" style={{width: "40%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Cancel Event</button>
+                <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
                 :
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Join Event</button>
             }
