@@ -83,11 +83,8 @@ function EventDisplay(props)
     }
 
     return(
-        <div id="mainDiv" style={{width: "80%", paddingTop: "7%"}}>
-            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgeventpage"/>
-
-            <span class="inner-title"></span>
-            <p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{eventTitle}</p>
+        <div id="mainDiv" style={{width: "80%"}}>
+            <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{eventTitle}</p>
             <p>Hosted by: {eventHost}</p>
 
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
@@ -97,10 +94,12 @@ function EventDisplay(props)
                 :
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Join Event</button>
             }
-            
-        
+
             <span class="inner-title"></span><br />
-            <span class="inner-title it_orange">Event Information</span><br />
+
+            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgeventpage"/><br/>
+            
+            <br /><span class="inner-title it_orange">Event Information</span><br />
             <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
                 <p>{eventDesc}</p>
             </div>
