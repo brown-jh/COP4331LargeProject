@@ -114,7 +114,10 @@ function EventDisplay(props)
 
             <div>
             <span class="inner-title it_yellow">Event Attendees</span>
-                {attendeeList}
+                {attendeeList} <br />
+            <span class="inner-title it_yellow"></span>
+
+            <span class="inner-title it_yellow">Comments</span>
                 <CommentBlock comments={eventComments} submitCommand={addComment}/>
             <span class="inner-title it_yellow"></span>
             
