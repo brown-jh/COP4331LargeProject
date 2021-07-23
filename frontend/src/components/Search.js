@@ -23,7 +23,7 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = 0;  
+    var userId = ud.id;  
     
     const setTypeEvent = async event =>
     {

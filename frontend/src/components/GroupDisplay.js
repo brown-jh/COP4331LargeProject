@@ -2,10 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import EventBox from '../components/EventBox';
 
+var adminVar = [];
+
 function GroupDisplay(props)
 {
     var userId = "Hannah Wrigley"; //Dummy value, should be set in UseEffect(). Should see edit button.
-    var adminVar = [];
 
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
@@ -70,7 +71,7 @@ function GroupDisplay(props)
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
-    });
+    }, []);
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
@@ -79,8 +80,8 @@ function GroupDisplay(props)
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
-                adminVar.indexOf(userId.value) != -1 ?
-                <input type="button" onClick={alert("Redirect to edit page")}>Edit/Disband Group</input>
+                adminVar.indexOf(userId) != -1 ?
+                <button type="button" style={{width: "50%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Disband Group</button>
                 :
                 <div>
                     <input type="checkbox" id="memberCheck"/>

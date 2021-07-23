@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 function EventDisplay(props)
 {
-    var userId = "Eddie Johnson";
+    var userId = "Hannah Wrigley";
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -33,23 +33,26 @@ function EventDisplay(props)
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
-    });
+    }, []);
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
             <span class="inner-title"><h2>{eventTitle}</h2></span><br />
             <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
             <p>Hosted by: {eventHost}</p>
+
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
-                eventHost == userId.value ?
-                <input type="button" onClick={alert("Redirect to edit page")}>Edit/Cancel Event</input>
+               eventHost == userId ?
+                <button type="button" style={{width: "50%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Cancel Event</button>
                 :
                 <div>
                     <input type="checkbox" id="attendingCheck"/>
                     <label for="attendingCheck">Attending</label>
                 </div>
             }
+            
+        
             <span class="inner-title"></span><br />
 
             <span class="inner-title it_yellow"></span><br />
@@ -63,8 +66,6 @@ function EventDisplay(props)
                 <p>{eventDesc}</p>
             </div>
             <span class="inner-title it_yellow"></span><br />
-
-            
 
             <div>
             <p>Attendees:</p>
