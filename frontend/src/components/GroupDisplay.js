@@ -77,10 +77,10 @@ function GroupDisplay(props)
         function makeUsernameList(users)
         {
             var userList = "";
-            for (var i = 0; i < userList.length; i++)
+            for (var i = 0; i < users.length; i++)
             {
-                userList += userList[i];
-                if (i < userList.length-1)
+                userList += users[i];
+                if (i < users.length-1)
                 {
                     userList += ", ";
                 }
