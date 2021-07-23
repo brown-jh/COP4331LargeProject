@@ -17,6 +17,8 @@ import HostedEventsPage from './pages/HostedEventsPage';
 import JoinedEventsPage from './pages/JoinedEventsPage';
 import AdminnedGroupsPage from './pages/AdminnedGroupsPage';
 import JoinedGroupsPage from './pages/JoinedGroupsPage';
+import EditGroupPage from './pages/EditGroupPage';
+import EditEventPage from './pages/EditEventPage';
 
 function App() {  
   return (    
@@ -43,8 +45,14 @@ function App() {
         <Route path="/events/:eventId">          
           <EventPage />        
         </Route>
+        <Route path="/editevent/:eventId" exact>          
+          <EditEventPage />        
+        </Route>
         <Route path="/groups/:groupId" exact>          
           <GroupPage />        
+        </Route>
+        <Route path="/editgroup/:groupId" exact>          
+          <EditGroupPage />        
         </Route>
         <Route path="/forgotpassword" exact>          
           <ForgotPasswordPage />        

@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react';
 
 import EventBox from '../components/EventBox';
 
+var adminVar = [];
+var memberVar = [];
+
 function GroupDisplay(props)
 {
-    var userId = "Hannah Wrigley"; //Dummy value, should be set in UseEffect(). Should see edit button.
-    var adminVar = [];
+    var userId = "Test User"; //TODO: Dummy value, should be set in UseEffect().
 
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
     const[adminList, setAdminList] = useState('');
     const[memberList, setMemberList] = useState('');
     const[eventList, setEventList] = useState('');
+    const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
         //TODO: Here, we would normally pull the group ID from the URL, get the group via API, 
@@ -58,9 +61,10 @@ function GroupDisplay(props)
 
         setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
         setGroupDesc(thisGroup.description);
-        setAdminList(thisGroup.admins.map((groupAdmin) => <div><p>{groupAdmin}</p></div>));
+        setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
         adminVar = thisGroup.admins;
-        setMemberList(thisGroup.members.map((groupMember) => <div><p>{groupMember}</p></div>));
+        setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
+        memberVar = thisGroup.members; //So we can track the admins and members outside of useEffect.
 
         // For each event, make an EventBox with its data.
         setEventList(thisGroup.events.map((eventData) => (
@@ -70,46 +74,89 @@ function GroupDisplay(props)
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
-    });
+
+        // Flip the status of the join/leave button to Leave if the user has joined the group.
+        if(thisGroup.members.indexOf(userId) != -1)
+        {
+            setJoinLeaveButton("Leave");
+        }
+    }, []);
+
+    // This function handles the user clicking the Join/Leave button.
+    function joinOrLeave()
+    {
+        if (memberVar.indexOf(userId) != -1) //User is a member, so remove them.
+        {
+            alert("TODO: use API to remove from group.");
+            memberVar = memberVar.filter(user => user !== userId);
+            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+            setJoinLeaveButton("Join");
+        }
+        else //User is not a member, so add them.
+        {
+            alert("TODO: use API to add to group.");
+            memberVar = [...memberVar, userId];
+            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+            setJoinLeaveButton("Leave");
+        }
+    }
+
+    // Turn an array of users into a comma-separated string.
+    function makeUsernameList(users)
+    {
+        var userList = "";
+        for (var i = 0; i < users.length; i++)
+        {
+            userList += users[i];
+            if (i < users.length-1)
+            {
+                userList += ", ";
+            }
+        }
+        return userList;
+    }
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
-            <span class="inner-title"><h2>{groupTitle}</h2></span><br />
-            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
+            <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{groupTitle}</p>
+            <p>Adminned by: {adminList}</p>
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
-                adminVar.indexOf(userId.value) != -1 ?
-                <input type="button" onClick={alert("Redirect to edit page")}>Edit/Disband Group</input>
+                adminVar.indexOf(userId) != -1 ?
+                <button type="button" style={{width: "40%"}} class="buttons" 
+                    onClick={() => window.location.href="/editgroup/" + props.groupId}>
+                    Edit/Disband Group</button>
                 :
                 <div>
-                    <input type="checkbox" id="memberCheck"/>
-                    <label for="memberCheck">Joined group</label>
+                    <button type="button" style={{width: "40%"}} class="buttons" 
+                    onClick={joinOrLeave}>{joinLeaveButton}</button>
                 </div>
             }
             <span class="inner-title"></span><br />
+            <img src="https://image.cnbcfm.com/api/v1/image/104151701-GettyImages-143949731.jpg?v=1481108000&w=1600&h=900" class="imgeventpage"/><br/>
 
-            <span class="inner-title it_yellow"></span><br />
+            <br /><span class="inner-title it_orange">Group Information</span><br />
 
             <div>
-                <p>{groupDesc}</p>
+                <p style={{marginLeft: "30px", marginRight: "30px"}}>{groupDesc}</p>
             </div>
-            <span class="inner-title it_yellow"></span><br />
-
-            
+            <span class="inner-title it_orange"></span><br />
 
             <div>
-            <p>Admins:</p>
-                {adminList}
-            <p>Members:</p>
+            <span class="inner-title it_yellow">Group Members</span>
                 {memberList}
+            <span class="inner-title it_yellow"></span>
+            
             </div>
 
             <div>
-            <p>Events:</p>
+            <span class="inner-title it_green">Events Hosted</span>
                 <div class = "flex-container">
                     {eventList}
                 </div>
+            <span class="inner-title it_green"></span>
+                
             </div>
 
         </div>

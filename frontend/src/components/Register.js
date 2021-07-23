@@ -8,6 +8,7 @@ function Register(){
     var registerFirstName;
     var registerLastName;
     var registerUsername;
+    var registerEmail;
     var registerPassword;
     var registerPasswordCheck;
     const [message, setMessage] = useState('');
@@ -16,7 +17,7 @@ function Register(){
     {    
         event.preventDefault();        
         var tok = storage.retrieveToken();       
-        var obj = {firstName:registerFirstName.value, lastName:registerLastName.value, login:registerUsername.value, password:registerPassword.value,jwtToken:tok};      
+        var obj = {firstName:registerFirstName.value, lastName:registerLastName.value, login:registerUsername.value, password:registerPassword.value, email:registerEmail.value, jwtToken:tok};      
         
         // Check if the inputs are valid.
         if (obj.firstName == "" || obj.lastName == "")
@@ -43,6 +44,14 @@ function Register(){
         if (!loginRegex.test(obj.login))
         {
             setMessage("Username must be 5 or more numbers, letters, or underscores.");
+            return;
+        }
+
+        // Found some random email regex.
+        var emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+        if(!emailRegex.test(obj.email))
+        {
+            setMessage("Please enter a valid email.");
             return;
         }
 
@@ -81,7 +90,9 @@ function Register(){
             <input type="text" id="loginName" placeholder="Last Name" 
                 ref ={(c) => registerLastName = c} /><br />
             <input type="text" id="loginName" placeholder="Username" 
-                ref ={(c) => registerUsername = c} /><br />        
+                ref ={(c) => registerUsername = c} /><br />
+            <input type="text" id="loginName" placeholder="Email" 
+                ref ={(c) => registerEmail = c} /><br />          
             <input type="password" id="loginPassword" placeholder="Password" 
                 ref ={(c) => registerPassword = c}/><br />
             <input type="password" id="loginPasswordCheck" placeholder="Confirm Password" 

@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import CommentBlock from '../components/CommentBlock';
+
+var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "Eddie Johnson";
+    var userId = "Test User"; //TODO: Dummy data, should be set in useEffect().
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -11,6 +14,8 @@ function EventDisplay(props)
     const[eventGroup, setEventGroup] = useState('');
     const[eventTime, setEventTime] = useState('');
     const[eventLocation, setEventLocation] = useState('');
+    const[eventComments, setEventComments] = useState([]);
+    const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
@@ -23,53 +28,131 @@ function EventDisplay(props)
             attendees: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
             group: "NerdKnighteria of UCF",
             time: "July 31 2021, 3:00 PM",
-            place: "Student Union, University of Central Florida, Orlando"
+            place: "Student Union, University of Central Florida, Orlando",
+            comments: [
+                {
+                    user: "QuinnH",
+                    text: "Hey guys, I can't come tonight; have to study for a test.",
+                    date: "7-12-2021"
+                },
+                {
+                    user: "ThomasMahBoi",
+                    text: "Hannah, my friend who isn't in the club wanted to come in and watch the tournament; is that okay?",
+                    date: "7-13-2021"
+                },
+                {
+                    user: "badumtssXD",
+                    text: "I have extra controllers if anyone wants them!",
+                    date: "7-19-2021"
+                }
+            ]
         };
 
         setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
-        setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));
+        setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
+        attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
-    });
+        setEventComments(thisEvent.comments);
+        // Flip the status of the join/leave button to Leave if the user has joined the event.
+        if(thisEvent.attendees.indexOf(userId) != -1)
+        {
+            setJoinLeaveButton("Leave");
+        }
+    }, []);
+
+    // This function handles the user clicking the Join/Leave button.
+    function joinOrLeave()
+    {
+        if (attendeeVar.indexOf(userId) != -1) //User is an attendee, so remove them.
+        {
+            alert("TODO: use API to remove from event.");
+            attendeeVar = attendeeVar.filter(user => user !== userId);
+            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+            setJoinLeaveButton("Join");
+        }
+        else //User is not attending, so add them.
+        {
+            alert("TODO: use API to add to event.");
+            attendeeVar = [...attendeeVar, userId];
+            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+            setJoinLeaveButton("Leave");
+        }
+    }
+
+    // Turn an array of users into a comma-separated string.
+    function makeUsernameList(users)
+    {
+        var userList = "";
+        for (var i = 0; i < users.length; i++)
+        {
+            userList += users[i];
+            if (i < users.length-1)
+            {
+                userList += ", ";
+            }
+        }
+        return userList;
+    }
+
+    //This function adds a comment to the list.
+    function addComment(commentText)
+    {
+
+        var today = new Date();
+        var currentDate = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+
+        //TODO: Use API call to send user ID number and comment to the server; the code to add the
+        // visible comment should use the username instead of userId.
+        var newComment = {
+            user: userId,
+            text: commentText,
+            date: currentDate 
+        };
+        setEventComments([...eventComments, newComment]);
+    }
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
-            <span class="inner-title"><h2>{eventTitle}</h2></span><br />
-            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
+            <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{eventTitle}</p>
             <p>Hosted by: {eventHost}</p>
+
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
-                eventHost == userId.value ?
-                <input type="button" onClick={alert("Redirect to edit page")}>Edit/Cancel Event</input>
+               eventHost == userId ?
+                <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
                 :
-                <div>
-                    <input type="checkbox" id="attendingCheck"/>
-                    <label for="attendingCheck">Attending</label>
-                </div>
+                <button type="button" style={{width: "40%"}} class="buttons" onClick={joinOrLeave}>{joinLeaveButton}</button>
             }
+
             <span class="inner-title"></span><br />
 
-            <span class="inner-title it_yellow"></span><br />
+            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgeventpage"/><br/>
+            
+            <br /><span class="inner-title it_orange">Event Information</span><br />
+            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
+                <p>{eventDesc}</p>
+            </div>
+
             <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
                 <p>{eventGroup}</p>
                 <p>{eventTime}</p>
                 <p>{eventLocation}</p>
             </div>
-
-            <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
-                <p>{eventDesc}</p>
-            </div>
-            <span class="inner-title it_yellow"></span><br />
-
-            
+            <span class="inner-title it_orange"></span>
 
             <div>
-            <p>Attendees:</p>
+            <span class="inner-title it_yellow">Event Attendees</span>
                 {attendeeList}
-                <p>TODO: Add comments?</p>
+            <span class="inner-title it_yellow"></span>
+
+            <span class="inner-title it_green">Comments</span>
+                <CommentBlock comments={eventComments} submitCommand={addComment}/>
+            <span class="inner-title it_green"></span>
+            
             </div>
 
         </div>

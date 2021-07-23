@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
 import EventBox from '../components/EventBox';
+import GroupBox from '../components/GroupBox';
+
+
+const searchingType = {
+    GROUPS : "groups",
+    EVENTS : "events"
+}
+
+var searchType;
 
 const Search = () =>{  
     
@@ -14,74 +23,106 @@ const Search = () =>{
 
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id;   
-
-    const searchGroups = async event =>
+    var userId = 0;  
+    
+    const setTypeEvent = async event =>
     {
-        event.preventDefault();
-        alert("Allan please add function");
+        searchType = searchingType.EVENTS;
+        searchEventsAndGroups();
     }
 
-    const searchEvents = async event =>
+    const setTypeGroup = async event =>
     {
-        event.preventDefault();
+        searchType = searchingType.GROUPS;
+        searchEventsAndGroups();
+    }
 
-        var tok = storage.retrieveToken();       
-        var obj = {userId:userId,search:searchParams.value,jwtToken:tok};       
-        var js = JSON.stringify(obj);    
-        try        
-        {            
-            const response = await fetch(bp.buildPath('api/searchevents'),            
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var txt = await response.text();   
-            alert("Events are: " + txt);      
-            var res = JSON.parse(txt);            
-            if( res.error.length > 0 )            
-            {                
-                setSearchResults( "API Error:" + res.error );     
-                       
-            }            
-            else            
-            {            
+    const searchEventsAndGroups = async event =>
+    {
+        
+        switch (searchType)
+        {
+            case searchingType.EVENTS:
+                var tok = storage.retrieveToken();       
+                var obj = {userId:userId,search:searchParams.value,jwtToken:tok};       
+                var js = JSON.stringify(obj);    
+                try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchevents'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    // alert("Events are: " + txt);      
+                    var res = JSON.parse(txt);            
+                    if( res.error.length > 0 )            
+                    {                
+                        setSearchResults( "API Error:" + res.error );     
+                        return;
+                    }            
+                    else            
+                    {            
 
-                // For each event, make an EventBox with its data.
-                setSearchResults(res.results.map((eventData) => (
-                    <EventBox title={eventData.EventName}
-                        group={"Allan please add group"}
-                        // Ensures dates are in: Month Day, Year Time format
-                        time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
-                        place={eventData.EventLocation}/>)));
-                
-                var retTok = res.jwtToken;
-                storage.storeToken( retTok );
-            }        
-        }        
-        catch(e)        
-        {            
-            setSearchResults(e.toString());        
+                        // For each event, make an EventBox with its data.
+                        setSearchResults(res.results.map((eventData) => (
+                            <EventBox 
+                                imageURL={eventData.ImageURL}
+                                title={eventData.EventName}
+                                group={eventData.EventDescription}
+                                // Ensures dates are in: Month Day, Year Time format
+                                time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
+                                place={eventData.EventLocation}/>)));
+                        
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );
+                        return;
+                    }        
+                }        
+                catch(e)        
+                {            
+                    setSearchResults(e.toString());  
+                    return;      
+                }
+
+            case searchingType.GROUPS:
+                var dummyAdminGroups=[
+                    {
+                        title: "NerdKnighteria of UCF",
+                        desc: "This is a club for board and video gamers at UCF.",
+                    },
+                    {
+                        title: "Dark Side Comics Game Night",
+                        desc: "We meet at Dark Side Comics on Sundays to play board games.",
+                    },
+                    {
+                        title: "YMCA Swimming Club",
+                        desc: "We're here to dive in and have fun!",
+                    },
+                    {
+                        title: "Game Jammers",
+                        desc: "Interested in game dev or game jams? Try here!",
+                    }
+                ]
+                setSearchResults(dummyAdminGroups.map((groupData) => (
+                    <GroupBox title={groupData.title}
+                        desc={groupData.desc}/>)));
+                        return;
+            default:
+                return;
         }
+        
     }
 
     return(     
         <div id="mainDiv" style={{width: "80%"}}>
             <span class="inner-title">Search Events and Groups</span><br />
-            <input type="text" ref={(c) => searchParams = c} /><br / >
+            <input type="text" onChange={searchEventsAndGroups} ref={(c) => searchParams = c} /><br / >
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons buttons btn-search" onClick={searchEvents}>Search Events</button>
+                class="buttons buttons btn-search" onClick={setTypeEvent}>View Only Events</button>
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons btn-search" onClick={searchGroups}>Search Groups</button><br />
+                class="buttons btn-search" onClick={setTypeGroup}>View Only Groups</button><br />
             
             <div class = "flex-container">
-            <div>{searchResults}</div>
-                <div>{ 
-                <EventBox 
-                        imageURL={"https://media.istockphoto.com/photos/tennis-rackets-and-balls-leaned-against-the-net-picture-id1171084311?k=6&m=1171084311&s=612x612&w=0&h=9-NQ0etpeyIdqmpa1eK1D1Kal8yruIIsimRM38UbkYM="}
-                        title={"Tennis Practice Placeholder"}
-                        group={"A group for making friends and playing tennis!"}
-                        time={"May 27th, 2021 10:00AM"}
-                        place={"4000 Central Florida Blvd, Orlando, FL 32816"}/>}
-                </div>  
+                {searchResults}
             </div>
             
         </div>

@@ -1,9 +1,12 @@
-import React, {useState } from 'react';
+import React, {useState, useEffect} from 'react';
+
 import GroupBoxPreview from './GroupBoxPreview';
 import GroupUserList from '../components/GroupUserList';
 
 
-function MakeGroupUI()
+
+
+function EditGroupUI(props)
 {
     var groupName = '';
     var groupDesc = '';
@@ -12,29 +15,67 @@ function MakeGroupUI()
     var adminName = '';
     var memberName = '';
     
-
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [pictureError, setPictureError] = useState('');
     const [adminError, setAdminError] = useState('');
-    const [adminList, setAdminList] = useState([]);
+    const [adminList, setAdminList] = useState([]); 
     const [memberError, setMemberError] = useState('');
     const [memberList, setMemberList] = useState([]);
     const [groupSubmitResult, setGroupSubmitResult] = useState('');
 
     const [cardResults, setCardResults] = useState('');
 
+    useEffect(() => {
+
+        //TODO: get the group with this ID via API.
+
+        var thisGroup={
+            name: "NerdKnighteria of UCF",
+            description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
+            url: "https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6",
+            admins: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
+            members: ["Jesse Sampson", "Louis Ferguson", "Isabelle Bathory"]
+        };
+
+        groupName.value = thisGroup.name + "\n" + props.groupId;
+        groupDesc.value = thisGroup.description;
+        groupPictureURL.value = thisGroup.url;
+
+        setAdminList(thisGroup.admins);
+        setMemberList(thisGroup.members);
+        
+        // This [], ensures useEffect only runs once.
+    }, []);
+
+    function updateName(event)
+    {
+        event.preventDefault();
+        setNameError(event.target.value);
+    }
+
+    function updateDesc(event)
+    {
+        event.preventDefault();
+        setDescError(event.target.value);
+    }
+
+    function updateURL(event)
+    {
+        event.preventDefault();
+        setPictureError(event.target.value);
+    }
+
     const refreshCard = async event =>
     {
         setCardResults(
             <div>{ 
                 <GroupBoxPreview 
-                        imageURL={groupPictureURL.value}
-                        title={groupName.value}
-                        desc={groupDesc.value}
-                        />}
+                    imageURL={groupPictureURL.value}
+                    title={groupName.value}
+                    desc={groupDesc.value}
+                    />}
             </div>  
-
         )
     }
 
@@ -118,6 +159,18 @@ function MakeGroupUI()
         setMemberList([...memberList, memberName.value]);
     }
 
+    function confirmDelete(groupId)
+    {
+        if(window.confirm("Are you sure you want to disband this group?"))
+        {
+            alert("deleting id: " + groupId)
+        }
+        else
+        {
+            return;
+        }
+    }
+
     const submitGroup = async event =>
     {
         var isError = false;
@@ -151,22 +204,27 @@ function MakeGroupUI()
         }
         else
         {
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
-            "\nTODO: Add current user as admin, call API, cleanup after");
+            alert("New data for group " + props.groupId + "\nName: " + groupName.value + 
+            "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList + 
+            "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
 
-            setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
+            setGroupSubmitResult("Successfully edited group! Redirecting to your groups.");
             window.location.href = "/adminnedgroups";
         }
     }
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
-            <span class="inner-title">Create Group</span><br/><br/>
+            
+            <span class="inner-title">Create Group</span><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedgroups"}>Cancel</button><br/>
+            <br/>
+            <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.groupId)}>Disband Group</button><br/>
+            <br/>
 
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the group a short, descriptive name.</i></p>
-            <input type="text" ref={(c) => groupName = c} />
+            <input type="text" defaultValue={groupName} onChange={updateName} ref={(c) => groupName = c}/>
             <span id="error-text">{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
@@ -174,14 +232,14 @@ function MakeGroupUI()
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength="290" ref={(c) => groupDesc = c} />
+            <textarea rows="7" cols= "40" maxLength="290" defaultValue={groupDesc} onChange={updateDesc} ref={(c) => groupDesc = c}></textarea>
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             <br/>
             <span class="inner-title it_green">Group Image</span><br />
             <p><i>Give a image to represent your group; this must be uploaded as a url.</i></p>
-            <input type="text" id="location" ref={(c) => groupPictureURL = c} />
+            <input type="text" id="location" defaultValue={groupPictureURL} onChange={updateURL} ref={(c) => groupPictureURL = c} />
             <span id="error-text">{pictureError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
@@ -221,8 +279,9 @@ function MakeGroupUI()
             class="buttons" onClick={submitGroup}>Submit</button>
             <span class="smaller-inner-title">Please make sure to review your group before you submit!</span><br />
             <div><span id="error-text">{groupSubmitResult}</span> <br /> </div>
+
         </div> 
     )
 }
 
-export default MakeGroupUI;
+export default EditGroupUI;
