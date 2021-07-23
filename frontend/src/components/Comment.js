@@ -1,12 +1,12 @@
 import React from 'react';
 
-function Comment()
+function Comment(props)
 {
     return(
         <div style={{borderRadius: "5px", backgroundColor: "#cccccc"}}>
-            <p>props.comment.user</p>
+            <p>{props.comment.user}</p>
             <br />
-            <p>props.comment.text</p>
+            <p>{props.comment.text}</p>
         </div>
     )
 }
