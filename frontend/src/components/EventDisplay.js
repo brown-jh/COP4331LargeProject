@@ -29,11 +29,26 @@ function EventDisplay(props)
         setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
         setEventDesc(thisEvent.description);
         setEventHost(thisEvent.host);
-        setAttendeeList(thisEvent.attendees.map((eventMember) => <div><p>{eventMember}</p></div>));
+        setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
     }, []);
+
+    // Turn an array of users into a comma-separated string.
+    function makeUsernameList(users)
+    {
+        var userList = "";
+        for (var i = 0; i < userList.length; i++)
+        {
+            userList += userList[i];
+            if (i < userList.length-1)
+            {
+                userList += ", ";
+            }
+        }
+        return userList;
+    }
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>

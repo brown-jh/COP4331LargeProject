@@ -59,9 +59,9 @@ function GroupDisplay(props)
 
         setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
         setGroupDesc(thisGroup.description);
-        setAdminList(thisGroup.admins.map((groupAdmin) => <div><p>{groupAdmin}</p></div>));
+        setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
         adminVar = thisGroup.admins;
-        setMemberList(thisGroup.members.map((groupMember) => <div><p>{groupMember}</p></div>));
+        setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
 
         // For each event, make an EventBox with its data.
         setEventList(thisGroup.events.map((eventData) => (
@@ -72,6 +72,21 @@ function GroupDisplay(props)
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
     }, []);
+
+        // Turn an array of users into a comma-separated string.
+        function makeUsernameList(users)
+        {
+            var userList = "";
+            for (var i = 0; i < userList.length; i++)
+            {
+                userList += userList[i];
+                if (i < userList.length-1)
+                {
+                    userList += ", ";
+                }
+            }
+            return userList;
+        }
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
@@ -104,7 +119,7 @@ function GroupDisplay(props)
 
             <div>
             <p>Admins:</p>
-                {adminList}
+                {adminList} <br />
             <p>Members:</p>
                 {memberList}
             </div>
