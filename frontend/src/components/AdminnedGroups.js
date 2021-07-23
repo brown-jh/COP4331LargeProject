@@ -4,10 +4,48 @@ import GroupBox from '../components/GroupBox';
 
 function AdminnedGroups()
 {
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     const [adminnedGroups, setAdminnedGroups] = useState('');
 
     useEffect(() => {
-        // TODO: Here we would find the groups the user admins via API and put them in here.
+        
+        var tok = storage.retrieveToken();
+        var obj = {search:userId,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        try
+        {
+            const response = await fetch(bp.buildPath('api/searchgroupadmins'),
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+            var txt = await response.text();
+            var res = JSON.parse(txt);
+
+            if( res.error.length > 0 )
+            {
+                setMessage( "API Error:" + res.error );
+            }
+            else
+            {
+                setAdminnedGroups(res.results.map((groupData) => (
+                    <GroupBox title={groupData.title}
+                        desc={groupData.desc}/>)));
+                
+                var retTok = res.jwtToken;
+                storage.storeToken( retTok );
+                return;
+            }
+        }
+        catch(e)
+        {
+            alert(e.toString());
+            return;
+        }
+
         var dummyAdminGroups=[
             {
                 title: "NerdKnighteria of UCF",
@@ -26,9 +64,6 @@ function AdminnedGroups()
                 desc: "Interested in game dev or game jams? Try here!",
             }
         ]
-        setAdminnedGroups(dummyAdminGroups.map((groupData) => (
-            <GroupBox title={groupData.title}
-                desc={groupData.desc}/>)));
     });
 
     return (
