@@ -45,7 +45,7 @@ function EventDisplay(props)
             {
                eventHost == userId ?
                 <button type="button" style={{width: "50%"}} class="buttons" 
-                    onClick={() => windows.location.href="/editevent/" + props.eventId}>
+                    onClick={() => window.location.href="/editevent/" + props.eventId}>
                     Edit/Cancel Event</button>
                 :
                 <div>
