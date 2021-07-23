@@ -3,16 +3,18 @@ import React, { useState, useEffect } from 'react';
 import EventBox from '../components/EventBox';
 
 var adminVar = [];
+var memberVar = [];
 
 function GroupDisplay(props)
 {
-    var userId = "Hannah Wrigley"; //Dummy value, should be set in UseEffect(). Should see edit button.
+    var userId = "Test User"; //TODO: Dummy value, should be set in UseEffect().
 
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
     const[adminList, setAdminList] = useState('');
     const[memberList, setMemberList] = useState('');
     const[eventList, setEventList] = useState('');
+    const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
         //TODO: Here, we would normally pull the group ID from the URL, get the group via API, 
@@ -62,6 +64,7 @@ function GroupDisplay(props)
         setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
         adminVar = thisGroup.admins;
         setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
+        memberVar = thisGroup.members; //So we can track the admins and members outside of useEffect.
 
         // For each event, make an EventBox with its data.
         setEventList(thisGroup.events.map((eventData) => (
@@ -71,28 +74,52 @@ function GroupDisplay(props)
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
+
+        // Flip the status of the join/leave button to Leave if the user has joined the group.
+        if(thisGroup.members.indexOf(userId) != -1)
+        {
+            setJoinLeaveButton("Leave");
+        }
     }, []);
 
-        // Turn an array of users into a comma-separated string.
-        function makeUsernameList(users)
+    // This function handles the user clicking the Join/Leave button.
+    function joinOrLeave()
+    {
+        if (memberVar.indexOf(userId) != -1) //User is a member, so remove them.
         {
-            var userList = "";
-            for (var i = 0; i < users.length; i++)
-            {
-                userList += users[i];
-                if (i < users.length-1)
-                {
-                    userList += ", ";
-                }
-            }
-            return userList;
+            alert("TODO: use API to remove from group.");
+            memberVar = memberVar.filter(user => user !== userId);
+            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+            setJoinLeaveButton("Join");
         }
+        else //User is not a member, so add them.
+        {
+            alert("TODO: use API to add to group.");
+            memberVar = [...memberVar, userId];
+            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+            setJoinLeaveButton("Leave");
+        }
+    }
+
+    // Turn an array of users into a comma-separated string.
+    function makeUsernameList(users)
+    {
+        var userList = "";
+        for (var i = 0; i < users.length; i++)
+        {
+            userList += users[i];
+            if (i < users.length-1)
+            {
+                userList += ", ";
+            }
+        }
+        return userList;
+    }
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
             <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{groupTitle}</p>
             <p>Adminned by: {adminList}</p>
-            {/* To make the button below line up properly, like on the event page.*/}
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
@@ -102,8 +129,8 @@ function GroupDisplay(props)
                     Edit/Disband Group</button>
                 :
                 <div>
-                    <input type="checkbox" id="memberCheck"/>
-                    <label for="memberCheck">Joined group</label>
+                    <button type="button" style={{width: "40%"}} class="buttons" 
+                    onClick={joinOrLeave}>{joinLeaveButton}</button>
                 </div>
             }
             <span class="inner-title"></span><br />
