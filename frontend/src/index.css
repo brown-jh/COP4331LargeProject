@@ -10,8 +10,9 @@
 /* Body CSS */
 body
 {
-    background-image: repeating-radial-gradient(circle at center center, transparent 0px, transparent 2px,rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 5px,transparent 5px, transparent 9px,rgba(0,0,0,0.04) 9px, rgba(0,0,0,0.04) 12px),repeating-radial-gradient(circle at center center, rgb(255,255,255) 0px, rgb(255,255,255) 4px,rgb(255,255,255) 4px, rgb(255,255,255) 14px,rgb(255,255,255) 14px, rgb(255,255,255) 27px,rgb(255,255,255) 27px, rgb(255,255,255) 30px); background-size: 62px 62px;
-
+    /* background-image: repeating-radial-gradient(circle at center center, transparent 0px, transparent 2px,rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 5px,transparent 5px, transparent 9px,rgba(0,0,0,0.04) 9px, rgba(0,0,0,0.04) 12px),repeating-radial-gradient(circle at center center, rgb(255,255,255) 0px, rgb(255,255,255) 4px,rgb(255,255,255) 4px, rgb(255,255,255) 14px,rgb(255,255,255) 14px, rgb(255,255,255) 27px,rgb(255,255,255) 27px, rgb(255,255,255) 30px); background-size: 62px 62px; */
+    background-image: url(bg.jpg);
+    background-size: cover;
     background-attachment: fixed;
 }
 
