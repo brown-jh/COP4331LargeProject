@@ -22,7 +22,7 @@ function GroupDisplay(props)
             name: "NerdKnighteria of UCF",
             description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
             admins: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
-            members: ["Member 11", "Louis Ferguson", "Isabelle Bathory"],
+            members: ["Member 1", "Louis Ferguson", "Isabelle Bathory"],
             events:[
                 {
                     title: "Sunday Practice for Orlando Tennis Club",
@@ -90,14 +90,14 @@ function GroupDisplay(props)
 
     return(
         <div id="mainDiv" style={{width: "80%"}}>
-            <span class="inner-title"><h2>{groupTitle}</h2></span><br />
-            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
-            <p></p> {/* To make the button below line up properly, like on the event page.*/}
+            <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{groupTitle}</p>
+            <p>Adminned by: {adminList}</p>
+            {/* To make the button below line up properly, like on the event page.*/}
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
                 adminVar.indexOf(userId) != -1 ?
-                <button type="button" style={{width: "50%"}} class="buttons" 
+                <button type="button" style={{width: "40%"}} class="buttons" 
                     onClick={() => window.location.href="/editgroup/" + props.groupId}>
                     Edit/Disband Group</button>
                 :
@@ -107,25 +107,25 @@ function GroupDisplay(props)
                 </div>
             }
             <span class="inner-title"></span><br />
+            <img src="https://image.cnbcfm.com/api/v1/image/104151701-GettyImages-143949731.jpg?v=1481108000&w=1600&h=900" class="imgeventpage"/><br/>
 
-            <span class="inner-title it_yellow"></span><br />
+            <br /><span class="inner-title it_orange">Group Information</span><br />
 
             <div>
-                <p>{groupDesc}</p>
+                <p style={{marginLeft: "30px", marginRight: "30px"}}>{groupDesc}</p>
             </div>
-            <span class="inner-title it_yellow"></span><br />
+            <span class="inner-title it_orange"></span><br />
 
+            <div>
+            <span class="inner-title it_yellow">Group Members</span>
+                {memberList}
+                {/* <CommentBlock comments={eventComments} submitCommand={addComment}/> */}
+            <span class="inner-title it_yellow"></span>
             
-
-            <div>
-            <p>Admins:</p>
-                {adminList} <br />
-            <p>Members:</p>
-                {memberList} <br />
             </div>
 
             <div>
-            <p>Events:</p>
+            <span class="inner-title it_green">Events Hosted</span>
                 <div class = "flex-container">
                     {eventList}
                 </div>
