@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import CommentBlock from '../components/CommentBlock';
 
 function EventDisplay(props)
 {
@@ -11,6 +12,7 @@ function EventDisplay(props)
     const[eventGroup, setEventGroup] = useState('');
     const[eventTime, setEventTime] = useState('');
     const[eventLocation, setEventLocation] = useState('');
+    const[eventComments, setEventComments] = useState('');
 
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
@@ -23,7 +25,24 @@ function EventDisplay(props)
             attendees: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
             group: "NerdKnighteria of UCF",
             time: "July 31 2021, 3:00 PM",
-            place: "Student Union, University of Central Florida, Orlando"
+            place: "Student Union, University of Central Florida, Orlando",
+            comments: [
+                {
+                    user: "QuinnH",
+                    text: "Hey guys, I can't come tonight; have to study for a test.",
+                    time: ""
+                },
+                {
+                    user: "ThomasMahBoi",
+                    text: "Hannah, my friend who isn't in the club wanted to come in and watch the tournament; is that okay?",
+                    time: ""
+                },
+                {
+                    user: "badumtssXD",
+                    text: "I have extra controllers if anyone wants them!",
+                    time: ""
+                }
+            ]
         };
 
         setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
@@ -33,6 +52,7 @@ function EventDisplay(props)
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
+        setEventComments(thisEvent.comments);
     }, []);
 
     // Turn an array of users into a comma-separated string.
@@ -48,6 +68,18 @@ function EventDisplay(props)
             }
         }
         return userList;
+    }
+
+    //This function adds a comment to the list.
+    function addComment(commentText)
+    {
+        //TODO: Use API call to send user ID number and comment to the server; the code to add the
+        // visible comment should use the username instead of userId.
+        var newComment = {
+            user: userId,
+            text: commentText
+        };
+        setEventComments([...eventComments, newComment]);
     }
 
     return(
@@ -87,7 +119,7 @@ function EventDisplay(props)
             <div>
             <p>Attendees:</p>
                 {attendeeList}
-                <p>TODO: Add comments?</p>
+                <CommentBlock comments={eventComments} submitCommand={addComment}/>
             </div>
 
         </div>

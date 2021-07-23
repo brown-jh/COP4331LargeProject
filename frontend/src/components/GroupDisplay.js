@@ -121,7 +121,7 @@ function GroupDisplay(props)
             <p>Admins:</p>
                 {adminList} <br />
             <p>Members:</p>
-                {memberList}
+                {memberList} <br />
             </div>
 
             <div>
