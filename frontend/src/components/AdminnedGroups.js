@@ -22,7 +22,7 @@ function AdminnedGroups()
             const response = fetch(bp.buildPath('api/searchgroupadmins'),
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
-            var txt = await response.text();
+            var txt = response.text();
             var res = JSON.parse(txt);
 
             if( res.error.length > 0 )
