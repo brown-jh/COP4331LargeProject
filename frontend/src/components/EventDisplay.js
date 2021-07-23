@@ -5,7 +5,7 @@ var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "Test User";
+    var userId = "Test User"; //TODO: Dummy data, should be set in useEffect().
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -57,7 +57,7 @@ function EventDisplay(props)
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
         setEventComments(thisEvent.comments);
-        // Flip the status of the join/leave button to Leave if the user has joined the group.
+        // Flip the status of the join/leave button to Leave if the user has joined the event.
         if(thisEvent.attendees.indexOf(userId) != -1)
         {
             setJoinLeaveButton("Leave");
@@ -69,14 +69,14 @@ function EventDisplay(props)
     {
         if (attendeeVar.indexOf(userId) != -1) //User is an attendee, so remove them.
         {
-            alert("TODO: use API to remove from group.");
+            alert("TODO: use API to remove from event.");
             attendeeVar = attendeeVar.filter(user => user !== userId);
             setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
             setJoinLeaveButton("Join");
         }
         else //User is not attending, so add them.
         {
-            alert("TODO: use API to add to group.");
+            alert("TODO: use API to add to event.");
             attendeeVar = [...attendeeVar, userId];
             setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
             setJoinLeaveButton("Leave");
