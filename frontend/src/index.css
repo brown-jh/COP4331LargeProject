@@ -10,7 +10,8 @@
 /* Body CSS */
 body
 {
-    background-image: repeating-linear-gradient(105deg, transparent 0px, transparent 3px,rgb(255,255,255) 3px, rgb(255,255,255) 28px),repeating-linear-gradient(333deg, transparent 0px, transparent 3px,rgb(255,255,255) 3px, rgb(255,255,255) 28px),linear-gradient(90deg, hsl(300,76%,69%),hsl(351.429,76%,69%),hsl(42.857,76%,69%),hsl(94.286,76%,69%),hsl(145.714,76%,69%),hsl(197.143,76%,69%),hsl(248.571,76%,69%));
+    background-image: repeating-radial-gradient(circle at center center, transparent 0px, transparent 2px,rgba(0,0,0,0.04) 2px, rgba(0,0,0,0.04) 5px,transparent 5px, transparent 9px,rgba(0,0,0,0.04) 9px, rgba(0,0,0,0.04) 12px),repeating-radial-gradient(circle at center center, rgb(255,255,255) 0px, rgb(255,255,255) 4px,rgb(255,255,255) 4px, rgb(255,255,255) 14px,rgb(255,255,255) 14px, rgb(255,255,255) 27px,rgb(255,255,255) 27px, rgb(255,255,255) 30px); background-size: 62px 62px;
+
     background-attachment: fixed;
 }
 
@@ -169,54 +170,57 @@ label
     padding-top: 15px;
     padding-bottom: 25px;
     background: #ffffff;
-    border: 7px dotted rgb(235, 114, 114);
+    border: 5px solid rgb(235, 114, 114);
 }
 
 .inner-title{
     display: inline-block;
     font-size: 1.0em;
-    border-bottom: 7px dotted rgb(235, 114, 114);
+    border-bottom: 5px solid rgb(235, 114, 114);
     width: 90%;
     text-align: center;
     margin-bottom: 5%;
     padding-bottom: 3%;
     padding-top: 1%;
     font-family: var(--font);
+    border-radius: 10px;
+
 }
+
 
 .it_orange
 {
-    border-bottom: 7px dotted rgb(235, 162, 114);
+    border-bottom: 5px solid rgb(235, 162, 114);
 }
 
 .it_yellow
 {
-    border-bottom: 7px dotted rgb(235, 207, 114);
+    border-bottom: 5px solid rgb(235, 207, 114);
 }
 
 .it_green
 {
-    border-bottom: 7px dotted rgb(148, 235, 114);
+    border-bottom: 5px solid rgb(148, 235, 114);
 }
 
 .it_blue
 {
-    border-bottom: 7px dotted rgb(114, 235, 205);
+    border-bottom: 5px solid rgb(114, 235, 205);
 }
 
 .it_purple
 {
-    border-bottom: 7px dotted rgb(197, 114, 235);
+    border-bottom: 5px solid rgb(197, 114, 235);
 }
 
 .it_pink
 {
-    border-bottom: 7px dotted rgb(235, 114, 171);
+    border-bottom: 5px solid rgb(235, 114, 171);
 }
 
 .it_lightred
 {
-    border-bottom: 7px dotted rgb(235, 114, 114);
+    border-bottom: 5px solid rgb(235, 114, 114);
 }
 
 .smaller-inner-title{
@@ -238,7 +242,7 @@ label
 p .date
 {
     display: inline;
-    font-size: 20px;
+    font-size: 16px;
     color: grey;
 }
 
