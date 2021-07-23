@@ -5,6 +5,11 @@ import GroupBox from '../components/GroupBox';
 function AdminnedGroups()
 {
 
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
@@ -27,7 +32,7 @@ function AdminnedGroups()
 
             if( res.error.length > 0 )
             {
-                setMessage( "API Error:" + res.error );
+                alert( "API Error:" + res.error );
             }
             else
             {
