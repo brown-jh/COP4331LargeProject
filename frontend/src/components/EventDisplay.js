@@ -12,7 +12,7 @@ function EventDisplay(props)
     const[eventGroup, setEventGroup] = useState('');
     const[eventTime, setEventTime] = useState('');
     const[eventLocation, setEventLocation] = useState('');
-    const[eventComments, setEventComments] = useState('');
+    const[eventComments, setEventComments] = useState([]);
 
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
