@@ -22,7 +22,7 @@ function GroupDisplay(props)
             name: "NerdKnighteria of UCF",
             description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
             admins: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
-            members: ["Member 1", "Louis Ferguson", "Isabelle Bathory"],
+            members: ["Member 11", "Louis Ferguson", "Isabelle Bathory"],
             events:[
                 {
                     title: "Sunday Practice for Orlando Tennis Club",
