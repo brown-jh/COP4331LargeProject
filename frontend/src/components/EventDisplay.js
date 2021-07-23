@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import CommentBlock from '../components/CommentBlock';
 
-attendeeVar = [];
+var attendeeVar = [];
 
 function EventDisplay(props)
 {
@@ -65,7 +65,7 @@ function EventDisplay(props)
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
-    joinOrLeave()
+    function joinOrLeave()
     {
         if (attendeeVar.indexOf(userId) != -1) //User is an attendee, so remove them.
         {
