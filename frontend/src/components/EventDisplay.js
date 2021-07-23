@@ -44,7 +44,9 @@ function EventDisplay(props)
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
                eventHost == userId ?
-                <button type="button" style={{width: "50%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Cancel Event</button>
+                <button type="button" style={{width: "50%"}} class="buttons" 
+                    onClick={() => windows.location.href="/editevent/" + props.eventId}>
+                    Edit/Cancel Event</button>
                 :
                 <div>
                     <input type="checkbox" id="attendingCheck"/>

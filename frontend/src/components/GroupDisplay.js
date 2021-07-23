@@ -77,11 +77,14 @@ function GroupDisplay(props)
         <div id="mainDiv" style={{width: "80%"}}>
             <span class="inner-title"><h2>{groupTitle}</h2></span><br />
             <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgresponsive"/>
+            <p></p> {/* To make the button below line up properly, like on the event page.*/}
             {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
 
                 adminVar.indexOf(userId) != -1 ?
-                <button type="button" style={{width: "50%"}} class="buttons" onClick={() => alert("Redirect to edit page")}>Edit/Disband Group</button>
+                <button type="button" style={{width: "50%"}} class="buttons" 
+                    onClick={() => window.location.href="/editgroup/" + props.groupId}>
+                    Edit/Disband Group</button>
                 :
                 <div>
                     <input type="checkbox" id="memberCheck"/>
