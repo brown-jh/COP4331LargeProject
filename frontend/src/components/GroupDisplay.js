@@ -119,7 +119,6 @@ function GroupDisplay(props)
             <div>
             <span class="inner-title it_yellow">Group Members</span>
                 {memberList}
-                {/* <CommentBlock comments={eventComments} submitCommand={addComment}/> */}
             <span class="inner-title it_yellow"></span>
             
             </div>
@@ -129,6 +128,8 @@ function GroupDisplay(props)
                 <div class = "flex-container">
                     {eventList}
                 </div>
+            <span class="inner-title it_green"></span>
+                
             </div>
 
         </div>

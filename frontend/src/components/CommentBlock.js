@@ -10,7 +10,7 @@ function CommentBlock(props)
             {props.comments.map(commentElement => <Comment comment={commentElement} />)}
             <textarea rows="7" cols= "40" maxLength="290" ref={(c) => newComment = c} />
             <button type="button" style={{width: "50%"}} 
-            class="buttons" onClick={() => props.submitCommand(newComment.value)}>Comment</button>
+            class="buttons" onClick={() => props.submitCommand(newComment.value)}>Add Comment</button>
         </div>
     )
 }

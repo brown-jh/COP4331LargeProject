@@ -33,17 +33,17 @@ function EventDisplay(props)
                 {
                     user: "QuinnH",
                     text: "Hey guys, I can't come tonight; have to study for a test.",
-                    time: ""
+                    date: "7-12-2021"
                 },
                 {
                     user: "ThomasMahBoi",
                     text: "Hannah, my friend who isn't in the club wanted to come in and watch the tournament; is that okay?",
-                    time: ""
+                    date: "7-13-2021"
                 },
                 {
                     user: "badumtssXD",
                     text: "I have extra controllers if anyone wants them!",
-                    time: ""
+                    date: "7-19-2021"
                 }
             ]
         };
@@ -101,11 +101,16 @@ function EventDisplay(props)
     //This function adds a comment to the list.
     function addComment(commentText)
     {
+
+        var today = new Date();
+        var currentDate = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
+
         //TODO: Use API call to send user ID number and comment to the server; the code to add the
         // visible comment should use the username instead of userId.
         var newComment = {
             user: userId,
-            text: commentText
+            text: commentText,
+            date: currentDate 
         };
         setEventComments([...eventComments, newComment]);
     }
@@ -141,12 +146,12 @@ function EventDisplay(props)
 
             <div>
             <span class="inner-title it_yellow">Event Attendees</span>
-                {attendeeList} <br />
+                {attendeeList}
             <span class="inner-title it_yellow"></span>
 
-            <span class="inner-title it_yellow">Comments</span>
+            <span class="inner-title it_green">Comments</span>
                 <CommentBlock comments={eventComments} submitCommand={addComment}/>
-            <span class="inner-title it_yellow"></span>
+            <span class="inner-title it_green"></span>
             
             </div>
 

@@ -227,6 +227,27 @@ label
   font-family: var(--font);
 }
 
+/* Comments CSS */
+.comments
+{
+    width: 70%;
+    margin: 0 auto;
+    text-align: left;
+}
+
+p .date
+{
+    display: inline;
+    font-size: 20px;
+    color: grey;
+}
+
+.userIcon
+{
+    transform: scale(1.7);
+    margin-right: 10px;
+
+}
 
 /* Button CSS */
 .buttons
