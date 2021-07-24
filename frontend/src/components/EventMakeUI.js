@@ -125,10 +125,10 @@ function EventMakeUI()
 
             // editing to send
             var _eventPlace = eventPlace.toString()
-            var _eventTime = ISODate(eventTime.value + ":00.000Z")
+            var _eventTime = eventTime.value + ":00.000Z"
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:ISODate(_eventTime), eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
