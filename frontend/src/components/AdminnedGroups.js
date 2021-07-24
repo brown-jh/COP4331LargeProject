@@ -22,34 +22,38 @@ function AdminnedGroups()
         var obj = {search:userId,jwtToken:tok};
         var js = JSON.stringify(obj);
 
-        try
-        {
-            const response = fetch(bp.buildPath('api/searchgroupadmins'),
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-            var txt = response.text();
-            var res = JSON.parse(txt);
-
-            if( res.error.length > 0 )
+        async function fetchData(){
+            try
             {
-                alert( "API Error:" + res.error );
+                const response = await fetch(bp.buildPath('api/searchgroupadmins'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+
+                if( res.error.length > 0 )
+              {
+                 alert( "API Error:" + res.error );
+             }
+                else
+                {
+                    setAdminnedGroups(res.results.map((groupData) => (
+                        <GroupBox title={groupData.title}
+                           desc={groupData.desc}/>)));
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+                }
             }
-            else
+            catch(e)
             {
-                setAdminnedGroups(res.results.map((groupData) => (
-                    <GroupBox title={groupData.title}
-                        desc={groupData.desc}/>)));
-                
-                var retTok = res.jwtToken;
-                storage.storeToken( retTok );
+                alert(e.toString());
                 return;
             }
-        }
-        catch(e)
-        {
-            alert(e.toString());
-            return;
-        }
+        };
+
+        fetchData();
 
         var dummyAdminGroups=[
             {
