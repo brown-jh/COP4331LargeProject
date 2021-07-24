@@ -12,6 +12,8 @@ function EventMakeUI()
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
+    var firstName = ud.firstName;    
+    var lastName = ud.lastName;
 
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
@@ -132,7 +134,7 @@ function EventMakeUI()
             "\nURL: " + eventPictureURL.value + "\nUser: " + userId);
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:firstName,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
