@@ -11,7 +11,7 @@ function EventMakeUI()
  
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
-    var userId = ud.id.toString();
+    var userId = ud.id;
     var firstName = ud.firstName;    
     var lastName = ud.lastName;
 
@@ -129,12 +129,12 @@ function EventMakeUI()
             var _eventPlace = eventPlace.toString()
             var _eventTime = eventTime.value + ":00.000Z"
 
-            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
-            "\nURL: " + eventPictureURL.value + "\nUser: " + userId);
+            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
+            //"\nURL: " + eventPictureURL.value + "\nUser: " + userId);
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:Date(_eventTime), eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
