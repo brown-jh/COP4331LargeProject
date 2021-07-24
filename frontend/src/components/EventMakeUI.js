@@ -9,6 +9,10 @@ var eventGroup = '';
 function EventMakeUI()
 {
  
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
@@ -121,20 +125,20 @@ function EventMakeUI()
 
             // editing to send
             var _eventPlace = eventPlace.toString()
-            var _eventTime = eventTime.value + ":00.000Z"
+            var _eventTime = ISODate(eventTime.value + ":00.000Z")
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value,jwtToken:tok};
+            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
-           {
+            {
                 const response = await fetch(bp.buildPath('api/addevent'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
                 var res = JSON.parse(txt);
-                var retTok = res.jwtTocken;
+                var retTok = res.jwtToken;
 
                 if( res.error.length > 0 )
                 {
