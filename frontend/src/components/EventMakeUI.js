@@ -6,14 +6,14 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
-var _ud = localStorage.getItem('user_data');    
+function EventMakeUI()
+{
+ 
+    var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id.toString();
     var firstName = ud.firstName;    
     var lastName = ud.lastName;
-
-function EventMakeUI()
-{
 
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
