@@ -40,7 +40,7 @@ function EventMakeUI()
     const flipOnlineCheck = async event =>
     {
         setIsOnline(!isOnline);
-        alert("Flipped online value");
+        //alert("Flipped online value");
     }
 
     function changeGroup(event)
