@@ -134,7 +134,7 @@ function EventMakeUI()
 
                 var txt = await response.text();
                 var res = JSON.parse(txt);
-                var retTok = res.jwtToken;
+                var retTok = res.jwtTocken;
 
                 if( res.error.length > 0 )
                 {
