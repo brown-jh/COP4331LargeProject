@@ -116,7 +116,7 @@ function EventMakeUI()
         {
             if (isOnline)
             {
-                eventPlace = ""; // No place if online.
+                eventPlace = "Online"; // No place if online.
             }
 
             // editing to send
