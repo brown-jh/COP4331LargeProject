@@ -532,7 +532,7 @@ exports.setApp = function (app, client)
         var verStatus = 0;
         if( results.length > 0 )  
         {    
-            id = results[0].UserId;    
+            id = results[0]._id;    
             fn = results[0].FirstName;    
             ln = results[0].LastName;
             verStatus = results[0].AuthStatus;
