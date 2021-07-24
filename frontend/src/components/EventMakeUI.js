@@ -127,6 +127,10 @@ function EventMakeUI()
             var _eventPlace = eventPlace.toString()
             var _eventTime = eventTime.value + ":00.000Z"
 
+            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
+            "\nURL: " + eventPictureURL.value + "\nUser: " + userId);
+
             var tok = storage.retrieveToken();
             var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
             var js = JSON.stringify(obj);
@@ -138,7 +142,7 @@ function EventMakeUI()
 
                 var txt = await response.text();
                 var res = JSON.parse(txt);
-                var retTok = res.jwtToken;
+                var retTok = res.jwtTocken;
 
                 if( res.error.length > 0 )
                 {
@@ -156,7 +160,7 @@ function EventMakeUI()
                 alert(e.toString());
             }
 
-            // May need to append :00.000Z to eventTime.value to add to database
+            
             alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
             eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
             "\nURL: " + eventPictureURL.value);
