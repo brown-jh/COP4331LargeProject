@@ -172,34 +172,12 @@ function EventMakeUI()
 
     useEffect(() => {
 
-        var tok = storage.retrieveToken();       
-        var obj = {search:userId,jwtToken:tok};       
-        var js = JSON.stringify(obj);
-        var res
-
-        async function fetchdata() {
-            const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
-            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var txt = await response.text();   
-            // alert("Events are: " + txt);      
-            res = JSON.parse(txt);            
-            if( res.error.length > 0 )            
-            {                
-            alert( "API Error:" + res.error );     
-                return;
-            }            
-          }
-
-        fetchdata();
-
         setGroupSelector(
             <select class="meeting-time" onChange={changeGroup}>
                 <option value="">None</option>
-                {res.results.map((Groupdata) => (<option value={Groupdata.GroupName}>{Groupdata.GroupName}</option>))}
+                {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
             </select>
         );
-        var retTok = res.jwtToken;
-        storage.storeToken( retTok );
         
     },[]);
 
