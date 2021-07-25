@@ -604,22 +604,18 @@ exports.setApp = function (app, client)
         const { login, password } = req.body;  
 
         const db = client.db();  
-        const results = await db.collection('Users').findOne(
-            {Password:password},
-            {
-            $or: [{ email: login}, {Login: login}]
-            }
-        )
+        const results = await db.collection('Users').find({Login:login,Password:password}).toArray();
+
         var id = -1;  
         var fn = '';  
         var ln = '';  
         var verStatus = 0;
-        if( results )  
+        if( results.length > 0 )  
         {    
-            id = results._id;    
-            fn = results.FirstName;    
-            ln = results.LastName;
-            verStatus = results.AuthStatus;
+            id = results[0]._id;    
+            fn = results[0].FirstName;    
+            ln = results[0].LastName;
+            verStatus = results[0].AuthStatus;
             if (verStatus == 0)
             {
                 ret = {error:"Account not verified"};
