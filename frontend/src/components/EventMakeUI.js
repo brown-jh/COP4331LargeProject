@@ -171,17 +171,49 @@ function EventMakeUI()
     }
 
     useEffect(() => {
+        (async () =>{
 
-        // TODO: Here we would find the user's groups and put them in here.
-        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
-        setGroupSelector(
-            <select class="meeting-time" onChange={changeGroup}>
-                <option value="">None</option>
-                {userGroups.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-            </select>
-        );
+            var tok = storage.retrieveToken();       
+                var obj = {search:userId,jwtToken:tok};       
+                var js = JSON.stringify(obj);    
+                try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    // alert("Events are: " + txt);      
+                    var res = JSON.parse(txt);            
+                    if( res.error.length > 0 )            
+                    {                
+                        setSearchResults( "API Error:" + res.error );     
+                        return;
+                    }            
+                    else            
+                    {            
+
+                        setGroupSelector(
+                            <select class="meeting-time" onChange={changeGroup}>
+                                <option value="">None</option>
+                                {userGroups.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+                            </select>
+                        );
+
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );
+                        return;
+                    }        
+                }        
+                catch(e)        
+                {            
+                    setSearchResults(e.toString());  
+                    return;      
+                }
+
+        })()
         
-    });
+        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+        
+    },[]);
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
