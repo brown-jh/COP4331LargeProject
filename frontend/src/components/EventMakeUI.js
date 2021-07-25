@@ -170,47 +170,48 @@ function EventMakeUI()
         }
     }
 
-    const fetchdata = async () => {
+    const fetchdata = async () => 
+    {
         var tok = storage.retrieveToken();       
-                var obj = {search:userId,jwtToken:tok};       
-                var js = JSON.stringify(obj);    
-                try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                    // alert("Events are: " + txt);      
-                    var res = JSON.parse(txt);            
-                    if( res.error.length > 0 )            
-                    {                
-                        alert( "API Error:" + res.error );     
-                        return;
-                    }            
-                    else            
-                    {            
+        var obj = {search:userId,jwtToken:tok};       
+        var js = JSON.stringify(obj);    
+        try        
+        {            
+            const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
+            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var txt = await response.text();   
+            // alert("Events are: " + txt);      
+            var res = JSON.parse(txt);            
+            if( res.error.length > 0 )            
+            {                
+            alert( "API Error:" + res.error );     
+                return;
+            }            
+            else            
+                
+            {            
 
-                        setGroupSelector(
-                            <select class="meeting-time" onChange={changeGroup}>
-                                <option value="">None</option>
-                                {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-                            </select>
-                        );
-
-                        var retTok = res.jwtToken;
-                        storage.storeToken( retTok );
-                        return;
-                    }        
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());  
-                    return;      
-                }
-       };
+                setGroupSelector(
+                    <select class="meeting-time" onChange={changeGroup}>
+                        <option value="">None</option>
+                        {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+                    </select>
+                );
+                var retTok = res.jwtToken;
+                storage.storeToken( retTok );
+                return;
+            }        
+            }        
+        catch(e)        
+        {            
+            alert(e.toString());  
+            return;      
+        }
+    }
 
     useEffect(() => {
 
-        fetchdata();
+        fetchdata()
         
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
