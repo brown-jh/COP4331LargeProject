@@ -2,6 +2,8 @@ exports.setApp = function (app, client)
 {
     // Potentially a bad idea
     var bp = require('./frontend/src/components/Path.js');
+
+    var sendEmail = require('./sendEmail.js');
     var authcode = require('./createAuth.js');
 
     var token = require('./createJWT.js');
@@ -11,6 +13,9 @@ exports.setApp = function (app, client)
     // This is for NODEMAILER, I put it at the top because it probably
     // won't work
     // (If it does, remove this)
+    
+    // OK I am moving this function elsewhere, it sorta kinda works.
+    /*
     app.post('/api/sendemail', async (req, res, next) =>{
 
         var error = '';
@@ -51,6 +56,7 @@ exports.setApp = function (app, client)
 
     });
 
+    */
     app.post('/api/addgroup', async (req, res, next) =>{  
         // incoming: GroupName, GroupDescription
         // outgoing: error  
@@ -115,31 +121,49 @@ exports.setApp = function (app, client)
 
         const db = client.db();  
         // This should ensure that only one of any username exists.
-        const results = await db.collection('Users').find({ Login:login }).toArray();
+        var results = await db.collection('Users').find({ Email:email }).toArray();
         if (results.length > 0)
         {
-            error = "Username already exists";
-            var ret = { error: error };
+            error = "Email is already in use!";
+            var ret = { error: error};
             res.status(409).json(ret);
         }
-        else 
+        else
         {
-            try  
-            {       
-                const result = db.collection('Users').insertOne(newUser);  
-            }  
-            catch(e)  
-            {    
-                error = e.toString();  
+            results = await db.collection('Users').find({ Login:login }).toArray();
+            if (results.length > 0)
+            {
+                error = "Username already exists";
+                var ret = { error: error };
+                res.status(409).json(ret);
             }
-            // THIS HERE SEEMS TERRIBLE
-            // BE WARY, THIS IS PROBABLY A BAD IDEA
-            const response = await fetch(bp.buildPath('api/sendemail'),            
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var ret = { error: error };      
-            res.status(200).json(ret);
-
+            else 
+            {
+                try  
+                {       
+                    const result = db.collection('Users').insertOne(newUser);  
+                }  
+                catch(e)  
+                {    
+                    error = e.toString();  
+                }
+                // THIS HERE SEEMS TERRIBLE
+                // BE WARY, THIS IS PROBABLY A BAD IDEA
+                // TURNS OUT THIS WAS A BAD IDEA, so I'll fix it
+                /*const response = await fetch(bp.buildPath('api/sendemail'),            
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+    
+                */
+                var message = "Welcome to GetTogather! Your verification code is: ";
+                message += verificationCode;
+                const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);
+                var ret = { error: error };      
+                res.status(200).json(ret);
+    
+            } 
         }
+
+
     });
 
     app.post('/api/deletegroup', async (req, res, next) =>{
