@@ -170,10 +170,8 @@ function EventMakeUI()
         }
     }
 
-    useEffect(() => {
-        (async () =>{
-
-            var tok = storage.retrieveToken();       
+    const fetchdata = async () => {
+        var tok = storage.retrieveToken();       
                 var obj = {search:userId,jwtToken:tok};       
                 var js = JSON.stringify(obj);    
                 try        
@@ -208,8 +206,11 @@ function EventMakeUI()
                     alert(e.toString());  
                     return;      
                 }
+       };
 
-        })()
+    useEffect(() => {
+
+        fetchdata();
         
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
