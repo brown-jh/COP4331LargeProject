@@ -185,7 +185,7 @@ function EventMakeUI()
                     var res = JSON.parse(txt);            
                     if( res.error.length > 0 )            
                     {                
-                        setSearchResults( "API Error:" + res.error );     
+                        alert( "API Error:" + res.error );     
                         return;
                     }            
                     else            
