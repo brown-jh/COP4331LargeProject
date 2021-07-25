@@ -171,51 +171,7 @@ function EventMakeUI()
     }
 
     useEffect(() => {
-<<<<<<< HEAD
-        
-        fetchData();
 
-        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
-        
-    });
-
-    async function fetchData(){
-        var tok = storage.retrieveToken();
-        var obj = {search:userId,jwtToken:tok};
-        var js = JSON.stringify(obj);
-        try
-        {
-            const response = await fetch(bp.buildPath('api/searchgroupsubbed'),
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-            var txt = await response.text();
-            var res = JSON.parse(txt);
-
-            if( res.error.length > 0 )
-          {
-             alert( "API Error:" + res.error );
-         }
-            else
-            {
-                setGroupSelector(
-                    <select class="meeting-time" onChange={changeGroup}>
-                        <option value="">None</option>
-                        {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-                    </select>
-                );
-                    
-                var retTok = res.jwtToken;
-               storage.storeToken( retTok );
-              return;
-            }
-        }
-        catch(e)
-        {
-            alert(e.toString());
-            return;
-        }
-    };
-=======
         // TODO: Here we would find the user's groups and put them in here.
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         setGroupSelector(
@@ -224,8 +180,8 @@ function EventMakeUI()
                 {userGroups.map((groupName) => (<option value={groupName}>{groupName}</option>))}
             </select>
         );
+        
     });
->>>>>>> parent of be56681 (group add event)
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
