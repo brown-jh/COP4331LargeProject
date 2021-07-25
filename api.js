@@ -248,7 +248,7 @@ exports.setApp = function (app, client)
 
         
         const newEvent = {EventName:eventname, EventDescription:eventDescription, 
-                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[eventhost],ImageURL:imageURL,};  
+                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[eventhost],EventAttendees:[eventhost],ImageURL:imageURL,};  
         var error = '';  
         
         try  
@@ -484,6 +484,49 @@ exports.setApp = function (app, client)
 
         const db = client.db();  
         const results = await db.collection('Events').find({ "EventHosts": [_search] }).toArray();
+
+        var _ret = [];  
+        for( var i=0; i<results.length; i++ )  
+        {    
+            _ret.push( results[i]);  
+        }
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }      
+        var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+
+    });
+
+    app.post('/api/searcheventsubbed', async (req, res, next) => {  
+ 
+        var error = '';  
+        const { search, jwtToken } = req.body;    
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        var _search = search.trim();  
+
+        const db = client.db();  
+        const results = await db.collection('Events').find({ "EventAttendees": [_search] }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
