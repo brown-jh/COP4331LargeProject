@@ -170,13 +170,13 @@ function EventMakeUI()
         }
     }
 
-    const fetchdata = async () => 
-    {
+    useEffect(() => {
+
         var tok = storage.retrieveToken();       
         var obj = {search:userId,jwtToken:tok};       
-        var js = JSON.stringify(obj);    
-        try        
-        {            
+        var js = JSON.stringify(obj);
+
+        async function fetchdata() {
             const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
@@ -187,33 +187,18 @@ function EventMakeUI()
             alert( "API Error:" + res.error );     
                 return;
             }            
-            else            
-                
-            {            
+          }
 
-                setGroupSelector(
-                    <select class="meeting-time" onChange={changeGroup}>
-                        <option value="">None</option>
-                        {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-                    </select>
-                );
-                var retTok = res.jwtToken;
-                storage.storeToken( retTok );
-                return;
-            }        
-            }        
-        catch(e)        
-        {            
-            alert(e.toString());  
-            return;      
-        }
-    }
+        fetchdata();
 
-    useEffect(() => {
-
-        fetchdata()
-        
-        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+        setGroupSelector(
+            <select class="meeting-time" onChange={changeGroup}>
+                <option value="">None</option>
+                {res.results.map((Groupdata) => (<option value={Groupdata.GroupName}>{Groupdata.GroupName}</option>))}
+            </select>
+        );
+        var retTok = res.jwtToken;
+        storage.storeToken( retTok );
         
     },[]);
 
