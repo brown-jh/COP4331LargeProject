@@ -597,7 +597,7 @@ exports.setApp = function (app, client)
         {
             var auth = results[0].Authentication;
             var stat = results[0].AuthStatus;
-            var userID = results[0].UserId;
+            var userID = results[0]._id;
             if (stat > 0)
             {
                 ret = {error:"Your account is already verified!"};
