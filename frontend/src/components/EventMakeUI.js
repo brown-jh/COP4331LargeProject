@@ -171,6 +171,7 @@ function EventMakeUI()
     }
 
     useEffect(() => {
+<<<<<<< HEAD
         
         fetchData();
 
@@ -214,6 +215,17 @@ function EventMakeUI()
             return;
         }
     };
+=======
+        // TODO: Here we would find the user's groups and put them in here.
+        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+        setGroupSelector(
+            <select class="meeting-time" onChange={changeGroup}>
+                <option value="">None</option>
+                {userGroups.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+            </select>
+        );
+    });
+>>>>>>> parent of be56681 (group add event)
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
