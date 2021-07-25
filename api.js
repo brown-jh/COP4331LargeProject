@@ -646,7 +646,7 @@ exports.setApp = function (app, client)
 
             const jwtoken = jwt.sign({_id: user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
             // todo: do this as html
-            const message = "Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
+            var message = "Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
             message += jwtoken;
             const checking = sendEmail.sendEmail(email, "Password reset request", message);
 
