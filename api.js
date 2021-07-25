@@ -652,7 +652,7 @@ exports.setApp = function (app, client)
                 {
                     return res.status(401).json({error:"Invalid token (either incorrect or expired)."});
                 }
-                db.collection('Users').findOne({verificationLink: verificationLink}, (err, user) =>
+                db.collection('Users').findOne({Authentication: verificationLink}, (err, user) =>
                 {
                     if(err || !user)
                     {
