@@ -5,6 +5,7 @@ exports.setApp = function (app, client)
 
     var sendEmail = require('./sendEmail.js');
     var authcode = require('./createAuth.js');
+    const jwt = require("jsonwebtoken");
 
     var token = require('./createJWT.js');
     const nodemailer = require('nodemailer');
@@ -635,6 +636,7 @@ exports.setApp = function (app, client)
     app.post('/api/forgotpassword', async( req, res, next) =>
     {
         const {email} = req.body;
+        const db = client.db();
         db.collection('Users').findOne({email}, (err, user) =>
         {
             if(err || !user)
@@ -662,6 +664,7 @@ exports.setApp = function (app, client)
     app.post('/api/resetpassword', async( req, res, next) =>
     {
         const {resetLink, newPassword} = req.body;
+        const db = client.db();
         if(resetLink)
         {
             jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function(err, decodedData)
