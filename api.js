@@ -112,10 +112,10 @@ exports.setApp = function (app, client)
 
         const { firstName, lastName, login, password, email } = req.body; 
         
-        const verificationCode = authcode.createAuthentication();
+        
         
         const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password, 
-        Email:email, Authentication:verificationCode, AuthStatus:0};  
+        Email:email, AuthStatus:0};  
         var error = ''; 
 
         // Changed, no longer required
@@ -144,7 +144,19 @@ exports.setApp = function (app, client)
             {
                 try  
                 {       
-                    const result = db.collection('Users').insertOne(newUser);  
+                    const result = db.collection('Users').insertOne(newUser);
+                    const verificationCode = jwt.sign({_id: result._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
+                    db.collection('Users').updateOne(
+                        {_id:result._id},
+                        {
+                        $set: {Authentication: verificationCode}
+                        }
+                    )
+                    var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+                    message += verificationCode;
+                    message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
+                    message += email;
+                    const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);  
                 }  
                 catch(e)  
                 {    
@@ -157,9 +169,7 @@ exports.setApp = function (app, client)
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
     
                 */
-                var message = "Welcome to GetTogather! Your verification code is: ";
-                message += verificationCode;
-                const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);
+
                 var ret = { error: error };      
                 res.status(200).json(ret);
     
@@ -590,7 +600,7 @@ exports.setApp = function (app, client)
 
     app.post('/api/verifyaccount', async( req, res, next) =>
     {
-        const { login, password, verificationCode} = req.body;
+        /*const { login, password, verificationCode} = req.body;
 
         const db = client.db();
         const results = await db.collection('Users').find({Login:login,Password:password}).toArray();
@@ -631,6 +641,78 @@ exports.setApp = function (app, client)
             res.status(401).json(ret);
         }
 
+        */
+        const {verificationLink} = req.body;
+        const db = client.db();
+        if(verificationLink)
+        {
+            jwt.verify(verificationLink, process.env.VERIFICATION_KEY, function(err, decodedData)
+            {
+                if(err)
+                {
+                    return res.status(401).json({error:"Invalid token (either incorrect or expired)."});
+                }
+                db.collection('Users').findOne({verificationLink: verificationLink}, (err, user) =>
+                {
+                    if(err || !user)
+                    {
+                        return res.status(400).json({error: "Invalid token."});
+                    }
+                    else
+                    {
+                        db.collection('Users').updateOne(
+                            {_id:user._id},
+                            {
+                                $set: {Authentication: '0', AuthStatus: 1}
+
+                            }
+                        )
+                        return res.status(200).json({error: ""});
+                    }
+
+                })
+
+            })
+        }
+        else
+        {
+            return res.status(401).json({error: "Authentication error"});
+        }
+
+    });
+    app.post('/api/refreshauth', async( req, res, next) =>
+    {
+        const {email} = req.body;
+        const db = client.db();
+        db.collection('Users').findOne({Email: email}, (err, user) =>
+        {
+            if(err || !user)
+            {
+                return res.status(400).json({error:"Account with email does not exist."});
+            }
+
+            const jwtoken = jwt.sign({_id: user._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
+            // todo: do this as html
+            var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+            message += jwtoken;
+            message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
+            message += email;
+            const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);
+
+            db.collection('Users').updateOne(
+                {_id:user._id},
+                {
+                    $set: {Authentication: jwtoken}  
+                }
+            );
+
+
+
+
+            var ret = { error: err };      
+            res.status(200).json(ret);
+
+        })
 
     });
     app.post('/api/forgotpassword', async( req, res, next) =>
