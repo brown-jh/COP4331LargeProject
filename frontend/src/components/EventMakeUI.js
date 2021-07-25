@@ -205,7 +205,7 @@ function EventMakeUI()
                 }        
                 catch(e)        
                 {            
-                    setSearchResults(e.toString());  
+                    alert(e.toString());  
                     return;      
                 }
 
