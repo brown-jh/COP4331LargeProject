@@ -175,13 +175,14 @@ function EventMakeUI()
         var tok = storage.retrieveToken();       
         var obj = {search:userId,jwtToken:tok};       
         var js = JSON.stringify(obj);
+        var res
 
         async function fetchdata() {
             const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
             {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
             // alert("Events are: " + txt);      
-            var res = JSON.parse(txt);            
+            res = JSON.parse(txt);            
             if( res.error.length > 0 )            
             {                
             alert( "API Error:" + res.error );     
