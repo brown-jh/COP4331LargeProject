@@ -175,6 +175,7 @@ function EventMakeUI()
         var tok = storage.retrieveToken();       
         var obj = {search:userId,jwtToken:tok}; 
         var js = JSON.stringify(obj);
+        var groupData
 
         async function fetchdata() {
             try        
@@ -190,15 +191,8 @@ function EventMakeUI()
                         return;
                     }            
                     else            
-                    {            
-
-                        setGroupSelector(
-                            <select class="meeting-time" onChange={changeGroup}>
-                                <option value="">None</option>
-                                {res.result.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-                            </select>
-                        );
-                        
+                    {               
+                        groupData = res.results;
                         var retTok = res.jwtToken;
                         storage.storeToken( retTok );
                         return;
@@ -212,6 +206,13 @@ function EventMakeUI()
           }
 
           fetchdata();
+
+          setGroupSelector(
+            <select class="meeting-time" onChange={changeGroup}>
+                <option value="">None</option>
+                {groupData.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+            </select>
+        );
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
