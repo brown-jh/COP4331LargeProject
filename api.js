@@ -674,7 +674,7 @@ exports.setApp = function (app, client)
         {
             jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function(err, decodedData)
             {
-                if(error)
+                if(err)
                 {
                     return res.status(401).json({error:"Invalid token (either incorrect or expired)."});
                 }
