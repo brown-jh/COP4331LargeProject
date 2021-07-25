@@ -632,4 +632,70 @@ exports.setApp = function (app, client)
 
 
     });
+    app.post('/api/forgotpassword', async( req, res, next) =>
+    {
+        const {email} = req.body;
+        db.collection('Users').findOne({email}, (err, user) =>
+        {
+            if(err || !user)
+            {
+                return res.status(400).json({error:"Account with email does not exist."});
+            }
+
+            const jwtoken = token.jwt({_id: user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
+            // todo: do this as html
+            const message = "Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
+            message += jwtoken;
+            const checking = sendEmail.sendEmail(email, "Password reset request", message);
+
+            user.updateOne({resetPassword: token}, (err, success));
+
+
+
+
+            var ret = { error: err };      
+            res.status(200).json(ret);
+
+        })
+
+    });
+    app.post('/api/resetpassword', async( req, res, next) =>
+    {
+        const {resetLink, newPassword} = req.body;
+        if(resetLink)
+        {
+            jwt.verify(resetLink, process.env.RESET_PASSWORD_KEY, function(err, decodedData)
+            {
+                if(error)
+                {
+                    return res.status(401).json({error:"Invalid token (either incorrect or expired)."});
+                }
+                db.collection('Users').findOne({resetLink}, (err, user) =>
+                {
+                    if(err || !user)
+                    {
+                        return res.status(400).json({error: "Invalid token."});
+                    }
+                    else
+                    {
+                        db.collection('Users').updateOne(
+                            {_id:user._id},
+                            {
+                                $set: {Password: newPassword}
+
+                            }
+                        )
+                        return res.status(200).json({error: ""});
+                    }
+
+                })
+
+            })
+        }
+        else
+        {
+            return res.status(401).json({error: "Authentication error"});
+        }
+
+    });
 }
