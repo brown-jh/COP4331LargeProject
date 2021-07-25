@@ -644,7 +644,7 @@ exports.setApp = function (app, client)
                 return res.status(400).json({error:"Account with email does not exist."});
             }
 
-            const jwtoken = jwt({_id: user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
+            const jwtoken = jwt.sign({_id: user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
             // todo: do this as html
             const message = "Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
             message += jwtoken;
