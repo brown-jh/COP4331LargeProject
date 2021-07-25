@@ -172,10 +172,6 @@ function EventMakeUI()
 
     useEffect(() => {
         
-        var tok = storage.retrieveToken();
-        var obj = {search:userId,jwtToken:tok};
-        var js = JSON.stringify(obj);
-
         fetchData();
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
@@ -183,6 +179,9 @@ function EventMakeUI()
     });
 
     async function fetchData(){
+        var tok = storage.retrieveToken();
+        var obj = {search:userId,jwtToken:tok};
+        var js = JSON.stringify(obj);
         try
         {
             const response = await fetch(bp.buildPath('api/searchgroupsubbed'),
