@@ -175,44 +175,41 @@ function EventMakeUI()
         var tok = storage.retrieveToken();       
         var obj = {search:userId,jwtToken:tok}; 
         var js = JSON.stringify(obj);
-        var groupData
+        var res
 
-        async function fetchdata() {
+        async function fetchdata() 
+            {
             try        
                 {            
                     const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                     alert("Events are: " + txt);      
-                    var res = JSON.parse(txt);            
+                        //alert("Events are: " + txt);      
+                    res = JSON.parse(txt);            
                     if( res.error.length > 0 )            
                     {                
                         alert( "API Error:" + res.error );     
                         return;
-                    }            
-                    else            
-                    {               
-                        groupData = res.results;
-                        var retTok = res.jwtToken;
-                        storage.storeToken( retTok );
-                        return;
-                    }        
+                    }                    
                 }        
                 catch(e)        
                 {            
                     alert(e.toString());  
                     return;      
                 }
-          }
+            }
 
-          fetchdata();
+            fetchdata();
+
+            var retTok = res.jwtToken;
+            storage.storeToken( retTok );
 
           setGroupSelector(
             <select class="meeting-time" onChange={changeGroup}>
                 <option value="">None</option>
-                {groupData.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+                {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
             </select>
-        );
+            );
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
