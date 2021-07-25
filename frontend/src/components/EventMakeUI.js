@@ -176,45 +176,45 @@ function EventMakeUI()
         var obj = {search:userId,jwtToken:tok};
         var js = JSON.stringify(obj);
 
-        async function fetchData(){
-            try
-            {
-                const response = await fetch(bp.buildPath('api/searchgroupsubbed'),
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-
-                var txt = await response.text();
-                var res = JSON.parse(txt);
-
-                if( res.error.length > 0 )
-              {
-                 alert( "API Error:" + res.error );
-             }
-                else
-                {
-                    setGroupSelector(
-                        <select class="meeting-time" onChange={changeGroup}>
-                            <option value="">None</option>
-                            {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-                        </select>
-                    );
-                        
-                    var retTok = res.jwtToken;
-                   storage.storeToken( retTok );
-                  return;
-                }
-            }
-            catch(e)
-            {
-                alert(e.toString());
-                return;
-            }
-        };
-
         fetchData();
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
     });
+
+    async function fetchData(){
+        try
+        {
+            const response = await fetch(bp.buildPath('api/searchgroupsubbed'),
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+            var txt = await response.text();
+            var res = JSON.parse(txt);
+
+            if( res.error.length > 0 )
+          {
+             alert( "API Error:" + res.error );
+         }
+            else
+            {
+                setGroupSelector(
+                    <select class="meeting-time" onChange={changeGroup}>
+                        <option value="">None</option>
+                        {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
+                    </select>
+                );
+                    
+                var retTok = res.jwtToken;
+               storage.storeToken( retTok );
+              return;
+            }
+        }
+        catch(e)
+        {
+            alert(e.toString());
+            return;
+        }
+    };
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
