@@ -116,8 +116,10 @@ exports.setApp = function (app, client)
         const newUser = {FirstName:firstName, LastName:lastName, Login:login, Password:password, 
         Email:email, Authentication:verificationCode, AuthStatus:0};  
         var error = ''; 
-        var obj = {email:email, authentication:verificationCode};
-        var js = JSON.stringify(obj);
+
+        // Changed, no longer required
+        //var obj = {email:email, authentication:verificationCode};
+        //var js = JSON.stringify(obj);
 
         const db = client.db();  
         // This should ensure that only one of any username exists.
@@ -585,7 +587,7 @@ exports.setApp = function (app, client)
         res.status(200).json(ret);
     });
 
-    app.post('api/verifyaccount', async( req, res, next) =>
+    app.post('/api/verifyaccount', async( req, res, next) =>
     {
         const { login, password, verificationCode} = req.body;
 
