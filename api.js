@@ -650,7 +650,12 @@ exports.setApp = function (app, client)
             message += jwtoken;
             const checking = sendEmail.sendEmail(email, "Password reset request", message);
 
-            user.updateOne({resetPassword: token}, (err, success));
+            db.collection('Users').updateOne(
+                {_id:user._id},
+                {
+                    $set: {resetPassword: jwtoken}  
+                }
+            );
 
 
 
