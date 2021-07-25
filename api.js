@@ -637,7 +637,7 @@ exports.setApp = function (app, client)
     {
         const {email} = req.body;
         const db = client.db();
-        db.collection('Users').findOne({email}, (err, user) =>
+        db.collection('Users').findOne({Email: email}, (err, user) =>
         {
             if(err || !user)
             {
@@ -673,7 +673,7 @@ exports.setApp = function (app, client)
                 {
                     return res.status(401).json({error:"Invalid token (either incorrect or expired)."});
                 }
-                db.collection('Users').findOne({resetLink}, (err, user) =>
+                db.collection('Users').findOne({resetPassword: resetLink}, (err, user) =>
                 {
                     if(err || !user)
                     {
