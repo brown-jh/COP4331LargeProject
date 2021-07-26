@@ -186,7 +186,7 @@ function EventMakeUI()
                     var txt = await response.text();   
                         alert("Events are: " + txt);
                     res = JSON.parse(txt);        
-                    alert(results.GroupName)                      
+                    alert(res.results)                      
                 }        
                 catch(e)        
                 {            
