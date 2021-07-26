@@ -165,13 +165,17 @@ function MakeGroupUI()
             var _groupAdmins = adminList;
             var _groupSubscribers = memberList;
 
+            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
+            "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
+            "\nTODO: Add current user as admin, call API, cleanup after");
+
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
             var js = JSON.stringify(obj);
 
             try
             {
-                const response = await fetch(bp.buildPath('api/addevent'),
+                const response = await fetch(bp.buildPath('api/addgroup'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
@@ -193,11 +197,6 @@ function MakeGroupUI()
             {
                 alert(e.toString());
             }
-
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
-            "\nTODO: Add current user as admin, call API, cleanup after");
-
             
         }
     }
