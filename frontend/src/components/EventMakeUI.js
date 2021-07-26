@@ -202,7 +202,6 @@ function EventMakeUI()
             }
 
             fetchdata();
-            alert(res.results)
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
 
