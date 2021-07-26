@@ -61,6 +61,7 @@ function EventDisplay(props)
         setEventLocation(thisEvent.place);
         setEventComments(thisEvent.comments);
         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
+        alert(attendeeVar.filter(user => user.id == userId) + "");
         if (attendeeVar.filter(user => user.id == userId) !== [])
         {
             setJoinLeaveButton("Leave");
