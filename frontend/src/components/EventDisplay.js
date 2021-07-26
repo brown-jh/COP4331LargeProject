@@ -5,8 +5,8 @@ var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "0"; //TODO: Dummy data, should be set in useEffect().
-    var userName = "Hannah Wrigley";
+    var userId = "15"; //TODO: Dummy data, should be set in useEffect().
+    var userName = "Test User";
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
