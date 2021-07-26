@@ -6,7 +6,7 @@ function GroupUserEntry(props)
         <div>
         <p class="group-remove">{props.name}</p>
         <i class="fa fa-trash-o fa-color" aria-hidden="true" 
-            onClick={() => props.iconAct(props.id)}></i>
+            onClick={() => props.iconAct(props.name)}></i>
         </div>
     )
 }

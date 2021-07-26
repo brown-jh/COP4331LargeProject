@@ -47,14 +47,14 @@ function MakeGroupUI()
         )
     }
 
-    function removeAdmin(delId)
+    function removeAdmin(delName)
     {
-        setAdminList(adminList.filter(user => user.id !== delId));
+        setAdminList(adminList.filter(user => user.name !== delName));
     }
 
-    function removeMember(delId)
+    function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user.id !== delId));
+        setMemberList(memberList.filter(user => user.name !== delName));
     }
 
     // This function determines if there is already an admin or invitee with the same name.
