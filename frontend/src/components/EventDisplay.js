@@ -5,7 +5,8 @@ var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "Test User"; //TODO: Dummy data, should be set in useEffect().
+    var userId = "0"; //TODO: Dummy data, should be set in useEffect().
+    var userName = "Hannah Wrigley";
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -23,9 +24,11 @@ function EventDisplay(props)
 
         var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
-            host: "Hannah Wrigley",
+            host: {name: "Hannah Wrigley", id:"0"},
             description: "NerdKnighteria is holding a Smash 4 tournament at the Student Union at 3 on Monday. Bring snacks and controllers, cash prizes to be awarded up to 50$.",
-            attendees: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
+            attendees: [{name:"John Smith", id:"1"}, 
+            {name:"Alyx Reckahn", id:"2"}, 
+            {name:"Sienna Liskwell", id:"3"}],
             group: "NerdKnighteria of UCF",
             time: "July 31 2021, 3:00 PM",
             place: "Student Union, University of Central Florida, Orlando",
@@ -50,34 +53,45 @@ function EventDisplay(props)
 
         setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
         setEventDesc(thisEvent.description);
-        setEventHost(thisEvent.host);
+        setEventHost(thisEvent.host.name);
         setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
         attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
         setEventGroup(thisEvent.group);
         setEventTime(thisEvent.time);
         setEventLocation(thisEvent.place);
         setEventComments(thisEvent.comments);
-        // Flip the status of the join/leave button to Leave if the user has joined the event.
-        if(thisEvent.attendees.indexOf(userId) != -1)
+        // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
+        for (var i = 0; i < attendeeVar.length; i++)
         {
-            setJoinLeaveButton("Leave");
+            if(attendeeVar[i].id == userId)
+            {
+                setJoinLeaveButton("Leave");
+            }
         }
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
     function joinOrLeave()
     {
-        if (attendeeVar.indexOf(userId) != -1) //User is an attendee, so remove them.
+        var isInEvent = false; //First determine if the user is in the attendee list or not.
+        for (var i = 0; i < attendeeVar.length; i++)
+        {
+            if(attendeeVar[i].id == userId)
+            {
+                isInEvent = true;
+            }
+        }
+        if (isInEvent) //User is an attendee, so remove them.
         {
             alert("TODO: use API to remove from event.");
-            attendeeVar = attendeeVar.filter(user => user !== userId);
+            attendeeVar = attendeeVar.filter(user => user.id !== userId);
             setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
             setJoinLeaveButton("Join");
         }
         else //User is not attending, so add them.
         {
             alert("TODO: use API to add to event.");
-            attendeeVar = [...attendeeVar, userId];
+            attendeeVar = [...attendeeVar, {name: userName, id:userId}];
             setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
             setJoinLeaveButton("Leave");
         }
@@ -89,7 +103,7 @@ function EventDisplay(props)
         var userList = "";
         for (var i = 0; i < users.length; i++)
         {
-            userList += users[i];
+            userList += users[i].name;
             if (i < users.length-1)
             {
                 userList += ", ";
@@ -108,7 +122,7 @@ function EventDisplay(props)
         //TODO: Use API call to send user ID number and comment to the server; the code to add the
         // visible comment should use the username instead of userId.
         var newComment = {
-            user: userId,
+            user: userName,
             text: commentText,
             date: currentDate 
         };
@@ -122,7 +136,7 @@ function EventDisplay(props)
 
             {/* Display the edit button to hosts and the attending checkbox to other users.*/}
             {
-               eventHost == userId ?
+               eventHost == userName ?
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
                 :
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={joinOrLeave}>{joinLeaveButton}</button>
