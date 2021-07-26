@@ -82,7 +82,7 @@ function GroupDisplay(props)
         setEventList(thisGroup.events.map((eventData) => (
             <EventBox title={eventData.title}
                 group={eventData.group}
-                groupId={eventData.id}
+                eventId={eventData.id}
                 // Ensures dates are in: Month Day, Year Time format
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
