@@ -47,14 +47,14 @@ function MakeGroupUI()
         )
     }
 
-    function removeAdmin(name)
+    function removeAdmin(delId)
     {
-        setAdminList(adminList.filter(user => user !== name));
+        setAdminList(adminList.filter(user => user.id !== delId));
     }
 
-    function removeMember(name)
+    function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user !== name));
+        setMemberList(memberList.filter(user => user.id !== delId));
     }
 
     // This function determines if there is already an admin or invitee with the same name.
@@ -62,7 +62,7 @@ function MakeGroupUI()
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i] === userName)
+            if (adminList[i].name === userName)
             {
                 return false;
             }
@@ -70,7 +70,7 @@ function MakeGroupUI()
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i] === userName)
+            if (memberList[i].name === userName)
             {
                 return false;
             }
@@ -100,13 +100,14 @@ function MakeGroupUI()
         }
 
         // Put the user in the admin list and display it.
-        setAdminList([...adminList, adminName.value]);
+        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        setAdminList([...adminList, {name: adminName.value, id:"0"}]);
     }
 
 
     const addMember = async event =>
     {
-        // Check if the username is long enough. TODO: Do API call to check if user exists.
+        // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         
         // Clears text when user adds another user.
@@ -124,7 +125,8 @@ function MakeGroupUI()
         }
 
         // Put the user in the member list and display it.
-        setMemberList([...memberList, memberName.value]);
+        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        setMemberList([...memberList, {name: memberName.value, id:"0"}]);
     }
 
     const submitGroup = async event =>
@@ -161,11 +163,14 @@ function MakeGroupUI()
         else
         {
 
-            var _groupAdmins = adminList;
-            var _groupSubscribers = _groupAdmins.append(memberList);
+            //NOTE: Edited these so admins and subscribers treated differently, and API gets IDs
+            //as intended.
+            var _groupAdmins = adminList.map(user => user.id);
+            var _groupSubscribers = memberList.map(user => user.id);
 
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
+            "\nAdmins: " + adminList.map(user => user.name + " " + user.id) + "\nMembers: " + 
+            memberList.map(user => user.name + " " + user.id) + "\nURL: " + groupPictureURL.value +
             "\nTODO: Add current user as admin, call API, cleanup after");
 
             var tok = storage.retrieveToken();

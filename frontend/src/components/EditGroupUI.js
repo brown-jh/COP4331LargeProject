@@ -34,8 +34,14 @@ function EditGroupUI(props)
             name: "NerdKnighteria of UCF",
             description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
             url: "https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6",
-            admins: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
-            members: ["Jesse Sampson", "Louis Ferguson", "Isabelle Bathory"]
+            admins: [
+                {name:"John Smith", id:"1"}, 
+                {name: "Alyx Reckahn", id:"2"}, 
+                {name: "Hannah Wrigley", id: "3"}],
+            members: [
+                {name:"Jesse Sampson", id:"4"}, 
+                {name:"Louis Ferguson", id:"5"}, 
+                {name:"Isabelle Bathory", id:"6"}]
         };
 
         groupName.value = thisGroup.name + "\n" + props.groupId;
@@ -79,14 +85,14 @@ function EditGroupUI(props)
         )
     }
 
-    function removeAdmin(name)
+    function removeAdmin(delId)
     {
-        setAdminList(adminList.filter(user => user !== name));
+        setAdminList(adminList.filter(user => user.id !== delId));
     }
 
-    function removeMember(name)
+    function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user !== name));
+        setMemberList(memberList.filter(user => user.id !== delId));
     }
 
     // This function determines if there is already an admin or invitee with the same name.
@@ -94,7 +100,7 @@ function EditGroupUI(props)
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i] === userName)
+            if (adminList[i].name === userName)
             {
                 return false;
             }
@@ -102,7 +108,7 @@ function EditGroupUI(props)
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i] === userName)
+            if (memberList[i].name === userName)
             {
                 return false;
             }
@@ -132,7 +138,8 @@ function EditGroupUI(props)
         }
 
         // Put the user in the admin list and display it.
-        setAdminList([...adminList, adminName.value]);
+        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        setAdminList([...adminList, {name: adminName.value, id:"0"}]);
     }
 
 
@@ -156,7 +163,8 @@ function EditGroupUI(props)
         }
 
         // Put the user in the member list and display it.
-        setMemberList([...memberList, memberName.value]);
+        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        setMemberList([...memberList, {name: memberName.value, id:"0"}]);
     }
 
     function confirmDelete(groupId)
@@ -205,8 +213,9 @@ function EditGroupUI(props)
         else
         {
             alert("New data for group " + props.groupId + "\nName: " + groupName.value + 
-            "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList + 
-            "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
+            "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList.map(user => user.name + 
+            " " + user.id) + "\nMembers: " + memberList.map(user => user.name + " " + user.id) + 
+            "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
 
             setGroupSubmitResult("Successfully edited group! Redirecting to your groups.");
             window.location.href = "/adminnedgroups";
