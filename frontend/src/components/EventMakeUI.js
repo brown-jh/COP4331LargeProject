@@ -198,7 +198,7 @@ function EventMakeUI()
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
-                            {res.results.map((Group) => (<option value={JSON.stringify(Group.GroupName)}>{JSON.stringify(Group.GroupName)}</option>))}
+                            {res.results.map((Group) => (<option value={Group.GroupName}>{Group.GroupName}</option>))}
                         </select>
                         );     
 
