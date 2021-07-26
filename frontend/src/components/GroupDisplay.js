@@ -7,7 +7,8 @@ var memberVar = [];
 
 function GroupDisplay(props)
 {
-    var userId = "Test User"; //TODO: Dummy value, should be set in UseEffect().
+    var userId = "15"; //TODO: Dummy value, should be set in UseEffect().
+    var userName = "Test User";
 
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
@@ -23,34 +24,45 @@ function GroupDisplay(props)
         var thisGroup={
             name: "NerdKnighteria of UCF",
             description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
-            admins: ["John Smith", "Alyx Reckahn", "Hannah Wrigley"],
-            members: ["Member 1", "Louis Ferguson", "Isabelle Bathory"],
+            admins: [
+                {name:"John Smith", id:"1"}, 
+                {name:"Alyx Reckahn", id:"2"}, 
+                {name:"Hannah Wrigley", id:"3"}],
+            members: [
+                {name:"Cassia Lengtree", id: "4"}, 
+                {name:"Louis Ferguson", id:"5"}, 
+                {name:"Isabelle Bathory", id:"6"}],
             events:[
                 {
+                    id: "1111",
                     title: "Sunday Practice for Orlando Tennis Club",
                     group: "Women's Tennis Club of Orlando",
                     time: "April 23rd, 2021 2:00 PM",
                     place: "Big Win Gym, 4913 Greensteel Drive, Orlando, FL, 32828"
                 },
                 {
+                    id: "2222",
                     title: "Weekly D&D Night, Newcomers Welcome",
                     group: "",
                     time: "April 21st, 2021 8:00 PM",
                     place: "2123 Rose Lane, Orlando, FL, 32819"
                 },
                 {
+                    id:"3333",
                     title: "JavaScript Workshop",
                     group: "Programming Club of UCF",
                     time: "April 26th, 2021 3:00 PM",
                     place: "Online"
                 },
                 {
+                    id:"4444",
                     title: "Super Smash Bros Tournament - Cash Prizes",
                     group: "NerdKnighteria of UCF",
                     time: "May 12th, 2021 5:00 PM",
                     place: "Online"
                 },
                 {
+                    id:"5555",
                     title: "April Meeting of Jacaranda Book Club",
                     group: "Jacaranda Book Club",
                     time: "April 6th, 2021 1:00PM",
@@ -70,13 +82,14 @@ function GroupDisplay(props)
         setEventList(thisGroup.events.map((eventData) => (
             <EventBox title={eventData.title}
                 group={eventData.group}
+                groupId={eventData.id}
                 // Ensures dates are in: Month Day, Year Time format
                 time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                 replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
                 place={eventData.place}/>)));
 
         // Flip the status of the join/leave button to Leave if the user has joined the group.
-        if(thisGroup.members.indexOf(userId) != -1)
+        if(memberVar.filter(user => user.id == userId).length != 0)
         {
             setJoinLeaveButton("Leave");
         }
@@ -85,17 +98,18 @@ function GroupDisplay(props)
     // This function handles the user clicking the Join/Leave button.
     function joinOrLeave()
     {
-        if (memberVar.indexOf(userId) != -1) //User is a member, so remove them.
+        //If the user is in the list of members, remove them.
+        if (memberVar.filter(user => user.id == userId).length != 0)
         {
             alert("TODO: use API to remove from group.");
-            memberVar = memberVar.filter(user => user !== userId);
+            memberVar = memberVar.filter(user => user.id !== userId);
             setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
             setJoinLeaveButton("Join");
         }
         else //User is not a member, so add them.
         {
             alert("TODO: use API to add to group.");
-            memberVar = [...memberVar, userId];
+            memberVar = [...memberVar, {id:userId, name:userName}];
             setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
             setJoinLeaveButton("Leave");
         }
@@ -107,7 +121,7 @@ function GroupDisplay(props)
         var userList = "";
         for (var i = 0; i < users.length; i++)
         {
-            userList += users[i];
+            userList += users[i].name;
             if (i < users.length-1)
             {
                 userList += ", ";
@@ -120,10 +134,9 @@ function GroupDisplay(props)
         <div id="mainDiv" style={{width: "80%"}}>
             <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{groupTitle}</p>
             <p>Adminned by: {adminList}</p>
-            {/* Display the edit button to admins and the enroll checkbox to other users.*/}
             {
-
-                adminVar.indexOf(userId) != -1 ?
+                /* Display the edit button to admins and the join/leave button to other users.*/
+                (adminVar.filter(user => user.id == userId).length != 0) ?
                 <button type="button" style={{width: "40%"}} class="buttons" 
                     onClick={() => window.location.href="/editgroup/" + props.groupId}>
                     Edit/Disband Group</button>

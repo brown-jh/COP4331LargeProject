@@ -124,7 +124,7 @@ function EventDisplay(props)
             <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{eventTitle}</p>
             <p>Hosted by: {eventHost}</p>
 
-            {/* Display the edit button to hosts and the attending checkbox to other users.*/}
+            {/* Display the edit button to the host and the join/leave button to other users.*/}
             {
                eventHost == userName ?
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
