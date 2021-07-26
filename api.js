@@ -922,4 +922,17 @@ exports.setApp = function (app, client)
         }
 
     });
+    app.post('/api/getid', async( req, res, next) =>
+    {
+        const {jwtToken} = req.body;
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
+        {
+            if(err)
+            {
+                return res.status(401).json({error:"Invalid token."});
+            }
+            return res.status(200).json(decodedData);
+        })
+        
+    });
 }
