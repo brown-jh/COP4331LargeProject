@@ -185,17 +185,12 @@ function EventMakeUI()
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    res = JSON.parse(txt);            
-                    if( res.error.length > 0 )            
-                    {                
-                        alert( "API Error:" + res.error );     
-                        return;
-                    }                    
+                    res = JSON.parse(txt);        
+                    alert(res.results.GroupName)                      
                 }        
                 catch(e)        
                 {            
-                    alert(e.toString());  
-                    return;      
+                    alert(e.toString());      
                 }
             }
 
