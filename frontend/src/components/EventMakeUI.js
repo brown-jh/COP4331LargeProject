@@ -172,26 +172,27 @@ function EventMakeUI()
 
     useEffect(() => {
 
-        var tok = storage.retrieveToken();       
-        var obj = {search:userId,jwtToken:tok}; 
-        var js = JSON.stringify(obj);
-        var res
-
         const  fetchdata = async () => 
             {
+            var tok = storage.retrieveToken();       
+            var obj = {search:userId,jwtToken:tok}; 
+            var js = JSON.stringify(obj);
+
             try        
                 {            
                     const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    res = JSON.parse(txt);            
+                    var res = JSON.parse(txt);            
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
                             {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
                         </select>
-                        );        
+                        );     
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );   
                         return;    
 
                 }        
@@ -202,8 +203,7 @@ function EventMakeUI()
             }
 
             fetchdata();
-            var retTok = res.jwtToken;
-            storage.storeToken( retTok );
+            
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
