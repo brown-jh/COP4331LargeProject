@@ -10,25 +10,30 @@ function JoinedGroups()
         // TODO: Here we would find the groups the user is in via API and put them in here.
         var dummyJoinedGroups=[
             {
+                id: "12345",
                 title: "NerdKnighteria of UCF",
                 desc: "This is a club for board and video gamers at UCF.",
             },
             {
+                id: "56789",
                 title: "Dark Side Comics Game Night",
                 desc: "We meet at Dark Side Comics on Sundays to play board games.",
             },
             {
+                id: "13579",
                 title: "YMCA Swimming Club",
                 desc: "We're here to dive in and have fun!",
             },
             {
+                id: "54321",
                 title: "Game Jammers",
                 desc: "Interested in game dev or game jams? Try here!",
             }
         ]
         setJoinedGroups(dummyJoinedGroups.map((groupData) => (
             <GroupBox title={groupData.title}
-                desc={groupData.desc}/>)));
+                desc={groupData.desc}
+                groupId={groupData.id}/>)));
     });
 
     return (

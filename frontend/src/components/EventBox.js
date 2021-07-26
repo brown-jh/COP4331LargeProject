@@ -5,13 +5,13 @@ import React from 'react';
 // Props are name, group (if any), time, place.
 function EventBox(props)
 {
-    const clickThis = (title) =>
+    const clickThis = (id) =>
     {
-        alert("Go to page for " + title);
+        window.location.href="/events/" + id;
     }
 
     return(
-        <div onClick={() => clickThis(props.title)}>
+        <div onClick={() => clickThis(props.eventId)}>
             
             <div class="eventBox">
                         <div class="eventBox-image" style={{backgroundImage: `url(${props.imageURL})`}}></div>

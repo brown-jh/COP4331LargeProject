@@ -6,13 +6,13 @@ import React from 'react';
 function GroupBox(props)
 {
 
-    const clickThis = (title) =>
+    const clickThis = (id) =>
     {
-        alert("Go to page for " + title);
+        window.location.href="/groups/" + id;
     }
 
     return(
-        <div onClick={() => clickThis(props.title)}>
+        <div onClick={() => clickThis(props.groupId)}>
             <div class="eventBox" style={{gridTemplateRows: '210px 260px 50px'}}>
                 <div class="eventBox-image" style={{backgroundImage: `url(${props.imageURL})`}}></div>
                 <div class="eventBox-text">

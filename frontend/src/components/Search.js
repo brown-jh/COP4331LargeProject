@@ -84,27 +84,32 @@ const Search = () =>{
                 }
 
             case searchingType.GROUPS:
-                var dummyAdminGroups=[
+                var dummyGroups=[
                     {
+                        id: "1111",
                         title: "NerdKnighteria of UCF",
                         desc: "This is a club for board and video gamers at UCF.",
                     },
                     {
+                        id: "2222",
                         title: "Dark Side Comics Game Night",
                         desc: "We meet at Dark Side Comics on Sundays to play board games.",
                     },
                     {
+                        id: "3333",
                         title: "YMCA Swimming Club",
                         desc: "We're here to dive in and have fun!",
                     },
                     {
+                        id: "444",
                         title: "Game Jammers",
                         desc: "Interested in game dev or game jams? Try here!",
                     }
                 ]
-                setSearchResults(dummyAdminGroups.map((groupData) => (
+                setSearchResults(dummyGroups.map((groupData) => (
                     <GroupBox title={groupData.title}
-                        desc={groupData.desc}/>)));
+                        desc={groupData.desc}
+                        groupId={groupData.id}/>)));
                         return;
             default:
                 return;
