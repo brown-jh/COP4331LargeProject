@@ -208,8 +208,8 @@ function EventMakeUI()
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
-        return
-        
+        return;
+
     },[]);
 
     return(
