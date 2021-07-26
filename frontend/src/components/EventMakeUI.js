@@ -185,8 +185,7 @@ function EventMakeUI()
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    res = JSON.parse(txt);        
-                    alert(res.results)      
+                    res = JSON.parse(txt);            
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
