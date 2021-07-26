@@ -31,12 +31,7 @@ function AdminnedGroups()
                 var txt = await response.text();
                 var res = JSON.parse(txt);
 
-                if( res.error.length > 0 )
-              {
-                 alert( "API Error:" + res.error );
-             }
-                else
-                {
+  
                     setAdminnedGroups(res.results.map((groupData) => (
                         <GroupBox title={groupData.title}
                            desc={groupData.desc}/>)));
@@ -44,7 +39,7 @@ function AdminnedGroups()
                     var retTok = res.jwtToken;
                    storage.storeToken( retTok );
                   return;
-                }
+
             }
             catch(e)
             {
