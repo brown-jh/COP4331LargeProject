@@ -6,6 +6,8 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
+var gres;
+
 function EventMakeUI()
 {
  
@@ -172,27 +174,25 @@ function EventMakeUI()
 
     useEffect(() => {
 
+        var tok = storage.retrieveToken();       
+        var obj = {search:userId,jwtToken:tok}; 
+        var js = JSON.stringify(obj);
+
         const  fetchdata = async () => 
             {
-            var tok = storage.retrieveToken();       
-            var obj = {search:userId,jwtToken:tok}; 
-            var js = JSON.stringify(obj);
-
             try        
                 {            
                     const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    var res = JSON.parse(txt);            
+                    gres = JSON.parse(txt);            
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
-                            {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
+                            {gres.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
                         </select>
-                        );     
-                        var retTok = res.jwtToken;
-                        storage.storeToken( retTok );   
+                        );        
                         return;    
 
                 }        
@@ -203,7 +203,9 @@ function EventMakeUI()
             }
 
             fetchdata();
-            
+            alert(gres.results)
+            var retTok = gres.jwtToken;
+            storage.storeToken( retTok );
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
