@@ -79,8 +79,8 @@ exports.setApp = function (app, client)
         }
     
         
-        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:{$each:[groupAdmins]},
-            GroupSubscribers:{$each:[groupSubscribers]}, ImageURL:imageURL};  
+        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:[groupAdmins],
+            GroupSubscribers:[groupSubscribers], ImageURL:imageURL};  
         var error = '';  
         
         try  

@@ -196,8 +196,7 @@ function MakeGroupUI()
             catch(e)
             {
                 alert(e.toString());
-            }
-            
+            }         
         }
     }
 
