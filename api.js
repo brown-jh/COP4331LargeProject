@@ -931,7 +931,7 @@ exports.setApp = function (app, client)
             {
                 return res.status(401).json({error:"Invalid token."});
             }
-            return res.status(200).json(decodedData);
+            return res.status(200).json(decodedData.userId);
         })
         
     });
