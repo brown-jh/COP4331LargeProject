@@ -52,7 +52,7 @@ function MakeGroupUI()
         setAdminList(adminList.filter(user => user.id !== delId));
     }
 
-    function removeMember(delName)
+    function removeMember(delId)
     {
         setMemberList(memberList.filter(user => user.id !== delId));
     }
