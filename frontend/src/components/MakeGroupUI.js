@@ -163,7 +163,7 @@ function MakeGroupUI()
 
             //set both to format "...","...","..."
             var _groupAdmins = adminList;
-            var _groupSubscribers = memberList;
+            var _groupSubscribers = _groupAdmins + memberList;
 
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
             "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
