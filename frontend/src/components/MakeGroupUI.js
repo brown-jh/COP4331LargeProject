@@ -12,6 +12,15 @@ function MakeGroupUI()
     var adminName = '';
     var memberName = '';
     
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+    var firstName = ud.firstName;    
+    var lastName = ud.lastName;
+
+    var bp = require('./Path.js');
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
 
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
@@ -152,8 +161,9 @@ function MakeGroupUI()
         else
         {
 
-            _groupAdmins = adminList;
-            _groupSubscribers = memberList;
+            //set both to format "...","...","..."
+            var _groupAdmins = adminList;
+            var _groupSubscribers = memberList;
 
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
