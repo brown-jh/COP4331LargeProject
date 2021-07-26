@@ -198,12 +198,19 @@ function EventMakeUI()
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
-                            {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
+                            {res.results.map((GroupName) => (<option value={GroupName.toString()}>{GroupName.toString()}</option>))}
                         </select>
                         );     
+
+                        console.log("5 crash before")       
                         
                         var retTok = res.jwtToken;
+                       
+                        console.log("6 crash after")       
+
                         storage.storeToken( retTok );
+
+                        console.log("7 crash after")       
                         
                         return;    
 
