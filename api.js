@@ -970,7 +970,7 @@ exports.setApp = function (app, client)
         }      
         else      
         {          
-            ret = {error:"Login/Password incorrect."};   
+            ret = {error:"Username/Email not found."};   
             return res.status(401).json(ret);   
         }
 
