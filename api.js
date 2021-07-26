@@ -935,4 +935,45 @@ exports.setApp = function (app, client)
         })
         
     });
+    app.post('/api/getuserid', async( req, res, next) =>
+    {
+        const {login,jwtToken} = req.body;
+        const db = client.db();
+
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                res.status(401).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        const results = await db.collection('Users').findOne(
+            
+            {
+            $or: [{ email: login}, {Login: login}]
+            }
+        )
+        var id = -1;  
+        if( results )  
+        {    
+            id = results._id;    
+            ret = {userId:id};
+            return res.status(200).json(ret);
+    
+        }      
+        else      
+        {          
+            ret = {error:"Login/Password incorrect."};   
+            return res.status(401).json(ret);   
+        }
+
+
+    })
 }
