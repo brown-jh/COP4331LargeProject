@@ -161,9 +161,8 @@ function MakeGroupUI()
         else
         {
 
-            //set both to format "...","...","..."
             var _groupAdmins = adminList;
-            var _groupSubscribers = _groupAdmins + memberList;
+            var _groupSubscribers = _groupAdmins.append(memberList);
 
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
             "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
