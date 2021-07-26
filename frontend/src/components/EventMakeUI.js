@@ -200,7 +200,11 @@ function EventMakeUI()
                             <option value="">None</option>
                             {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
                         </select>
-                        );        
+                        );     
+                        
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );
+                        
                         return;    
 
                 }        
@@ -212,13 +216,11 @@ function EventMakeUI()
             }
 
             fetchdata();
-            console.log("under func")
-            alert(res.results)
-            console.log("res under func" + res.results)
-            var retTok = res.jwtToken;
-            storage.storeToken( retTok );
+            // alert(res.results)
+            // console.log("res under func" + res.results)
+            
 
-        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
+        // userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
         return;
 
