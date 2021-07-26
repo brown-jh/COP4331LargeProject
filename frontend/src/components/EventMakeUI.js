@@ -186,7 +186,10 @@ function EventMakeUI()
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    gres = JSON.parse(txt);            
+                        console.log("before" + gres)
+                    gres = JSON.parse(txt);    
+                    console.log("after" + gres)
+
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
@@ -203,6 +206,7 @@ function EventMakeUI()
             }
 
             fetchdata();
+            console.log("under func" + gres)
             alert(gres.results)
             var retTok = gres.jwtToken;
             storage.storeToken( retTok );
