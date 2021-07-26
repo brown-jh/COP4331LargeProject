@@ -186,7 +186,15 @@ function EventMakeUI()
                     var txt = await response.text();   
                         alert("Events are: " + txt);
                     res = JSON.parse(txt);        
-                    alert(res.results)                      
+                    alert(res.results)      
+                    setGroupSelector(
+                        <select class="meeting-time" onChange={changeGroup}>
+                            <option value="">None</option>
+                            {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
+                        </select>
+                        );        
+                        return;    
+
                 }        
                 catch(e)        
                 {            
@@ -198,13 +206,6 @@ function EventMakeUI()
             alert(res.results)
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
-
-          setGroupSelector(
-            <select class="meeting-time" onChange={changeGroup}>
-                <option value="">None</option>
-                {res.results.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-            </select>
-            );
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
