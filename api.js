@@ -63,7 +63,7 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
     
-        const { groupName, groupDescription, jwtToken } = req.body;      
+        const { groupname, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken } = req.body;      
         try      
         {        
             if( token.isExpired(jwtToken))        
@@ -79,7 +79,8 @@ exports.setApp = function (app, client)
         }
     
         
-        const newGroup = {GroupName:groupName, GroupDescription:groupDescription};  
+        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:{$each:[groupAdmins]},
+            GroupSubscribers:{$each:[groupSubscribers]}, ImageURL:imageURL};  
         var error = '';  
         
         try  

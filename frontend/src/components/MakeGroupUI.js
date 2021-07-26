@@ -151,12 +151,44 @@ function MakeGroupUI()
         }
         else
         {
+
+            _groupAdmins = adminList;
+            _groupSubscribers = memberList;
+
+            var tok = storage.retrieveToken();
+            var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/addevent'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
+                    storage.storeToken( retTok );
+                    window.location.href = "/adminnedgroups";
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }
+
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
             "\nAdmins: " + adminList + "\nMembers: " + memberList + "\nURL: " + groupPictureURL.value +
             "\nTODO: Add current user as admin, call API, cleanup after");
 
-            setGroupSubmitResult("Successfully created group! Redirecting to your groups.");
-            window.location.href = "/adminnedgroups";
+            
         }
     }
 
