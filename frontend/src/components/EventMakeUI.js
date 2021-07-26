@@ -177,7 +177,7 @@ function EventMakeUI()
         var js = JSON.stringify(obj);
         var res
 
-        async function fetchdata() 
+        const  fetchdata = async () => 
             {
             try        
                 {            
