@@ -179,8 +179,6 @@ function EventMakeUI()
         var js = JSON.stringify(obj);
         var res;
 
-        console.log("1")
-
         const  fetchdata = async () => 
             {
             try        
@@ -189,45 +187,28 @@ function EventMakeUI()
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                    
-                    console.log("2")
-                        
                     res = JSON.parse(txt);    
-                    console.log("3" + txt.results) 
-                    console.log("4" + res.results)       
+
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
                             {res.results.map((Group) => (<option value={Group.GroupName}>{Group.GroupName}</option>))}
                         </select>
-                        );     
-
-                        console.log("5 crash before")       
+                        );         
                         
-                        var retTok = res.jwtToken;
-                       
-                        console.log("6 crash after")       
-
-                        storage.storeToken( retTok );
-
-                        console.log("7 crash after")       
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
                         
                         return;    
 
                 }        
                 catch(e)        
                 {            
-                    console.log("error catch")
                     alert(e.toString());      
                 }
             }
 
             fetchdata();
-            // alert(res.results)
-            // console.log("res under func" + res.results)
-            
-
-        // userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
         
         return;
 
