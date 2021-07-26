@@ -177,6 +177,9 @@ function EventMakeUI()
         var tok = storage.retrieveToken();       
         var obj = {search:userId,jwtToken:tok}; 
         var js = JSON.stringify(obj);
+        var res;
+
+        console.log("1")
 
         const  fetchdata = async () => 
             {
@@ -186,14 +189,16 @@ function EventMakeUI()
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                         alert("Events are: " + txt);
-                        console.log("before" + gres)
-                    gres = JSON.parse(txt);    
-                    console.log("after" + gres)
-
+                    
+                    console.log("2")
+                        
+                    res = JSON.parse(txt);    
+                    console.log("3" + txt.results) 
+                    console.log("4" + res.results)       
                     setGroupSelector(
                         <select class="meeting-time" onChange={changeGroup}>
                             <option value="">None</option>
-                            {gres.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
+                            {res.results.map((GroupName) => (<option value={GroupName}>{GroupName}</option>))}
                         </select>
                         );        
                         return;    
@@ -201,14 +206,16 @@ function EventMakeUI()
                 }        
                 catch(e)        
                 {            
+                    console.log("error catch")
                     alert(e.toString());      
                 }
             }
 
             fetchdata();
-            console.log("under func" + gres)
-            alert(gres.results)
-            var retTok = gres.jwtToken;
+            console.log("under func")
+            alert(res.results)
+            console.log("res under func" + res.results)
+            var retTok = res.jwtToken;
             storage.storeToken( retTok );
 
         userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
