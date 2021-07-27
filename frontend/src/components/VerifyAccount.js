@@ -11,6 +11,7 @@ function VerifyAccount(props){
         // Maybe change .value
         var obj = props.verifyId;        
         var js = JSON.stringify(obj); 
+        console.log("FROM VERIFYACCOUNT.JS:" + js + " " + obj)
         var res;
         const fetchdata = async () => 
             {
