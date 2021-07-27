@@ -680,16 +680,7 @@ exports.setApp = function (app, client)
         {    
             _ret.push( results[i]);  
         }
-
-        var refreshedToken = null;      
-        try      
-        {        
-            refreshedToken = token.refresh(jwtToken);      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }      
+   
         var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
         res.status(200).json(ret);
 
