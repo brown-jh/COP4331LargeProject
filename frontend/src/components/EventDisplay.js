@@ -39,7 +39,7 @@ function EventDisplay(props)
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
 
-        async function fetchData(){
+        const fetchData = async () =>{
             try
             {
                 const response = await fetch(bp.buildPath('api/searcheventid'),
