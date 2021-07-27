@@ -82,7 +82,6 @@ function MakeGroupUI()
 
     const addAdmin = async event =>
     {
-        // Check if the username is long enough.
 
         var tok = storage.retrieveToken();       
         var obj = {login:adminName.value,jwtToken:tok};       
@@ -105,11 +104,9 @@ function MakeGroupUI()
         
         alert(res.userId);
 
-        var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
-
         // Clears text when user adds another user.
         setAdminError("");
-        if (!loginRegex.test(adminName.value)||res.userId == undefined)
+        if (res.userId == undefined)
         {
             setAdminError("That user does not exist.");
             return;
@@ -131,8 +128,6 @@ function MakeGroupUI()
 
     const addMember = async event =>
     {
-        // Check if the username is long enough.
-        var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         
         var tok = storage.retrieveToken();       
         var obj = {login:memberName.value,jwtToken:tok};       
@@ -157,7 +152,7 @@ function MakeGroupUI()
 
         // Clears text when user adds another user.
         setMemberError("");
-        if (!loginRegex.test(memberName.value)||res.userId == undefined)
+        if (res.userId == undefined)
         {
             setMemberError("That user does not exist.");
             return;
