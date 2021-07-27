@@ -13,7 +13,7 @@ function ForgotPassword(){
         try        
         {
             // Ensures user cannot enter in empty email.
-            if (obj.emailcheck == "")
+            if (obj.email == "")
             {
                 setMessage("Please include your email.");
                 return;
@@ -21,7 +21,7 @@ function ForgotPassword(){
 
             // Found some random email regex.
             var emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if(!emailRegex.test(obj.emailcheck.value))
+            if(!emailRegex.test(obj.email))
             {
                 setMessage("Please enter a valid email.");
                 return;
