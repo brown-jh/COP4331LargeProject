@@ -9,7 +9,7 @@ function VerifyAccount(props){
     useEffect(() => {
         
         // Maybe change .value
-        var obj = {verificationLink:props.verifyId.value};
+        var obj = {verificationLink:props.verifyId};
         var js = JSON.stringify(obj);           
         var res;
         const fetchdata = async () => 
@@ -77,7 +77,7 @@ function VerifyAccount(props){
 
     return(      
         <div id="mainDiv">               
-            <span class="inner-title">{props.verifyId.value}</span><br />    
+            <span class="inner-title">{props.verifyId}</span><br />    
             <span id="error-text">{message}</span>
         </div>    
     );
