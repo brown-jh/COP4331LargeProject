@@ -670,10 +670,10 @@ exports.setApp = function (app, client)
             console.log(e.message);      
         }
 
-        var _search = new ObjectId(search.trim());  
+        var _search =search.trim();  
 
         const db = client.db(); 
-        const results = await db.collection('Events').find({_id:_search}).toArray();
+        const results = await db.collection('Events').find({"_id":ObjectId(_search)}).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
@@ -694,6 +694,8 @@ exports.setApp = function (app, client)
         res.status(200).json(ret);
 
     });
+
+    
 
     app.post('/api/searchgroupid', async (req, res, next) => {  
         // incoming: userId(will be implemented later), search  
