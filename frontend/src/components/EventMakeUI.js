@@ -165,9 +165,9 @@ function EventMakeUI()
             }
 
             
-            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
-            "\nURL: " + eventPictureURL.value);
+            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
+            //"\nURL: " + eventPictureURL.value);
 
         }
     }
@@ -186,7 +186,7 @@ function EventMakeUI()
                     const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                        alert("Events are: " + txt);
+                        //alert("Events are: " + txt);
                     res = JSON.parse(txt);    
 
                     setGroupSelector(

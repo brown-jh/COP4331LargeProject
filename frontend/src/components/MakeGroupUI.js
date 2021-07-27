@@ -91,7 +91,7 @@ function MakeGroupUI()
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
-            alert(txt);       
+            //alert(txt);       
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -121,7 +121,7 @@ function MakeGroupUI()
 
 
         // Put the user in the admin list and display it.
-        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        
         setAdminList([...adminList, {name: adminName.value, id:res.userId}]);
     }
 
@@ -137,7 +137,7 @@ function MakeGroupUI()
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
-            alert(txt);       
+            //alert(txt);       
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -165,7 +165,7 @@ function MakeGroupUI()
         }
 
         // Put the user in the member list and display it.
-        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
+        
         setMemberList([...memberList, {name: memberName.value, id:res.userId}]);
     }
 
@@ -208,10 +208,10 @@ function MakeGroupUI()
             var _groupAdmins = adminList.map(user => user.id);
             var _groupSubscribers = memberList.map(user => user.id);
 
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList.map(user => user.name + " " + user.id) + "\nMembers: " + 
-            memberList.map(user => user.name + " " + user.id) + "\nURL: " + groupPictureURL.value +
-            "\nTODO: Add current user as admin, call API, cleanup after");
+            //alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
+            //"\nAdmins: " + adminList.map(user => user.name + " " + user.id) + "\nMembers: " + 
+            //memberList.map(user => user.name + " " + user.id) + "\nURL: " + groupPictureURL.value +
+            //"\nTODO: Add current user as admin, call API, cleanup after");
 
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
