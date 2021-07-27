@@ -17,6 +17,9 @@ function EventDisplay(props)
 
     var userName = "Test User";
 
+    var url = window.location.pathname;
+    var URLid = url.substring(url.lastIndexOf('/') + 1);
+
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
     const[eventHost, setEventHost] = useState('');
@@ -30,8 +33,7 @@ function EventDisplay(props)
     useEffect(() => {
         //TODO: Connect api data to frontend
         
-        var url = window.location.pathname;
-        var URLid = url.substring(url.lastIndexOf('/') + 1);
+        
 
         alert(URLid);
 
