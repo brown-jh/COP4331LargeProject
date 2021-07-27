@@ -92,7 +92,7 @@ function MakeGroupUI()
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
-            //alert(txt);       
+            alert(txt);       
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -105,7 +105,7 @@ function MakeGroupUI()
         
         var _results = res.results;
 
-        alert(_results.userId);
+        alert(_results._id);
 
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
 
