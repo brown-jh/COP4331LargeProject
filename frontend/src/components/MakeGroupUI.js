@@ -83,6 +83,38 @@ function MakeGroupUI()
     const addAdmin = async event =>
     {
         // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
+
+        var tok = storage.retrieveToken();       
+        var obj = {login:adminName.value,jwtToken:tok};       
+        var js = JSON.stringify(obj);    
+        try        
+        {            
+            const response = await fetch(bp.buildPath('api/getuserid'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var txt = await response.text();   
+            alert(txt);      
+            var res = JSON.parse(txt);            
+            if( res.error.length > 0 )            
+            {                
+                alert( "API Error:" + res.error );     
+                return;
+            }            
+            else            
+            {            
+                       
+                var retTok = res.jwtToken;
+                storage.storeToken( retTok );
+                return;
+            }        
+        }        
+        catch(e)        
+        {            
+            alert(e.toString());  
+                  
+        }
+
+        alert(res.results.toString())
+
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
 
         // Clears text when user adds another user.
@@ -98,6 +130,8 @@ function MakeGroupUI()
             setAdminError("That user is already in the group.");
             return;
         }
+
+
 
         // Put the user in the admin list and display it.
         // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.

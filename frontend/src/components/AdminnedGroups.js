@@ -43,7 +43,7 @@ function AdminnedGroups()
             }
             catch(e)
             {
-                alert(e.toString());
+                
                 return;
             }
         };
