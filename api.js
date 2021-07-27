@@ -673,7 +673,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db(); 
-        const results = await db.collection('Events').find({"_id":ObjectId(_search) }).toArray();
+        const results = await db.collection('Events').find(ObjectId(_search)).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  

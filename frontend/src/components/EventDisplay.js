@@ -78,7 +78,7 @@ function EventDisplay(props)
             }
             catch(e)
             {
-                
+                alert(e.toString());
                 return;
             }
         };
