@@ -145,7 +145,7 @@ exports.setApp = function (app, client)
             {
                 try  
                 {       
-                    const result = db.collection('Users').insertOne(newUser);
+                    const result = await db.collection('Users').insertOne(newUser);
                     const verificationCode = jwt.sign({_id: result._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
                     const test = await db.collection('Users').updateOne(
                         {_id:result._id},
