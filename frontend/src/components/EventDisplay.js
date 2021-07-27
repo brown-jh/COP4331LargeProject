@@ -5,7 +5,16 @@ var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "15"; //TODO: Dummy data, should be set in useEffect().
+
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var userName = "Test User";
 
     const[eventTitle, setEventTitle] = useState('');
@@ -23,7 +32,8 @@ function EventDisplay(props)
         // and use it to get the event's data, but we'll use dummy data for now.
         
         // set this variable to the url ObjectId() to start process
-        var URLid = 0;
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
