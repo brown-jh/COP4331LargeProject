@@ -942,12 +942,8 @@ exports.setApp = function (app, client)
                     $set: {Authentication: jwtoken}  
                 }
             );
-
-
-
-
-            var ret = { error: err };      
-            res.status(200).json(ret);
+     
+            return res.status(200).json({error: ""});
 
         })
 
@@ -975,12 +971,8 @@ exports.setApp = function (app, client)
                     $set: {resetPassword: jwtoken}  
                 }
             );
-
-
-
-
-            var ret = { error: err };      
-            res.status(200).json(ret);
+            
+            return res.status(200).json({error: ""});
 
         })
 
