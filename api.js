@@ -670,11 +670,10 @@ exports.setApp = function (app, client)
             console.log(e.message);      
         }
 
-        //var _search = search.trim();  
+        var _search = new ObjectId(search.trim());  
 
         const db = client.db(); 
-        alert("got here");
-        const results = await db.collection('Events').find(ObjectId(search)).toArray();
+        const results = await db.collection('Events').find({_id:_search}).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
