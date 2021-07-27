@@ -128,7 +128,7 @@ exports.setApp = function (app, client)
         var results = await db.collection('Users').find({ Email:email }).toArray();
         if (results.length > 0)
         {
-            error = "Email is already in use!";
+            error = "Email is already in use.";
             var ret = { error: error};
             res.status(409).json(ret);
         }
@@ -137,7 +137,7 @@ exports.setApp = function (app, client)
             results = await db.collection('Users').find({ Login:login }).toArray();
             if (results.length > 0)
             {
-                error = "Username already exists";
+                error = "Username already exists.";
                 var ret = { error: error };
                 res.status(409).json(ret);
             }
@@ -157,7 +157,7 @@ exports.setApp = function (app, client)
                     message += verificationCode;
                     message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
                     message += email;
-                    const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);  
+                    const checking = sendEmail.sendEmail(email, "Welcome to Get2Gather!", message);  
                 }  
                 catch(e)  
                 {    
@@ -709,7 +709,7 @@ exports.setApp = function (app, client)
             verStatus = results.AuthStatus;
             if (verStatus == 0)
             {
-                ret = {error:"Account not verified"};
+                ret = {error:"Account not verified."};
             }
             else
             {
@@ -831,7 +831,7 @@ exports.setApp = function (app, client)
             message += jwtoken;
             message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
             message += email;
-            const checking = sendEmail.sendEmail(email, "Welcome to GetTogather!", message);
+            const checking = sendEmail.sendEmail(email, "Welcome to Get2Gather!", message);
 
             db.collection('Users').updateOne(
                 {_id:user._id},

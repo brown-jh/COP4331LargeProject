@@ -19,6 +19,7 @@ import AdminnedGroupsPage from './pages/AdminnedGroupsPage';
 import JoinedGroupsPage from './pages/JoinedGroupsPage';
 import EditGroupPage from './pages/EditGroupPage';
 import EditEventPage from './pages/EditEventPage';
+import VerifyAccountPage from './pages/VerifyAccountPage';
 
 function App() {  
   return (    
@@ -35,6 +36,9 @@ function App() {
         </Route>  
         <Route path="/completeregister" exact>          
           <FinishRegisterPage />        
+        </Route>
+        <Route path="/verifyaccount/:verifyId" exact>          
+          <VerifyAccountPage />        
         </Route>
         <Route path="/search" exact>          
           <SearchPage />        
