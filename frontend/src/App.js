@@ -20,6 +20,7 @@ import JoinedGroupsPage from './pages/JoinedGroupsPage';
 import EditGroupPage from './pages/EditGroupPage';
 import EditEventPage from './pages/EditEventPage';
 import VerifyAccountPage from './pages/VerifyAccountPage';
+import NewLinkPage from './pages/NewLinkPage';
 
 function App() {  
   return (    
