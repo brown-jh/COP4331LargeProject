@@ -145,20 +145,34 @@ exports.setApp = function (app, client)
             {
                 try  
                 {       
-                    const result = await db.collection('Users').insertOne(newUser);
-                    const weirdres = await db.collection('Users').findOne({Login:login});
-                    const verificationCode = jwt.sign({_id: weirdres._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
-                    const test = await db.collection('Users').updateOne(
-                        {_id:weirdres._id},
-                        {
-                            $set: {Authentication: verificationCode}
-                        }
-                    );
-                    var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
-                    message += verificationCode;
-                    message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
-                    message += email;
-                    const checking = sendEmail.sendEmail(email, "Welcome to Get2Gather!", message);  
+                    const result = await db.collection('Users').insertOne(newUser, (err, response) =>
+                    {
+                        const verificationCode = jwt.sign({_id: response.ops[0]._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
+                        const test = await db.collection('Users').updateOne(
+                            {_id:response.ops[0]._id},
+                            {
+                                $set: {Authentication: verificationCode}
+                            }
+                        );
+                        var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+                        message += verificationCode;
+                        message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
+                        message += email;
+                        const checking = sendEmail.sendEmail(email, "Welcome to Get2Gather!", message);
+                    });
+                    //const weirdres = await db.collection('Users').findOne({Login:login});
+                    //const verificationCode = jwt.sign({_id: weirdres._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
+                    //const test = await db.collection('Users').updateOne(
+                    //    {_id:weirdres._id},
+                    //    {
+                    //        $set: {Authentication: verificationCode}
+                    //    }
+                    //);
+                    //var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+                    //message += verificationCode;
+                    //message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
+                    //message += email;
+                    //const checking = sendEmail.sendEmail(email, "Welcome to Get2Gather!", message);  
                 }  
                 catch(e)  
                 {    
