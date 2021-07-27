@@ -17,9 +17,6 @@ function EventDisplay(props)
 
     var userName = "Test User";
 
-    var url = window.location.pathname;
-    var URLid = url.substring(url.lastIndexOf('/') + 1);
-
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
     const[eventHost, setEventHost] = useState('');
@@ -33,59 +30,61 @@ function EventDisplay(props)
     useEffect(() => {
         //TODO: Connect api data to frontend
         
-        
-
-        alert(URLid);
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
+        alert(URLid);        
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
 
-        const fetchData = async () =>{
-            try
-            {
-                const response = await fetch(bp.buildPath('api/searcheventid'),
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        const fetchData = async () =>
+        {
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searcheventid'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    alert(txt);
+                    res = JSON.parse(txt);    
 
-                var txt = await response.text();
-                alert(txt);
-                var res = JSON.parse(txt);
-
-                res.results.map((eventData) => {
-                    setEventTitle(eventData.EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-                    setEventDesc(eventData.EventDescription);
-                    setEventHost(eventData.EventHosts);
-                    setAttendeeList(<div><p>{makeUsernameList(eventData.EventAttendees
-                        )}</p></div>);
-                    attendeeVar = eventData.EventAttendees; //So we can access the attendees outside of useEffect.
-                    setEventGroup(eventData.GroupID);
-                    setEventTime(eventData.EventTime);
-                    setEventLocation(eventData.EventLocation);
-                    setEventComments(eventData.EventComments);
-                });
-
-
-                      
-                
-                // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
-                if (attendeeVar.filter(user => user.id == userId).length != 0)
-                {
-                    setJoinLeaveButton("Leave");
-                }
+                           
                         
-                    var retTok = res.jwtToken;
-                   storage.storeToken( retTok );
-                  return;
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
 
+                }        
+                catch(e)        
+                {            
+                    alert(e.toString());      
+                }
             }
-            catch(e)
-            {
-                alert(e.toString());
-                return;
-            }
-        };
 
         fetchData();
+
+        res.results.map((eventData) => {
+            setEventTitle(eventData.EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+            setEventDesc(eventData.EventDescription);
+            setEventHost(eventData.EventHosts);
+            setAttendeeList(<div><p>{makeUsernameList(eventData.EventAttendees
+                )}</p></div>);
+            attendeeVar = eventData.EventAttendees; //So we can access the attendees outside of useEffect.
+            setEventGroup(eventData.GroupID);
+            setEventTime(eventData.EventTime);
+            setEventLocation(eventData.EventLocation);
+            setEventComments(eventData.EventComments);
+        });
+
+
+              
+        
+        // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
+        if (attendeeVar.filter(user => user.id == userId).length != 0)
+        {
+            setJoinLeaveButton("Leave");
+        }
 
         var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
