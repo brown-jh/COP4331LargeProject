@@ -20,7 +20,7 @@ function NewLink(props){
                     res = JSON.parse(txt);   
                     if( res.error.length > 0 )            
                     {                
-                        setMessage( "Email Error:" + res.error );            
+                        setMessage( "Email Error: " + res.error );            
                     }       
                     else            
                     {                

@@ -20,7 +20,7 @@ function VerifyAccount(props){
                     res = JSON.parse(txt);   
                     if( res.error.length > 0 )            
                     {                
-                        setMessage( "Registration Error:" + res.error );            
+                        setMessage( "Registration Error: " + res.error );            
                     }       
                     else            
                     {                

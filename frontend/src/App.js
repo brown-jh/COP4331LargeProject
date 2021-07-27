@@ -41,7 +41,7 @@ function App() {
           <VerifyAccountPage />        
         </Route>
         <Route path="/newlink/:email" exact>          
-          <VerifyAccountPage />        
+          <NewLinkPage />        
         </Route>
         <Route path="/search" exact>          
           <SearchPage />        
