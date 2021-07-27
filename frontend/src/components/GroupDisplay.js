@@ -7,7 +7,16 @@ var memberVar = [];
 
 function GroupDisplay(props)
 {
-    var userId = "15"; //TODO: Dummy value, should be set in UseEffect().
+
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var userName = "Test User";
 
     const[groupTitle, setGroupTitle] = useState('');
@@ -18,8 +27,67 @@ function GroupDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-        //TODO: Here, we would normally pull the group ID from the URL, get the group via API, 
-        // and use it to get the group's data, but we'll use dummy data for now.
+        
+
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
+
+        alert(URLid);
+
+        var tok = storage.retrieveToken();
+        var obj = {search:URLid,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searchgroupid'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                alert(txt);
+                var res = JSON.parse(txt);
+
+                //TODO connect api data to frontend
+
+                setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
+                setGroupDesc(thisGroup.description);
+                setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
+                adminVar = thisGroup.admins;
+                setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
+                memberVar = thisGroup.members; //So we can track the admins and members outside of useEffect.
+
+             // For each event, make an EventBox with its data.
+                setEventList(thisGroup.events.map((eventData) => (
+                    <EventBox title={eventData.title}
+                        group={eventData.group}
+                        eventId={eventData.id}
+                        // Ensures dates are in: Month Day, Year Time format
+                        time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
+                        place={eventData.place}/>)));
+
+                // Flip the status of the join/leave button to Leave if the user has joined the group.
+                if(memberVar.filter(user => user.id == userId).length != 0)
+                {
+                    setJoinLeaveButton("Leave");
+                }
+
+                
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
 
         var thisGroup={
             name: "NerdKnighteria of UCF",
@@ -70,29 +138,6 @@ function GroupDisplay(props)
                 }
             ]
         };
-
-        setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
-        setGroupDesc(thisGroup.description);
-        setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
-        adminVar = thisGroup.admins;
-        setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
-        memberVar = thisGroup.members; //So we can track the admins and members outside of useEffect.
-
-        // For each event, make an EventBox with its data.
-        setEventList(thisGroup.events.map((eventData) => (
-            <EventBox title={eventData.title}
-                group={eventData.group}
-                eventId={eventData.id}
-                // Ensures dates are in: Month Day, Year Time format
-                time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
-                place={eventData.place}/>)));
-
-        // Flip the status of the join/leave button to Leave if the user has joined the group.
-        if(memberVar.filter(user => user.id == userId).length != 0)
-        {
-            setJoinLeaveButton("Leave");
-        }
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
