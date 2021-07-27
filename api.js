@@ -249,7 +249,7 @@ exports.setApp = function (app, client)
 
         
         const newEvent = {EventName:eventname, EventDescription:eventDescription, 
-                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[eventhost],EventAttendees:[eventhost],ImageURL:imageURL,};  
+                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:eventhost,EventAttendees:[eventhost],ImageURL:imageURL,};  
         var error = '';  
         
         try  
