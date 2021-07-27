@@ -49,16 +49,21 @@ function EventDisplay(props)
                 alert(txt);
                 var res = JSON.parse(txt);
 
-                // TODO: pull data from api into the aetEvent calls
-                setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-                setEventDesc(thisEvent.description);
-                setEventHost(thisEvent.host.name);
-                setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
-                attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
-                setEventGroup(thisEvent.group);
-                setEventTime(thisEvent.time);
-                setEventLocation(thisEvent.place);
-                setEventComments(thisEvent.comments);      
+                res.results.map((eventData) => {
+                    setEventTitle(eventData.EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                    setEventDesc(eventData.EventDescription);
+                    setEventHost(eventData.EventHosts);
+                    setAttendeeList(<div><p>{makeUsernameList(eventData.EventAttendees
+                        )}</p></div>);
+                    attendeeVar = eventData.EventAttendees; //So we can access the attendees outside of useEffect.
+                    setEventGroup(eventData.GroupID);
+                    setEventTime(eventData.EventTime);
+                    setEventLocation(eventData.EventLocation);
+                    setEventComments(eventData.EventComments);
+                });
+
+
+                      
                 
                 // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
                 if (attendeeVar.filter(user => user.id == userId).length != 0)
