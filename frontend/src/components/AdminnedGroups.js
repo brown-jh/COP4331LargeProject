@@ -33,8 +33,10 @@ function AdminnedGroups()
 
   
                     setAdminnedGroups(res.results.map((groupData) => (
-                        <GroupBox title={groupData.title}
-                           desc={groupData.desc}/>)));
+                        <GroupBox title={groupData.GroupName}
+                            imageURL={groupData.ImageURL}
+                            desc={groupData.GroupDescription}
+                            groupId={groupData._id}/>)));
                         
                     var retTok = res.jwtToken;
                    storage.storeToken( retTok );
