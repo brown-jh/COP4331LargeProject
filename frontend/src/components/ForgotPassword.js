@@ -21,7 +21,7 @@ function ForgotPassword(){
 
             // Found some random email regex.
             var emailRegex = /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-            if(!emailRegex.test(obj.emailcheck))
+            if(!emailRegex.test(obj.emailcheck.value))
             {
                 setMessage("Please enter a valid email.");
                 return;
