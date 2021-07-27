@@ -146,9 +146,10 @@ exports.setApp = function (app, client)
                 try  
                 {       
                     const result = await db.collection('Users').insertOne(newUser);
-                    const verificationCode = jwt.sign({_id: result._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
+                    const weirdres = await db.collection('Users').findOne({Login:login});
+                    const verificationCode = jwt.sign({_id: weirdres._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
                     const test = await db.collection('Users').updateOne(
-                        {_id:result._id},
+                        {_id:weirdres._id},
                         {
                             $set: {Authentication: verificationCode}
                         }
