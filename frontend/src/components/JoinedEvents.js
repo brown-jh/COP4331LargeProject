@@ -5,10 +5,58 @@ import EventBox from '../components/EventBox';
 function JoinedEvents()
 {
 
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     const [joinedEvents, setJoinedEvents] = useState('');
 
     useEffect(() => {
-        // TODO: Here we would find the user's joined events via API and put them in here.
+
+        var tok = storage.retrieveToken();
+        var obj = {search:userId,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searcheventsubbed'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                //alert(txt)
+                var res = JSON.parse(txt);
+
+  
+                setJoinedEvents(res.results.map((eventData) => (
+                    <EventBox 
+                        imageURL={eventData.ImageURL}
+                        title={eventData.EventName}
+                        group={eventData.EventDescription}
+                        // Ensures dates are in: Month Day, Year Time format
+                        time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
+                        place={eventData.EventLocation}/>)));
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
+        
         var dummyJoinedEvents=[
             {
                 id: "123",
@@ -46,14 +94,6 @@ function JoinedEvents()
                 place: "4143 Woodmere Park Blvd, Venice, FL 34293"
             }
         ]
-        setJoinedEvents(dummyJoinedEvents.map((eventData) => (
-            <EventBox title={eventData.title}
-                group={eventData.group}
-                eventId={eventData.id}
-                // Ensures dates are in: Month Day, Year Time format
-                time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
-                place={eventData.place}/>)));
     });
 
     return (

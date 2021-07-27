@@ -5,7 +5,16 @@ var attendeeVar = [];
 
 function EventDisplay(props)
 {
-    var userId = "15"; //TODO: Dummy data, should be set in useEffect().
+
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var userName = "Test User";
 
     const[eventTitle, setEventTitle] = useState('');
@@ -21,6 +30,54 @@ function EventDisplay(props)
     useEffect(() => {
         //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
         // and use it to get the event's data, but we'll use dummy data for now.
+        
+        // set this variable to the url ObjectId() to start process
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
+
+        var tok = storage.retrieveToken();
+        var obj = {search:URLid,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searcheventid'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+
+                // TODO: pull data from api into the aetEvent calls
+                setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                setEventDesc(thisEvent.description);
+                setEventHost(thisEvent.host.name);
+                setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
+                attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
+                setEventGroup(thisEvent.group);
+                setEventTime(thisEvent.time);
+                setEventLocation(thisEvent.place);
+                setEventComments(thisEvent.comments);      
+                
+                // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
+                if (attendeeVar.filter(user => user.id == userId).length != 0)
+                {
+                    setJoinLeaveButton("Leave");
+                }
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
 
         var thisEvent={
             name: "Smash Tournament for NerdKnighteria",
@@ -50,21 +107,6 @@ function EventDisplay(props)
                 }
             ]
         };
-
-        setEventTitle(thisEvent.name + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-        setEventDesc(thisEvent.description);
-        setEventHost(thisEvent.host.name);
-        setAttendeeList(<div><p>{makeUsernameList(thisEvent.attendees)}</p></div>);
-        attendeeVar = thisEvent.attendees; //So we can access the attendees outside of useEffect.
-        setEventGroup(thisEvent.group);
-        setEventTime(thisEvent.time);
-        setEventLocation(thisEvent.place);
-        setEventComments(thisEvent.comments);
-        // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
-        if (attendeeVar.filter(user => user.id == userId).length != 0)
-        {
-            setJoinLeaveButton("Leave");
-        }
     }, []);
 
     // This function handles the user clicking the Join/Leave button.

@@ -4,10 +4,52 @@ import GroupBox from '../components/GroupBox';
 
 function JoinedGroups()
 {
+
+    var bp = require('../components/Path.js');
+
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     const [joinedGroups, setJoinedGroups] = useState('');
 
     useEffect(() => {
-        // TODO: Here we would find the groups the user is in via API and put them in here.
+        var tok = storage.retrieveToken();
+        var obj = {search:userId,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searchgroupsubbed'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+
+  
+                setJoinedGroups(res.results.map((groupData) => (
+                        <GroupBox title={groupData.GroupName}
+                            imageURL={groupData.ImageURL}
+                            desc={groupData.GroupDescription}
+                            groupId={groupData._id}/>)));
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
         var dummyJoinedGroups=[
             {
                 id: "12345",
@@ -30,10 +72,6 @@ function JoinedGroups()
                 desc: "Interested in game dev or game jams? Try here!",
             }
         ]
-        setJoinedGroups(dummyJoinedGroups.map((groupData) => (
-            <GroupBox title={groupData.title}
-                desc={groupData.desc}
-                groupId={groupData.id}/>)));
     });
 
     return (
