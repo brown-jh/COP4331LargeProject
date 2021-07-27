@@ -50,14 +50,14 @@ function EventDisplay(props)
                     res = JSON.parse(txt);    
                     var _res = JSON.parse(res.results);
 
-                        setEventTitle(_res.EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-                        setEventDesc(_res.EventDescription);
-                        setEventHost(_res.EventHosts);
-                        setAttendeeList(<div><p>{makeUsernameList(_res.EventAttendees)}</p></div>);
-                        attendeeVar = _res.EventAttendees; //So we can access the attendees outside of useEffect.
-                        setEventGroup(_res.GroupID);
-                        setEventTime(_res.EventTime);
-                        setEventLocation(_res.EventLocation);
+                        setEventTitle(_res.EventName.toString() + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                        //setEventDesc(_res.EventDescription);
+                        //setEventHost(_res.EventHosts);
+                        //setAttendeeList(<div><p>{makeUsernameList(_res.EventAttendees)}</p></div>);
+                        //attendeeVar = _res.EventAttendees; //So we can access the attendees outside of useEffect.
+                        //setEventGroup(_res.GroupID);
+                        //setEventTime(_res.EventTime);
+                        //setEventLocation(_res.EventLocation);
                         //setEventComments(_res.EventComments);
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
