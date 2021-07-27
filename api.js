@@ -484,7 +484,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Events').find({ "EventHosts": [_search] }).toArray();
+        const results = await db.collection('Events').find({ "EventHosts": _search }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
@@ -527,7 +527,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Events').find({ "EventAttendees": [_search] }).toArray();
+        const results = await db.collection('Events').find({ "EventAttendees": _search }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
@@ -570,7 +570,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Groups').find({ "GroupSubscribers": [_search] }).toArray();
+        const results = await db.collection('Groups').find({ "GroupSubscribers": _search }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
