@@ -9,11 +9,10 @@ function VerifyAccount(props){
     useEffect(() => {
         
         // Maybe change .value
-        var obj = {verfication:props.verifyId.value};        
+        var obj = props.verifyId;        
         var js = JSON.stringify(obj); 
         var res;
-
-        const  fetchdata = async () => 
+        const fetchdata = async () => 
             {
             try        
                 {            
