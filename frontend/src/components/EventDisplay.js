@@ -28,10 +28,8 @@ function EventDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-        //TODO: Here, we would normally pull the event ID from the URL, get the event via API, 
-        // and use it to get the event's data, but we'll use dummy data for now.
+        //TODO: Connect api data to frontend
         
-        // set this variable to the url ObjectId() to start process
         var url = window.location.pathname;
         var URLid = url.substring(url.lastIndexOf('/') + 1);
 
