@@ -104,7 +104,7 @@ const Search = () =>{
 
                         setSearchResults(res.results.map((groupData) => (
                             <GroupBox title={groupData.GroupName}
-                                imageURL={groupDataData.ImageURL}
+                                imageURL={groupData.ImageURL}
                                 desc={groupData.GroupDescription}
                                 groupId={groupData._id}/>)));
                                                 
