@@ -10,15 +10,14 @@ function VerifyAccount(props){
         
         // Maybe change .value
         var obj = {verificationLink:props.verifyId};
-        var js = JSON.stringify(obj);  
-        alert(js);         
+        alert(obj);         
         var res;
         const fetchdata = async () => 
             {
             try        
                 {            
                     const response = await fetch(bp.buildPath('api/verifyaccount'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                        {method:'POST',body:obj,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                     res = JSON.parse(txt);   
                     if( res.error.length > 0 )            
