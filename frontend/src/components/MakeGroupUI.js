@@ -82,7 +82,7 @@ function MakeGroupUI()
 
     const addAdmin = async event =>
     {
-        // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
+        // Check if the username is long enough.
 
         var tok = storage.retrieveToken();       
         var obj = {login:adminName.value,jwtToken:tok};       
@@ -125,7 +125,7 @@ function MakeGroupUI()
 
         // Put the user in the admin list and display it.
         // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
-        setAdminList([...adminList, {name: adminName.value, id:"0"}]);
+        setAdminList([...adminList, {name: adminName.value, id:res.userId}]);
     }
 
 
@@ -134,9 +134,30 @@ function MakeGroupUI()
         // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         
+        var tok = storage.retrieveToken();       
+        var obj = {login:memberName.value,jwtToken:tok};       
+        var js = JSON.stringify(obj);    
+        try        
+        {            
+            const response = await fetch(bp.buildPath('api/getuserid'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var txt = await response.text();   
+            alert(txt);       
+            var res = JSON.parse(txt);                     
+            var retTok = res.jwtToken;
+            storage.storeToken( retTok );
+      
+        }        
+        catch(e)        
+        {            
+                  
+        }
+        
+        alert(res.userId);
+
         // Clears text when user adds another user.
         setMemberError("");
-        if (!loginRegex.test(memberName.value))
+        if (!loginRegex.test(memberName.value)||res.userId == undefined)
         {
             setMemberError("That user does not exist.");
             return;
@@ -150,7 +171,7 @@ function MakeGroupUI()
 
         // Put the user in the member list and display it.
         // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
-        setMemberList([...memberList, {name: memberName.value, id:"0"}]);
+        setMemberList([...memberList, {name: memberName.value, id:res.userId}]);
     }
 
     const submitGroup = async event =>
