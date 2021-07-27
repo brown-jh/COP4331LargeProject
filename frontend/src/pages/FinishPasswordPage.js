@@ -9,7 +9,7 @@ const FinishPasswordPage = () =>{
     return(        
         <div>            
             <PageTitle />    
-            <FinishPassword />         
+            <FinishPassword passwordId={passwordId}/>         
         </div>    
     );
 }

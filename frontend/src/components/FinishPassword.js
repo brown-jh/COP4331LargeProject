@@ -30,7 +30,7 @@ function FinishPassword(props){
             else 
             {
                 var bp = require('./Path.js');
-                var object = {resetLink:props.passwordId, newPassword:newPassword.value}
+                var object = {resetLink:props.passwordId, newPassword:newPassword.value};
                 var js = JSON.stringify(object);  
                 var res;      
                 try        
