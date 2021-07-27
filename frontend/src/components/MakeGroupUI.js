@@ -103,6 +103,9 @@ function MakeGroupUI()
                   
         }
         
+        _results = res.results;
+
+        alert(_results.userId);
 
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
 
