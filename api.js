@@ -9,6 +9,7 @@ exports.setApp = function (app, client)
 
     var token = require('./createJWT.js');
     const nodemailer = require('nodemailer');
+    var mongo = require('mongodb');
 
 
     // This is for NODEMAILER, I put it at the top because it probably
@@ -80,8 +81,10 @@ exports.setApp = function (app, client)
 
         var _search =search.trim();  
 
+        var o_id = new mongo.ObjectID(search);
+
         const db = client.db(); 
-        const results = await db.collection('Events').find({_id:search}).toArray();
+        const results = await db.collection('Events').find({_id:o_id}).toArray();
 
         var _ret = [results[0]];  
         //for( var i=0; i<results.length; i++ )  
