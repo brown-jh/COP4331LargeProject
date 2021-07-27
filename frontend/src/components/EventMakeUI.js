@@ -6,8 +6,6 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
-var gres;
-
 function EventMakeUI()
 {
  
