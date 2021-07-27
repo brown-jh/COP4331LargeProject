@@ -131,7 +131,7 @@ function MakeGroupUI()
 
     const addMember = async event =>
     {
-        // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
+        // Check if the username is long enough.
         var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         
         var tok = storage.retrieveToken();       
