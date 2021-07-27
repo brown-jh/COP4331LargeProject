@@ -398,7 +398,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Groups').find({$or: [ { "GroupName": {$regex:'/^'+_search+'/i'} }, {"GroupDescription": {$regex:'/^'+_search+'/i'} } ] }).toArray();
+        const results = await db.collection('Groups').find({$or: [ { "GroupName": {$regex:_search+'.*',$options:'i'} }, {"GroupDescription": {$regex:_search+'.*',$options:'i'} } ] }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
