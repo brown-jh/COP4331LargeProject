@@ -109,7 +109,7 @@ function MakeGroupUI()
 
         // Clears text when user adds another user.
         setAdminError("");
-        if (!loginRegex.test(adminName.value))
+        if (!loginRegex.test(adminName.value)||res.userId == undefined)
         {
             setAdminError("That user does not exist.");
             return;
