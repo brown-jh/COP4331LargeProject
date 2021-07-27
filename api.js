@@ -154,7 +154,7 @@ exports.setApp = function (app, client)
                                 $set: {Authentication: verificationCode}
                             }
                         );
-                        var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+                        var message = "Hey, welcome to Get2Gather! Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
                         message += verificationCode;
                         message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
                         message += email;
@@ -350,7 +350,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -400,7 +400,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -443,7 +443,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -486,7 +486,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -529,7 +529,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -572,7 +572,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -616,7 +616,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -660,7 +660,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -704,7 +704,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -749,7 +749,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(200).json(r);          
                 return;        
             }      
@@ -913,7 +913,7 @@ exports.setApp = function (app, client)
         }
         else
         {
-            return res.status(401).json({error: "Authentication error"});
+            return res.status(401).json({error: "Authentication error."});
         }
 
     });
@@ -930,7 +930,7 @@ exports.setApp = function (app, client)
 
             const jwtoken = jwt.sign({_id: user._id}, process.env.VERIFICATION_KEY, {expiresIn: '20m'});
             // todo: do this as html
-            var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
+            var message = "Hey, welcome to Get2Gather! Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
             message += jwtoken;
             message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
             message += email;
@@ -1021,7 +1021,7 @@ exports.setApp = function (app, client)
         }
         else
         {
-            return res.status(401).json({error: "Authentication error"});
+            return res.status(401).json({error: "Authentication error."});
         }
 
     });
@@ -1047,7 +1047,7 @@ exports.setApp = function (app, client)
         {        
             if( token.isExpired(jwtToken))        
             {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
                 res.status(401).json(r);          
                 return;        
             }      

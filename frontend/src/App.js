@@ -40,6 +40,9 @@ function App() {
         <Route path="/verifyaccount/:verifyId" exact>          
           <VerifyAccountPage />        
         </Route>
+        <Route path="/newlink/:email" exact>          
+          <VerifyAccountPage />        
+        </Route>
         <Route path="/search" exact>          
           <SearchPage />        
         </Route>
