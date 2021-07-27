@@ -94,7 +94,7 @@ function JoinedEvents()
                 place: "4143 Woodmere Park Blvd, Venice, FL 34293"
             }
         ]
-    });
+    },[]);
 
     return (
         <div id="mainDiv" style={{width: "80%"}}>

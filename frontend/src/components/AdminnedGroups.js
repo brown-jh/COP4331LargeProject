@@ -70,7 +70,7 @@ function AdminnedGroups()
                 desc: "Interested in game dev or game jams? Try here!",
             }
         ]
-    });
+    },[]);
 
     return (
 

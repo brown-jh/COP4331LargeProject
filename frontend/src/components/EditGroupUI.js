@@ -8,6 +8,14 @@ import GroupUserList from '../components/GroupUserList';
 
 function EditGroupUI(props)
 {
+    var bp = require('./Path.js');
+    var storage = require('../tokenStorage.js');
+    const jwt = require("jsonwebtoken");
+
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var groupName = '';
     var groupDesc = '';
     var groupPictureURL = '';
@@ -30,6 +38,46 @@ function EditGroupUI(props)
 
         //TODO: get the group with this ID via API.
 
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
+
+        var tok = storage.retrieveToken();
+        var obj = {search:URLid,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searchgroupid'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                alert(txt);
+                var res = JSON.parse(txt);
+
+                //TODO: connect api out to frontend in
+                groupName.value = thisGroup.name + "\n" + props.groupId;
+                groupDesc.value = thisGroup.description;
+                groupPictureURL.value = thisGroup.url;
+
+                setAdminList(thisGroup.admins);
+                setMemberList(thisGroup.members);
+                            
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
+
         var thisGroup={
             name: "NerdKnighteria of UCF",
             description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
@@ -43,13 +91,6 @@ function EditGroupUI(props)
                 {name:"Louis Ferguson", id:"5"}, 
                 {name:"Isabelle Bathory", id:"6"}]
         };
-
-        groupName.value = thisGroup.name + "\n" + props.groupId;
-        groupDesc.value = thisGroup.description;
-        groupPictureURL.value = thisGroup.url;
-
-        setAdminList(thisGroup.admins);
-        setMemberList(thisGroup.members);
         
         // This [], ensures useEffect only runs once.
     }, []);
