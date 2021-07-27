@@ -103,7 +103,7 @@ function MakeGroupUI()
                   
         }
         
-        _results = res.results;
+        var _results = res.results;
 
         alert(_results.userId);
 
