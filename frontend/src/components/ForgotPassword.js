@@ -10,7 +10,6 @@ function ForgotPassword(){
         event.preventDefault();       
 
         var obj = {email:emailcheck.value};
-        alert("TODO: Reset Password. Email to reset : " + obj.email) 
         try        
         {
             // Ensures user cannot enter in empty email.
@@ -29,7 +28,7 @@ function ForgotPassword(){
             }
             else 
             {
-
+                var bp = require('./Path.js');
                 var js = JSON.stringify(obj);  
                 var res;      
                 try        
