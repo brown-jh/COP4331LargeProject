@@ -84,33 +84,43 @@ const Search = () =>{
                 }
 
             case searchingType.GROUPS:
-                var dummyGroups=[
-                    {
-                        id: "1111",
-                        title: "NerdKnighteria of UCF",
-                        desc: "This is a club for board and video gamers at UCF.",
-                    },
-                    {
-                        id: "2222",
-                        title: "Dark Side Comics Game Night",
-                        desc: "We meet at Dark Side Comics on Sundays to play board games.",
-                    },
-                    {
-                        id: "3333",
-                        title: "YMCA Swimming Club",
-                        desc: "We're here to dive in and have fun!",
-                    },
-                    {
-                        id: "444",
-                        title: "Game Jammers",
-                        desc: "Interested in game dev or game jams? Try here!",
-                    }
-                ]
-                setSearchResults(dummyGroups.map((groupData) => (
-                    <GroupBox title={groupData.title}
-                        desc={groupData.desc}
-                        groupId={groupData.id}/>)));
+
+                var tok = storage.retrieveToken();       
+                var obj = {userId:userId,search:searchParams.value,jwtToken:tok};       
+                var js = JSON.stringify(obj);    
+                try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchgroups'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();         
+                    var res = JSON.parse(txt);            
+                    if( res.error.length > 0 )            
+                    {                
+                        setSearchResults( "API Error:" + res.error );     
                         return;
+                    }            
+                    else            
+                    {            
+
+                        setSearchResults(res.results.map((groupData) => (
+                            <GroupBox title={groupData.GroupName}
+                                imageURL={groupDataData.ImageURL}
+                                desc={groupData.GroupDescription}
+                                groupId={groupData._id}/>)));
+                                                
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );
+                        return;
+                    }        
+                }        
+                catch(e)        
+                {            
+                    setSearchResults(e.toString());  
+                    return;      
+                }
+
+                
+
             default:
                 return;
         }
