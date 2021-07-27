@@ -655,7 +655,7 @@ exports.setApp = function (app, client)
         // incoming: userId(will be implemented later), search  
         // outgoing: results[], error  
         var error = '';  
-        const { userId, search, jwtToken } = req.body;    
+        const {search, jwtToken } = req.body;    
         try      
         {        
             if( token.isExpired(jwtToken))        
