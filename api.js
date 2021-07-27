@@ -866,7 +866,6 @@ exports.setApp = function (app, client)
         */
         const {verificationLink} = req.body;
         const db = client.db();
-        alert(verificationLink)
         if(verificationLink)
         {
             jwt.verify(verificationLink, process.env.VERIFICATION_KEY, function(err, decodedData)

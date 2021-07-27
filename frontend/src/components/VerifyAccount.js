@@ -4,20 +4,19 @@ function VerifyAccount(props){
     
     const [message, setMessage] = useState('');
     var bp = require('./Path.js');
-    var storage = require('../tokenStorage.js');
 
     useEffect(() => {
         
-        // Maybe change .value
         var obj = {verificationLink:props.verifyId};
-        alert(obj);         
+        var js = JSON.stringify(obj);  
+        alert(js);         
         var res;
         const fetchdata = async () => 
             {
             try        
                 {            
                     const response = await fetch(bp.buildPath('api/verifyaccount'),            
-                        {method:'POST',body:obj,headers:{'Content-Type': 'application/json'}});
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                     res = JSON.parse(txt);   
                     if( res.error.length > 0 )            
