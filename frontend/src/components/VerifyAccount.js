@@ -10,7 +10,8 @@ function VerifyAccount(props){
         
         // Maybe change .value
         var obj = {verificationLink:props.verifyId};
-        var js = JSON.stringify(obj);           
+        var js = JSON.stringify(obj);  
+        alert(js);         
         var res;
         const fetchdata = async () => 
             {
