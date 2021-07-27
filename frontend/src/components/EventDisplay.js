@@ -35,6 +35,8 @@ function EventDisplay(props)
         var url = window.location.pathname;
         var URLid = url.substring(url.lastIndexOf('/') + 1);
 
+        alert(URLid);
+
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
@@ -46,6 +48,7 @@ function EventDisplay(props)
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
+                alert(txt);
                 var res = JSON.parse(txt);
 
                 // TODO: pull data from api into the aetEvent calls
