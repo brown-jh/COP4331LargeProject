@@ -614,7 +614,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Events').find({$or: [ { "EventName": {$regex:_search+'.*i', $options:'i'} }, {"EventDescription": {$regex:_search+'.*i', $options:'i'} } ] }).toArray();
+        const results = await db.collection('Events').find({$or: [ { "EventName": {$regex:'/^'+_search+'/i'} }, {"EventDescription": {$regex:'/^'+_search+'/i'} } ] }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
