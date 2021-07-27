@@ -150,9 +150,9 @@ exports.setApp = function (app, client)
                     const test = await db.collection('Users').updateOne(
                         {_id:result._id},
                         {
-                        $set: {Authentication: verificationCode}
+                            $set: {Authentication: verificationCode}
                         }
-                    )
+                    );
                     var message = "Verify your account here: https://cop4331-eventmanager.herokuapp.com/verifyaccount/";
                     message += verificationCode;
                     message += "\n\n Link expired? Go here to obtain a new link: https://cop4331-eventmanager.herokuapp.com/newlink/";
