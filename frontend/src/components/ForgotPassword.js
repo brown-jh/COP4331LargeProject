@@ -67,7 +67,7 @@ function ForgotPassword(){
             <span class="inner-title">Password Reset</span><br />    
             <span class="smaller-inner-title">Please enter your email to send a verification code to reset your password.</span><br />         
             <br /><input type="text" id="email" placeholder="Email" 
-                ref ={(c) => email = c} /><br />   
+                ref ={(c) => emailcheck = c} /><br />   
              <input type="submit" id="passwordReset" class="buttons" value = "Send Verification Email"          
                 onClick={doPasswordReset} />
 
