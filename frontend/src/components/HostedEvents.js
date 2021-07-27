@@ -25,7 +25,7 @@ function HostedEvents()
         async function fetchData(){
             try
             {
-                const response = await fetch(bp.buildPath('api/searchgroupadmins'),
+                const response = await fetch(bp.buildPath('api/searcheventhost'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
