@@ -13,6 +13,10 @@ function EditEventUI(props)
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
+    var _ud = localStorage.getItem('user_data');    
+    var ud = JSON.parse(_ud);    
+    var userId = ud.id;
+
     var userGroups = [];
     var eventName = '';
     var eventDesc = '';
@@ -34,6 +38,46 @@ function EditEventUI(props)
 
         //TODO: get the event with this ID via API.
         //TODO : Also add groups.
+
+        var url = window.location.pathname;
+        var URLid = url.substring(url.lastIndexOf('/') + 1);
+
+        var tok = storage.retrieveToken();
+        var obj = {search:URLid,jwtToken:tok};
+        var js = JSON.stringify(obj);
+
+        async function fetchData(){
+            try
+            {
+                const response = await fetch(bp.buildPath('api/searcheventid'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                alert(txt);
+                var res = JSON.parse(txt);
+
+                //TODO: connect api out to frontend in
+                eventName.value = thisEvent.name + "\n" + props.eventId;
+                eventDesc.value = thisEvent.description;
+                eventTime.value = thisEvent.time;
+                eventPlace = thisEvent.location;
+                eventPictureURL.value = thisEvent.url;            
+                        
+                    var retTok = res.jwtToken;
+                   storage.storeToken( retTok );
+                  return;
+
+            }
+            catch(e)
+            {
+                
+                return;
+            }
+        };
+
+        fetchData();
+
+
         var thisEvent={
             name: "Firehawks",
             description: "This is a bird watching group with an unbefitting name. YEE.",
@@ -41,12 +85,6 @@ function EditEventUI(props)
             location: "University of Central Florida",
             url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
         };
-
-        eventName.value = thisEvent.name + "\n" + props.eventId;
-        eventDesc.value = thisEvent.description;
-        eventTime.value = thisEvent.time;
-        eventPlace = thisEvent.location;
-        eventPictureURL.value = thisEvent.url;
         
         // This [], ensures useEffect only runs once.
     }, []);

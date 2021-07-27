@@ -58,7 +58,7 @@ function HostedEvents()
         fetchData();
 
         
-    });
+    },[]);
 
     return (
         <div id="mainDiv" style={{width: "80%"}}>
