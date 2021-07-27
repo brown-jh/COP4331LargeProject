@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 
-function FinishPassword(){ 
+function FinishPassword(props){ 
     
-    var verificationCode;
     var newPassword;
     var newPasswordCheck;
     const [message, setMessage] = useState('');
@@ -11,8 +10,7 @@ function FinishPassword(){
     {    
         event.preventDefault();       
 
-        var obj = {verification:verificationCode.value, newPass:newPassword.value, newPassCheck:newPasswordCheck.value};
-        alert("TODO: Send verification to API. Verification Code: " + obj.verification + " New Password: " + obj.newPass) 
+        var obj = {newPass:newPassword.value, newPassCheck:newPasswordCheck.value};
         try        
         {
             // Ensures user enter two identical passwords.
@@ -29,23 +27,35 @@ function FinishPassword(){
                 setMessage("Password must be 8 or more numbers, letters, or underscores.");
                 return;
             }
-
-            // Ensures user doesn't enter an empty verification code.
-            if (verificationCode.value == "")
-            {
-                setMessage("Please enter a valid verification code.");
-                return;
-            }
-            
-            //     // TODO: Check if verification code is incorrect.
-            // if (res.error) 
-            // {
-            //     setMessage(res.error);
-            // }
             else 
             {
-                window.location.href = '/login';
-            }        
+                var bp = require('./Path.js');
+                var object = {resetlink:props.passwordId, newPassword:newPassword.value}
+                var js = JSON.stringify(object);  
+                var res;      
+                try        
+                    {            
+                        const response = await fetch(bp.buildPath('api/resetpassword'),            
+                            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                        var txt = await response.text();   
+                        res = JSON.parse(txt);   
+                        if( res.error.length > 0 )            
+                        {                
+                            setMessage( "Password Error: " + res.error );            
+                        }       
+                        else            
+                        {                
+                            setMessage('Password successfully reset.');            
+                            window.location.href = '/login';
+                        }     
+                    }        
+                    catch(e)        
+                    {            
+                        alert(e.toString());      
+                    }
+                }
+            return;
+                   
         }        
         catch(e)        
         {            
@@ -57,10 +67,8 @@ function FinishPassword(){
     return(      
         <div id="mainDiv">               
             <span class="inner-title">Continue Password Reset</span><br />    
-            <span class="smaller-inner-title">An email has been sent. Please enter the six-digit verification code sent to your email below, along with your new password to complete password reset.</span><br />         
-            <br /><input type="text" id="verificationCode" placeholder="Verification Code" 
-                ref ={(c) => verificationCode = c} /><br />  
-                
+            <span class="smaller-inner-title">Please enter your new password to complete your password reset.</span><br />         
+            <br />
                 <input type="password" id="newPassword" placeholder="New Password" 
                     ref ={(c) => newPassword = c} /><br />
                 

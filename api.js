@@ -961,9 +961,9 @@ exports.setApp = function (app, client)
 
             const jwtoken = jwt.sign({_id: user._id}, process.env.RESET_PASSWORD_KEY, {expiresIn: '20m'});
             // todo: do this as html
-            var message = "Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
+            var message = "Hello, this is a password reset request for your Get2Gather account! If you did not request this, please ignore. Reset your password here: https://cop4331-eventmanager.herokuapp.com/resetpassword/";
             message += jwtoken;
-            const checking = sendEmail.sendEmail(email, "Password reset request", message);
+            const checking = sendEmail.sendEmail(email, "Get2Gather: Password Reset Request", message);
 
             db.collection('Users').updateOne(
                 {_id:user._id},

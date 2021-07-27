@@ -65,7 +65,7 @@ function App() {
         <Route path="/forgotpassword" exact>          
           <ForgotPasswordPage />        
         </Route>
-        <Route path="/resetpassword" exact>          
+        <Route path="/resetpassword/:passwordId" exact>          
           <FinishPasswordPage />        
         </Route>
         <Route path="/newgroup" exact>          
