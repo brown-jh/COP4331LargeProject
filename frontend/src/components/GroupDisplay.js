@@ -39,62 +39,6 @@ function GroupDisplay(props)
         // Keep empty
         var searchParams = "";
 
-        const searchEvents = async () =>
-        {
-        
-            var tok = storage.retrieveToken();       
-            var searchObj = {userId:userId,search:searchParams,jwtToken:tok};
-            var jse = JSON.stringify(searchObj);    
-
-
-            try        
-            {            
-                const response = await fetch(bp.buildPath('api/searchevents'),            
-                    {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
-                var txt = await response.text();   
-                var res = JSON.parse(txt);
-                            
-                if( res.error.length > 0 )            
-                {                
-                    setEventList( "API Error:" + res.error );     
-                    return;
-                }            
-                else            
-                {       
-                    alert(res);
-                    alert(res.results)    
-
-                    
-                    const foundevents = res.results.filter(event => event.GroupID == groupTitle);
-                    alert("this is foundevents: " + foundevents)
-                    alert("this is foundvents: " + JSON.stringify(foundevents))
-                    
-
-                    // For each event, make an EventBox with its data.
-                    setEventList(foundevents.map((eventData) => (
-                        <EventBox 
-                            imageURL={eventData.ImageURL}
-                            eventId={eventData._id}
-                            title={eventData.EventName}
-                            group={eventData.EventDescription}
-                            // Ensures dates are in: Month Day, Year Time format
-                            time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                            replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
-                            place={eventData.EventLocation}/>)));
-                    
-                    var retTok = res.jwtToken;
-                    storage.storeToken( retTok );
-                    return;
-                }        
-            }        
-            catch(e)        
-            {      
-
-                setEventList(e.toString());  
-                return;      
-            }
-        }
-
         const fetchData = async () =>
         {
             try        
@@ -133,7 +77,56 @@ function GroupDisplay(props)
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
                         
-                        return;    
+                    var searchObj = {userId:userId,search:searchParams,jwtToken:tok};
+                    var jse = JSON.stringify(searchObj);    
+
+
+                    try        
+                    {            
+                        const response = await fetch(bp.buildPath('api/searchevents'),            
+                            {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
+                        var txt = await response.text();   
+                        var res = JSON.parse(txt);
+                                    
+                        if( res.error.length > 0 )            
+                        {                
+                            setEventList( "API Error:" + res.error );     
+                            return;
+                        }            
+                        else            
+                        {       
+                            alert(res);
+                            alert(res.results)    
+
+                            
+                            const foundevents = res.results.filter(event => event.GroupID == groupTitle);
+                            alert("this is foundevents: " + foundevents)
+                            alert("this is foundvents: " + JSON.stringify(foundevents))
+                            
+
+                            // For each event, make an EventBox with its data.
+                            setEventList(foundevents.map((eventData) => (
+                                <EventBox 
+                                    imageURL={eventData.ImageURL}
+                                    eventId={eventData._id}
+                                    title={eventData.EventName}
+                                    group={eventData.EventDescription}
+                                    // Ensures dates are in: Month Day, Year Time format
+                                    time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                                    replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
+                                    place={eventData.EventLocation}/>)));
+                            
+                            var retTok = res.jwtToken;
+                            storage.storeToken( retTok );
+                            return;
+                        }        
+                    }        
+                    catch(e)        
+                    {      
+
+                        setEventList(e.toString());  
+                        return;      
+                    }
 
                 }        
                 catch(e)        
