@@ -1303,12 +1303,12 @@ exports.setApp = function (app, client)
                 var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
                 return res.status(401).json(r);
             }
-            name += decodedData.firstName;
+            name += decodeData.firstName;
             name += ' "';
-            name += decodedData.username;
+            name += decodeData.username;
             name += '" ';
-            name += decodedData.lastName;
-            userId = decodedData.userId;
+            name += decodeData.lastName;
+            userId = decodeData.userId;
         })
 
         var o_id = new mongo.ObjectID(eventId);
