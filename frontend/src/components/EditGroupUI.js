@@ -36,7 +36,7 @@ function EditGroupUI(props)
 
     useEffect(() => {
 
-        //TODO: get the group with this ID via API.
+        
 
         var url = window.location.pathname;
         var URLid = url.substring(url.lastIndexOf('/') + 1);
@@ -45,36 +45,38 @@ function EditGroupUI(props)
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
 
-        async function fetchData(){
-            try
-            {
-                const response = await fetch(bp.buildPath('api/searchgroupid'),
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        const fetchData = async () =>
+        {
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchgroupid'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    alert(txt);
+                    res = JSON.parse(txt); 
 
-                var txt = await response.text();
-                alert(txt);
-                var res = JSON.parse(txt);
-
-                //TODO: connect api out to frontend in
-                groupName.value = thisGroup.name + "\n" + props.groupId;
-                groupDesc.value = thisGroup.description;
-                groupPictureURL.value = thisGroup.url;
-
-                setAdminList(thisGroup.admins);
-                setMemberList(thisGroup.members);
-                            
-                        
-                    var retTok = res.jwtToken;
-                   storage.storeToken( retTok );
-                  return;
-
-            }
-            catch(e)
-            {
                 
-                return;
+                    groupName.value = res.results[0].GroupName + "\n" + props.groupId;
+                    groupDesc.value = res.results[0].GroupDescription;
+
+                    groupPictureURL.value = res.results[0].ImageURL;
+
+                    setAdminList(res.results[0].GroupAdmins);
+                    setMemberList(res.results[0].GroupSubscribers);       
+                        
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
+
+                }        
+                catch(e)        
+                {            
+                    alert(e.toString());      
+                }
             }
-        };
+
+        
 
         fetchData();
 
