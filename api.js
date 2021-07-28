@@ -354,7 +354,9 @@ exports.setApp = function (app, client)
                 return res.status(401).json(r);
             }
             name += decodeData.firstName;
-            name += " ";
+            name += ' "';
+            name += decodeData.username;
+            name += '" ';
             name += decodeData.lastName;
             eventhost = decodeData.userId;
             //console.log(eventhost);
@@ -633,10 +635,12 @@ exports.setApp = function (app, client)
                 return res.status(401).json({error:error});
             }
             
-            userId = decodedData.userId;
             name += decodedData.firstName;
-            name += " ";
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
             name += decodedData.lastName;
+            userId = decodedData.userId;
         })
 
         const db = client.db();
@@ -664,10 +668,12 @@ exports.setApp = function (app, client)
                 return res.status(401).json({error:error});
             }
             
-            userId = decodedData.userId;
             name += decodedData.firstName;
-            name += " ";
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
             name += decodedData.lastName;
+            userId = decodedData.userId;
         })
 
         const db = client.db();
@@ -1250,7 +1256,8 @@ exports.setApp = function (app, client)
     app.post('/api/addcomment', async( req, res, next) =>
     {
         const {jwtToken, text, date, eventId} = req.body;
-        var username;
+        var name;
+        var userId;
         const db = client.db();
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
@@ -1260,13 +1267,18 @@ exports.setApp = function (app, client)
                 var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
                 return res.status(401).json(r);
             }
-            username = decodeData.username;
+            name += decodedData.firstName;
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
+            name += decodedData.lastName;
+            userId = decodedData.userId;
         })
 
         var o_id = new mongo.ObjectID(eventId);
         const result = await db.collection('Events').updateOne(
             {_id:o_id},
-            {$push:{Comments:{User:username, Text:text, Date:date}}}
+            {$push:{Comments:{User:name, Text:text, Date:date}}}
         )
         return res.status(200).json({error:""});
     });
