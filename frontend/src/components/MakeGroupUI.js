@@ -224,6 +224,8 @@ function MakeGroupUI()
             // "\nAdmins: " + _groupAdmins + "\nMembers: " + 
             // _groupSubscribers + "\nURL: " + groupPictureURL.value);
 
+            
+
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:adminList,jwtToken:tok,groupSubscribers:memberList, imageURL:groupPictureURL.value};
             var js = JSON.stringify(obj);

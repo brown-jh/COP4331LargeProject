@@ -160,7 +160,7 @@ exports.setApp = function (app, client)
         var name = '';
         var grouphost = '';
     
-        const { groupname, groupDescription, imageURL, jwtToken } = req.body;      
+        const { groupname, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken } = req.body;      
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
         {
             if (err)
@@ -178,8 +178,8 @@ exports.setApp = function (app, client)
         })
     
         
-        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:[{Name:name, Id:grouphost}],
-            GroupSubscribers:[{Name:name, Id:grouphost}], ImageURL:imageURL};  
+        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:groupAdmins,
+            GroupSubscribers:groupSubscribers, ImageURL:imageURL};  
         var error = '';  
         
         try  
