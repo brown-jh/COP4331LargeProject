@@ -38,8 +38,6 @@ function GroupDisplay(props)
         var js = JSON.stringify(obj);
         var res;
 
-        alert(res.results[0].GroupAdmins);
-
         const fetchData = async () =>
         {
             try        
@@ -49,6 +47,8 @@ function GroupDisplay(props)
                     var txt = await response.text();   
                     //alert(txt);
                     res = JSON.parse(txt); 
+
+                    alert(res.results[0].GroupAdmins);
 
                     setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
