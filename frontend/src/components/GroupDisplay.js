@@ -58,7 +58,7 @@ function GroupDisplay(props)
                     {    
                         adminVar.push( res.results[0].GroupAdmins[i]);  
                     }
-                    alert(adminvar);
+                    alert(adminVar);
                     //adminVar = res.results[0].GroupAdmins;
                     setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
                     for( var i=0; i<res.results[0].GroupSubscribers.length; i++ )  
