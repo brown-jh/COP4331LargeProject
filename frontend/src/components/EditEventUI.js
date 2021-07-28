@@ -8,6 +8,7 @@ var eventGroup = '';
 
 var URLid;
 var eventTime = '';
+var isoDateTime;
 
 function EditEventUI(props)
 {
@@ -62,7 +63,8 @@ function EditEventUI(props)
                     eventName.value = res.results[0].EventName;
                     eventDesc.value = res.results[0].EventDescription;
                     eventTime = res.results[0].EventTime;
-                    alert(eventTime.slice(0, -1))
+                    var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
+                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
                         
@@ -351,7 +353,7 @@ function EditEventUI(props)
             <span class="inner-title it_green">Date/Time</span><br />
             <p><i>When is the event going to happen?</i></p>
             <input type="datetime-local" class="meeting-time"
-                name="meeting-time" onChange={updateTime} defaultValue={eventTime.slice(0, -1)} ref={(c) => eventTime = c} />
+                name="meeting-time" onChange={updateTime} defaultValue={isoDateTime} ref={(c) => eventTime = c} />
             <span id="error-text">{timeError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
