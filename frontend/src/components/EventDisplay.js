@@ -235,9 +235,8 @@ function EventDisplay(props)
                         Text: commentText,
                         Date: currentDate 
                     };
-                    console.log("new cc" + newComment);
-                    console.log("ewewewe" + JSON.stringify(newComment))
-                    setEventComments([...eventComments, newComment]);
+
+                    setEventComments([...eventComments, JSON.stringify(newComment)]);
                 }
             }
             catch(e)
