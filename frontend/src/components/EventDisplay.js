@@ -175,7 +175,7 @@ function EventDisplay(props)
                 }
                 else
                 {
-                    attendeeVar = [...attendeeVar, {name: userName, id:userId}];
+                    attendeeVar = [...attendeeVar, {Name: userName, Id:userId}];
                     setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
                     setJoinLeaveButton("Leave");
                 }
@@ -193,7 +193,7 @@ function EventDisplay(props)
         var userList = "";
         for (var i = 0; i < users.length; i++)
         {
-            userList += users[i].name;
+            userList += users[i].Name;
             if (i < users.length-1)
             {
                 userList += ", ";
