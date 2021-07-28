@@ -15,6 +15,7 @@ function EventDisplay(props)
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
     var userName;
+    alert("this is userId: " + userId);
 
     //var userName = "Test User";
 
@@ -48,13 +49,13 @@ function EventDisplay(props)
                     var txt = await response.text();   
                     //alert(txt);
                     res = JSON.parse(txt); 
-                    alert(res.results[0].EventAttendees);   
-                    alert(res.results[0].Comments);
 
                         setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts[0].Name);
                         userName = res.results[0].EventHosts[0].Name;
+                        alert("this is username: " + userName);
+                        alert("this is id from db: " + res.results[0].EventHosts[0].Id);
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
                         attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
                         setEventGroup(res.results[0].GroupID);
