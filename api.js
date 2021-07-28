@@ -662,7 +662,7 @@ exports.setApp = function (app, client)
             {_id:o_id},
             {$push:{EventAttendees:{Name:name, Id:userId}}}
         );
-        return res.status(200).json({error:error});
+        return res.status(200).json({error:error, FullName:name});
 
 
 
@@ -740,7 +740,7 @@ exports.setApp = function (app, client)
             {_id:o_id},
             {$push:{GroupSubscribers:{Name:name, Id:userId}}}
         );
-        return res.status(200).json({error:error});
+        return res.status(200).json({error:error, FullName:name});
 
 
 
@@ -1316,6 +1316,6 @@ exports.setApp = function (app, client)
             {_id:o_id},
             {$push:{Comments:{User:name, Text:text, Date:date}}}
         )
-        return res.status(200).json({error:""});
+        return res.status(200).json({error:"", FullName:name});
     });
 }
