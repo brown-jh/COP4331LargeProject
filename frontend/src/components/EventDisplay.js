@@ -49,7 +49,7 @@ function EventDisplay(props)
                     //alert(txt);
                     res = JSON.parse(txt); 
                     alert(res.results[0].EventAttendees);   
-                    alert(res.results[0].EventComments);
+                    alert(res.results[0].Comments);
 
                         setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
@@ -61,6 +61,7 @@ function EventDisplay(props)
                         replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(res.results[0].EventTime).toLocaleTimeString());
                         setEventLocation(res.results[0].EventLocation);
                         setEventComments(res.results[0].Comments);
+                        console.log(res.results[0].Comments)
                         setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
@@ -234,6 +235,8 @@ function EventDisplay(props)
                         Text: commentText,
                         Date: currentDate 
                     };
+                    console.log("new cc" + newComment);
+                    console.log("ewewewe" + JSON.stringify(newComment))
                     setEventComments([...eventComments, newComment]);
                 }
             }
