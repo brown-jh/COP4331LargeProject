@@ -31,8 +31,7 @@ function EventDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-        
-        
+                
         var url = window.location.pathname;
         URLid = url.substring(url.lastIndexOf('/') + 1);
         //alert(URLid);        
@@ -54,7 +53,7 @@ function EventDisplay(props)
                     alert(res.results[0].EventAttendees);   
                     alert(res.results[0].EventComments);
 
-                        setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
+                        setEventTitle(res.results[0].EventName.Name); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts);
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
