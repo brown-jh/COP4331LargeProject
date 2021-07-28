@@ -52,7 +52,7 @@ function EventDisplay(props)
                     alert(res.results[0].EventAttendees);   
                     alert(res.results[0].EventComments);
 
-                        setEventTitle(res.results[0].EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                        setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts);
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);

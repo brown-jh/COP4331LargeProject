@@ -37,55 +37,43 @@ function GroupDisplay(props)
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
+        var res;
 
-        async function fetchData(){
-            try
-            {
-                const response = await fetch(bp.buildPath('api/searchgroupid'),
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        const fetchData = async () =>
+        {
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchgroupid'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    alert(txt);
+                    res = JSON.parse(txt); 
 
-                var txt = await response.text();
-                alert(txt);
-                var res = JSON.parse(txt);
-
-                //TODO connect api data to frontend
-
-                setGroupTitle(thisGroup.name + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
-                setGroupDesc(thisGroup.description);
-                setAdminList(<div><p>{makeUsernameList(thisGroup.admins)}</p></div>);
-                adminVar = thisGroup.admins;
-                setMemberList(<div><p>{makeUsernameList(thisGroup.members)}</p></div>);
-                memberVar = thisGroup.members; //So we can track the admins and members outside of useEffect.
-
-             // For each event, make an EventBox with its data.
-                setEventList(thisGroup.events.map((eventData) => (
-                    <EventBox title={eventData.title}
-                        group={eventData.group}
-                        eventId={eventData.id}
-                        // Ensures dates are in: Month Day, Year Time format
-                        time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
-                        place={eventData.place}/>)));
-
-                // Flip the status of the join/leave button to Leave if the user has joined the group.
-                if(memberVar.filter(user => user.id == userId).length != 0)
-                {
-                    setJoinLeaveButton("Leave");
-                }
-
-                
+                    setGroupTitle(res.results[0].GroupName + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
+                    setGroupDesc(res.results[0].GroupDescription);
+                    setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
+                    adminVar = res.results[0].GroupAdmins;
+                    setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
+                    memberVar = res.results[0].GroupSubscribers; //So we can track the admins and members outside of useEffect.
+    
+                    // Flip the status of the join/leave button to Leave if the user has joined the group.
+                    if(memberVar.filter(user => user.id == userId).length != 0)
+                    {
+                        setJoinLeaveButton("Leave");
+                    }
                         
-                    var retTok = res.jwtToken;
-                   storage.storeToken( retTok );
-                  return;
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
 
+                }        
+                catch(e)        
+                {            
+                    alert(e.toString());      
+                }
             }
-            catch(e)
-            {
-                
-                return;
-            }
-        };
+
 
         fetchData();
 
