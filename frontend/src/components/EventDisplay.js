@@ -14,6 +14,7 @@ function EventDisplay(props)
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
+    var userName = ud.un;
 
     var userName = "Test User";
 
@@ -200,7 +201,7 @@ function EventDisplay(props)
     }
 
     //This function adds a comment to the list.
-    function addComment(commentText)
+    const addComment = async (commentText) =>
     {
 
         var today = new Date();
@@ -208,14 +209,39 @@ function EventDisplay(props)
 
         //TODO: Use API call to send user ID number and comment to the server; the code to add the
         // visible comment should use the username instead of userId.
-        var newComment = {
-            user: userName,
-            text: commentText,
-            date: currentDate 
-        };
-        setEventComments([...eventComments, newComment]);
-    }
 
+        var tok = storage.retrieveToken();       
+        var obj = {jwtToken:tok,text:commentText, date:currentDate, eventId:props.eventId};       
+        var js = JSON.stringify(obj);
+
+        try
+            {
+                const response = await fetch(bp.buildPath('api/addcomment'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    var newComment = {
+                        user: userName,
+                        text: commentText,
+                        date: currentDate 
+                    };
+                    setEventComments([...eventComments, newComment]);
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }         
+    }
     return(
         <div id="mainDiv" style={{width: "80%"}}>
             <br /><p style={{fontSize: "50px", marginTop: "0px", marginLeft: "15px", marginRight: "15px"}}>{eventTitle}</p>
