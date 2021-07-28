@@ -59,8 +59,6 @@ function GroupDisplay(props)
                     //memberVar = res.results[0].GroupSubscribers; //So we can track the admins and members outside of useEffect.
                     setGroupImage(res.results[0].ImageURL);
 
-                    searchEvents();
-
     
                     // Flip the status of the join/leave button to Leave if the user has joined the group.
                     if(memberVar.filter(user => user.Id == userId).length != 0)
@@ -99,7 +97,7 @@ function GroupDisplay(props)
                             alert(res.results)    
 
                             
-                            const foundevents = res.results.filter(event => event.GroupID == groupTitle);
+                            const foundevents = res.results.filter(event => event.GroupID == res.results[0].GroupName);
                             alert("this is foundevents: " + foundevents)
                             alert("this is foundvents: " + JSON.stringify(foundevents))
                             
