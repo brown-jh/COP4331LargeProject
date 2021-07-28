@@ -56,15 +56,15 @@ function EventDisplay(props)
 
 
                         setEventTitle(res.results[0].EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-                        setEventDesc(res.results[0].EventDescription);
-                        setEventHost(res.results[0].EventHosts);
-                        setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
-                        attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
-                        setEventGroup(res.results[0].GroupID);
-                        setEventTime(res.results[0].EventTime);
-                        setEventLocation(res.results[0].EventLocation);
-                        setEventComments(res.results[0].EventComments);
-                        setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
+                        //setEventDesc(res.results[0].EventDescription);
+                        //setEventHost(res.results[0].EventHosts);
+                        //setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
+                        //attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
+                        //setEventGroup(res.results[0].GroupID);
+                        //setEventTime(res.results[0].EventTime);
+                        //setEventLocation(res.results[0].EventLocation);
+                        //setEventComments(res.results[0].EventComments);
+                        //setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
                         if (attendeeVar.filter(user => user.id == userId).length != 0)
