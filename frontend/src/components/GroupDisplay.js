@@ -38,17 +38,19 @@ function GroupDisplay(props)
 
         // Keep empty
         var searchParams = "";
-        var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
 
         const searchEvents = async () =>
         {
         
+            var tok = storage.retrieveToken();       
+            var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
             var jse = JSON.stringify(searchObj);    
             try        
             {            
                 const response = await fetch(bp.buildPath('api/searchevents'),            
                     {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();   
+                //alert("Events are: " + txt);      
                 var res = JSON.parse(txt);            
                 if( res.error.length > 0 )            
                 {                
@@ -57,6 +59,7 @@ function GroupDisplay(props)
                 }            
                 else            
                 {            
+
                     // For each event, make an EventBox with its data.
                     setEventList(res.results.map((eventData) => (
                         <EventBox 
@@ -79,7 +82,6 @@ function GroupDisplay(props)
                 setEventList(e.toString());  
                 return;      
             }
-    
         }
 
         const fetchData = async () =>
