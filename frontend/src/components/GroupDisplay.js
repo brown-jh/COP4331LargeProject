@@ -33,12 +33,12 @@ function GroupDisplay(props)
         var url = window.location.pathname;
         var URLid = url.substring(url.lastIndexOf('/') + 1);
 
-        alert(URLid);
-
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
         var res;
+
+        alert(res.results[0].GroupAdmins);
 
         const fetchData = async () =>
         {
@@ -47,10 +47,10 @@ function GroupDisplay(props)
                     const response = await fetch(bp.buildPath('api/searchgroupid'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                    alert(txt);
+                    //alert(txt);
                     res = JSON.parse(txt); 
 
-                    setGroupTitle(res.results[0].GroupName + "\nGroup ID: " + props.groupId); //To test the parameter pass-in.
+                    setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
                     setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
                     adminVar = res.results[0].GroupAdmins;

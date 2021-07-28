@@ -765,6 +765,7 @@ exports.setApp = function (app, client)
 
 
     });
+    
     app.post('/api/searcheventsubbed', async (req, res, next) => {  
  
         var error = '';  
