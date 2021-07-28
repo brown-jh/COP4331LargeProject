@@ -59,16 +59,16 @@ function EditEventUI(props)
                     alert(txt);
                     res = JSON.parse(txt); 
 
-                    eventName = res.results[0].EventName;
-                    eventDesc = res.results[0].EventDescription;
-                    eventTime = res.results[0].EventTime;
+                    eventName.value = res.results[0].EventName;
+                    eventDesc.value = res.results[0].EventDescription;
+                    eventTime.value = res.results[0].EventTime;
                     eventPlace = res.results[0].EventLocation;
-                    eventPictureURL = res.results[0].ImageURL;
+                    eventPictureURL.value = res.results[0].ImageURL;
                         
-                    var retTok = res.jwtToken;     
-                    storage.storeToken( retTok );      
-                    
-                    return;    
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
 
                 }        
                 catch(e)        
@@ -333,7 +333,7 @@ function EditEventUI(props)
 
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the event a short, descriptive name.</i></p>
-            <input type="text" onChange={updateName} defaultValue={eventName.toString()} ref={(c) => eventName = c} />
+            <input type="text" onChange={updateName} defaultValue={eventName} ref={(c) => eventName = c} />
             <span id="error-text">{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
@@ -341,7 +341,7 @@ function EditEventUI(props)
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength= "210" onChange={updateDesc.toString()} defaultValue={eventDesc} ref={(c) => eventDesc = c} />
+            <textarea rows="7" cols= "40" maxLength= "210" onChange={updateDesc} defaultValue={eventDesc} ref={(c) => eventDesc = c} />
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
@@ -350,7 +350,7 @@ function EditEventUI(props)
             <span class="inner-title it_green">Date/Time</span><br />
             <p><i>When is the event going to happen?</i></p>
             <input type="datetime-local" class="meeting-time"
-                name="meeting-time" onChange={updateTime} defaultValue={eventTime.toString()} ref={(c) => eventTime = c} />
+                name="meeting-time" onChange={updateTime} defaultValue={eventTime} ref={(c) => eventTime = c} />
             <span id="error-text">{timeError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
@@ -361,7 +361,7 @@ function EditEventUI(props)
             <input type="checkbox" class="onlineCheck" clicked={isOnline} onChange={flipOnlineCheck}/>
             <label for="onlineCheck"> Online</label>
             <br/>
-            <GoogleAutocomplete defaultValue={eventPlace.toString()} onPlaceLoaded={getGoogleData}/>
+            <GoogleAutocomplete defaultValue={eventPlace} onPlaceLoaded={getGoogleData}/>
             
             <span id="error-text">{locationError}</span> <br /> 
             <span class="inner-title it_blue"></span><br />
@@ -369,7 +369,7 @@ function EditEventUI(props)
             <br/>
             <span class="inner-title it_purple">Event Image</span><br />
             <p><i>Give a image to represent your event; this must be uploaded as a url.</i></p>
-            <input type="text" id="location" onChange={updateURL} defaultValue={eventPictureURL.toString()} ref={(c) => eventPictureURL = c} />
+            <input type="text" id="location" onChange={updateURL} defaultValue={eventPictureURL} ref={(c) => eventPictureURL = c} />
             <span id="error-text">{pictureError}</span> <br /> 
             <span class="inner-title it_purple"></span><br />
          
