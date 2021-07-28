@@ -19,6 +19,8 @@ function GroupDisplay(props)
 
     var userName = "Test User";
 
+    var URLid;
+
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
     const[groupImage, setGroupImage] = useState('');
@@ -31,7 +33,7 @@ function GroupDisplay(props)
         
 
         var url = window.location.pathname;
-        var URLid = url.substring(url.lastIndexOf('/') + 1);
+        URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -163,17 +165,69 @@ function GroupDisplay(props)
         //If the user is in the list of members, remove them.
         if (memberVar.filter(user => user.id == userId).length != 0)
         {
-            alert("TODO: use API to remove from group.");
-            memberVar = memberVar.filter(user => user.id !== userId);
-            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
-            setJoinLeaveButton("Join");
+            //alert("TODO: use API to remove from group.");
+
+            var tok = storage.retrieveToken();
+            var obj = {groupId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/unsubgroup'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    memberVar = memberVar.filter(user => user.id !== userId);
+                    setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+                    setJoinLeaveButton("Join");
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }
         }
         else //User is not a member, so add them.
         {
-            alert("TODO: use API to add to group.");
-            memberVar = [...memberVar, {id:userId, name:userName}];
-            setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
-            setJoinLeaveButton("Leave");
+            //alert("TODO: use API to add to group.");
+
+            var tok = storage.retrieveToken();
+            var obj = {groupId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/subtogroup'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    memberVar = [...memberVar, {id:userId, name:userName}];
+                    setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
+                    setJoinLeaveButton("Leave");
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }
         }
     }
 
