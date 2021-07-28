@@ -49,6 +49,7 @@ function GroupDisplay(props)
                     res = JSON.parse(txt); 
 
                     alert(res.results[0].GroupAdmins);
+                    alert(res.results[0].GroupSubscribers);
 
                     setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
