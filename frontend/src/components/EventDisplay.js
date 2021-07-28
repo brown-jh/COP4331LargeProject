@@ -20,6 +20,7 @@ function EventDisplay(props)
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
     const[eventHost, setEventHost] = useState('');
+    const[eventImage, setEventImage] = useState('');
     const[attendeeList, setAttendeeList] = useState('');
     const[eventGroup, setEventGroup] = useState('');
     const[eventTime, setEventTime] = useState('');
@@ -59,6 +60,7 @@ function EventDisplay(props)
                         //setEventTime(_res.EventTime);
                         //setEventLocation(_res.EventLocation);
                         //setEventComments(_res.EventComments);
+                        setEventImage("https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6"); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
                         if (attendeeVar.filter(user => user.id == userId).length != 0)
@@ -177,7 +179,7 @@ function EventDisplay(props)
 
             <span class="inner-title"></span><br />
 
-            <img src="https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6" class="imgeventpage"/><br/>
+            <img src={eventImage} class="imgeventpage"/><br/>
             
             <br /><span class="inner-title it_orange">Event Information</span><br />
             <div style={{width:"40%", marginLeft:"5%", marginRight: "4%", float:"left"}}>
