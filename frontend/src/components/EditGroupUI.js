@@ -213,7 +213,7 @@ function EditGroupUI(props)
         setMemberList([...memberList, {name: memberName.value, id:"0"}]);
     }
 
-    const submitGroup = async event =>
+    const confirmDelete = async event =>
     {
         if(window.confirm("Are you sure you want to disband this group?"))
         {
@@ -316,7 +316,7 @@ function EditGroupUI(props)
             <span class="inner-title">Create Group</span><br/>
             <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedgroups"}>Cancel</button><br/>
             <br/>
-            <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.groupId)}>Disband Group</button><br/>
+            <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete()}>Disband Group</button><br/>
             <br/>
 
             <span class="inner-title it_orange">Name</span><br />

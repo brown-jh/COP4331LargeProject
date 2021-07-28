@@ -651,8 +651,8 @@ exports.setApp = function (app, client)
         var o_id = new mongo.ObjectID(eventId);
         const results = await db.collection('Events').find(
             {_id:o_id, EventAttendees:{Name:name, Id:userId}}
-        )
-        if (results.count() > 0)
+        ).count();
+        if (results > 0)
         {
             error = "User already in event";
             return res.status(401).json({error:error});
@@ -726,9 +726,9 @@ exports.setApp = function (app, client)
         
         const results = await db.collection('Groups').find(
             {_id:o_id, GroupSubscribers:{Name:name, Id:userId}}
-        )
+        ).count();
 
-        if (results.count() > 0)
+        if (results > 0)
         {
             error = "User already in group";
             return res.status(401).json({error:error});
