@@ -17,6 +17,8 @@ function EventDisplay(props)
 
     var userName = "Test User";
 
+    var URLid;
+
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
     const[eventHost, setEventHost] = useState('');
@@ -29,11 +31,11 @@ function EventDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-        //TODO: Connect api data to frontend
+        
         
         var url = window.location.pathname;
-        var URLid = url.substring(url.lastIndexOf('/') + 1);
-        alert(URLid);        
+        URLid = url.substring(url.lastIndexOf('/') + 1);
+        //alert(URLid);        
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -47,7 +49,7 @@ function EventDisplay(props)
                     const response = await fetch(bp.buildPath('api/searcheventid'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                    alert(txt);
+                    //alert(txt);
                     res = JSON.parse(txt); 
                     alert(res.results[0].EventAttendees);   
                     alert(res.results[0].EventComments);
@@ -114,22 +116,74 @@ function EventDisplay(props)
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
-    function joinOrLeave()
+    const joinOrLeave = async event =>
     {
         //If user is in the attendee list, remove them.
         if (attendeeVar.filter(user => user.id == userId).length != 0) 
         {
-            alert("TODO: use API to remove from event.");
-            attendeeVar = attendeeVar.filter(user => user.id !== userId);
-            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
-            setJoinLeaveButton("Join");
+            //alert("TODO: use API to remove from event.");
+
+            var tok = storage.retrieveToken();
+            var obj = {eventId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/unsubevent'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    attendeeVar = attendeeVar.filter(user => user.id !== userId);
+                    setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+                    setJoinLeaveButton("Join");
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }            
         }
         else //User is not attending, so add them.
         {
-            alert("TODO: use API to add to event.");
-            attendeeVar = [...attendeeVar, {name: userName, id:userId}];
-            setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
-            setJoinLeaveButton("Leave");
+            //alert("TODO: use API to add to event.");
+
+            var tok = storage.retrieveToken();
+            var obj = {eventId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/subtoevent'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    attendeeVar = [...attendeeVar, {name: userName, id:userId}];
+                    setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
+                    setJoinLeaveButton("Leave");
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }              
         }
     }
 
