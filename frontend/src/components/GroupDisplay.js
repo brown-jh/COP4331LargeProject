@@ -65,7 +65,7 @@ function GroupDisplay(props)
                     alert(res.results)    
 
 
-                    const foundevents = res.results.filter(event => event.GroupID == props.groupId);
+                    const foundevents = res.results.filter(event => event.GroupID == groupTitle);
                     alert("this is foundevents: " + foundevents)
                     alert("this is foundvents: " + JSON.stringify(foundevents))
                     
