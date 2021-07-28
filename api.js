@@ -729,6 +729,7 @@ exports.setApp = function (app, client)
 
         var error = "";
         var userId;
+        var g_id;
         const {groupId, groupName, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken} = req.body;
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
@@ -742,7 +743,7 @@ exports.setApp = function (app, client)
         })
         //var u_id = new mongo.ObjectID(userId);
         try{
-            var g_id = new mongo.ObjectID(groupId); 
+            g_id = new mongo.ObjectID(groupId); 
         }
         catch(e)
         {
@@ -750,9 +751,9 @@ exports.setApp = function (app, client)
         }
         //var g_id = new mongo.ObjectID(groupId);
         const db = client.db();
-        const resulting = await db.collection('Groups').find({_id:g_id,GroupAdmins: { "$in" : [userId]}})
+        const resulting = await db.collection('Groups').find({_id:g_id,GroupAdmins: { $in : [userId]}}).count();
 
-        if(resulting.count() > 0)
+        if(resulting > 0)
         {
             const result = db.collection('Groups').updateOne(
                 {_id:g_id},
