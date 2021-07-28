@@ -6,10 +6,12 @@ import Login from '../components/Login';
 const LoginPage = () =>{    
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={false} />        
             <Login />  
         </div>
     );
 };
+
+
 
 export default LoginPage;

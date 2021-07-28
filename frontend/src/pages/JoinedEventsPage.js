@@ -6,7 +6,8 @@ import JoinedEvents from '../components/JoinedEvents';
 const JoinedEventsPage = () =>{    
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={true} />        
+        
             <JoinedEvents />  
         </div>
     );

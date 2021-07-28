@@ -6,7 +6,8 @@ import MakeGroupUI from '../components/MakeGroupUI';
 const MakeGroupPage = () =>{    
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={true} />        
+        
             <MakeGroupUI />  
         </div>
     );

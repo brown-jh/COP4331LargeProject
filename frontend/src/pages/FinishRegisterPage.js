@@ -6,7 +6,8 @@ import PageTitle from '../components/PageTitle';
 const FinishRegisterPage = () =>{    
     return(        
         <div>            
-            <PageTitle />    
+            <PageTitle clickable={false} />        
+    
             <FinishRegister />         
         </div>    
     );

@@ -6,7 +6,8 @@ import HostedEvents from '../components/HostedEvents';
 const HostedEventsPage = () =>{    
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={true} />        
+        
             <HostedEvents />  
         </div>
     );

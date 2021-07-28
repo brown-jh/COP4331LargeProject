@@ -8,7 +8,8 @@ const GroupPage = () =>{
     const {groupId} = useParams();  
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={true} />        
+        
             <GroupDisplay groupId={groupId}/>  
         </div>
     );
