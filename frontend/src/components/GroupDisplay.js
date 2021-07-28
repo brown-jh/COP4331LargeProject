@@ -44,8 +44,11 @@ function GroupDisplay(props)
         
             alert("BREAKS HERE 1")
             var tok = storage.retrieveToken();       
-            var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
+            var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};
+            alert("this is searchobj: " + searchObj)       
             var jse = JSON.stringify(searchObj);    
+            alert("this is jse: " + jse)       
+
             alert("BREAKS HERE 2")
 
             try        
