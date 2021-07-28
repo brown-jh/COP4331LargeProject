@@ -61,7 +61,7 @@ function EditEventUI(props)
 
                     eventName.value = res.results[0].EventName;
                     eventDesc.value = res.results[0].EventDescription;
-                    eventTime = res.results[0].EventTime.toLocaleTimeString();
+                    eventTime = res.results[0].EventTime;
                     alert(eventTime.slice(0, -1))
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
@@ -239,7 +239,7 @@ function EditEventUI(props)
             }
 
             var _eventPlace = eventPlace.toString()
-            var _eventTime = eventTime.value + ":00.000-04:00"
+            var _eventTime = eventTime.value + ":00.000"
 
             //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
             //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
