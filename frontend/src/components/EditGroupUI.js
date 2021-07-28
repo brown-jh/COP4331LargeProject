@@ -256,13 +256,41 @@ function EditGroupUI(props)
         }
         else
         {
+            var tok = storage.retrieveToken();
+            var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:adminList.map(user => user.name + 
+                " " + user.id),groupSubscribers:memberList.map(user => user.name + " " + user.id),imageURL:groupPictureURL.value,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/updategroup'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    setGroupSubmitResult("Successfully edited group! Redirecting to your groups.");
+                    storage.storeToken( retTok );
+                    window.location.href = "/adminnedgroups";
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }
+
             alert("New data for group " + props.groupId + "\nName: " + groupName.value + 
             "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList.map(user => user.name + 
             " " + user.id) + "\nMembers: " + memberList.map(user => user.name + " " + user.id) + 
             "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
 
-            setGroupSubmitResult("Successfully edited group! Redirecting to your groups.");
-            window.location.href = "/adminnedgroups";
         }
     }
 
