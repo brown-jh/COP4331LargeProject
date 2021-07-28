@@ -274,7 +274,7 @@ function EditGroupUI(props)
         if(window.confirm("Are you sure you want to disband this group?"))
         {
             var tok = storage.retrieveToken();
-            var obj = {groupId:URLid,jwtToken:tok};
+            var obj = {groupId:prop.groupId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try        
