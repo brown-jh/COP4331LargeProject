@@ -356,8 +356,8 @@ exports.setApp = function (app, client)
             name += decodeData.firstName;
             name += " ";
             name += decodeData.lastName;
-            eventhost += decodeData.userId;
-            console.log(eventhost);
+            eventhost = decodeData.userId;
+            //console.log(eventhost);
         })
 
         const comm = [];
