@@ -217,9 +217,9 @@ function MakeGroupUI()
             setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
             var _groupSubscribers = memberList.map(user => user.id);
 
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + _groupAdmins + "\nMembers: " + 
-            _groupSubscribers + "\nURL: " + groupPictureURL.value);
+            // alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
+            // "\nAdmins: " + _groupAdmins + "\nMembers: " + 
+            // _groupSubscribers + "\nURL: " + groupPictureURL.value);
 
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:adminList,jwtToken:tok,groupSubscribers:memberList, imageURL:groupPictureURL.value};
