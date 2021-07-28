@@ -59,7 +59,7 @@ function EditGroupUI(props)
                     res = JSON.parse(txt); 
 
                 
-                    groupName.value = res.results[0].GroupName + "\n" + props.groupId;
+                    groupName.value = res.results[0].GroupName;
                     groupDesc.value = res.results[0].GroupDescription;
 
                     groupPictureURL.value = res.results[0].ImageURL;
@@ -133,12 +133,12 @@ function EditGroupUI(props)
 
     function removeAdmin(delName)
     {
-        setAdminList(adminList.filter(user => user.name !== delName));
+        setAdminList(adminList.filter(user => user.Name !== delName));
     }
 
     function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user.name !== delName));
+        setMemberList(memberList.filter(user => user.Name !== delName));
     }
 
     // This function determines if there is already an admin or invitee with the same name.
@@ -146,7 +146,7 @@ function EditGroupUI(props)
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i].name === userName)
+            if (adminList[i].Name === userName)
             {
                 return false;
             }
@@ -154,7 +154,7 @@ function EditGroupUI(props)
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i].name === userName)
+            if (memberList[i].Name === userName)
             {
                 return false;
             }
@@ -166,12 +166,31 @@ function EditGroupUI(props)
 
     const addAdmin = async event =>
     {
-        // Check if the username is long enough. TODO: Do API call to check if user exists and get ID.
-        var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
+
+        var tok = storage.retrieveToken();       
+        var obj = {login:adminName.value,jwtToken:tok};       
+        var js = JSON.stringify(obj);    
+        try        
+        {            
+            const response = await fetch(bp.buildPath('api/getuserid'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var txt = await response.text();   
+            //alert(txt);       
+            var res = JSON.parse(txt);                     
+            var retTok = res.jwtToken;
+            storage.storeToken( retTok );
+      
+        }        
+        catch(e)        
+        {            
+                  
+        }
+        
+        alert(res.userId);
 
         // Clears text when user adds another user.
         setAdminError("");
-        if (!loginRegex.test(adminName.value))
+        if (res.userId == undefined)
         {
             setAdminError("That user does not exist.");
             return;
@@ -183,20 +202,47 @@ function EditGroupUI(props)
             return;
         }
 
+        if(res.userId == userId) //User cannot manually add themselves.
+        {
+            setAdminError("You will automatically be an admin on group creation.");
+            return;
+        }
+
+
+
         // Put the user in the admin list and display it.
-        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
-        setAdminList([...adminList, {name: adminName.value, id:"0"}]);
+        
+        setAdminList([...adminList, {Name: adminName.value, Id:res.userId}]);
     }
 
 
     const addMember = async event =>
     {
-        // Check if the username is long enough. TODO: Do API call to check if user exists.
-        var loginRegex = /^\w{5,}$/; // Matches a string of 5 or more alphanumerics.
         
+        var tok = storage.retrieveToken();       
+        var obj = {login:memberName.value,jwtToken:tok};       
+        var js = JSON.stringify(obj);    
+        try        
+        {            
+            const response = await fetch(bp.buildPath('api/getuserid'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+            var txt = await response.text();   
+            //alert(txt);       
+            var res = JSON.parse(txt);                     
+            var retTok = res.jwtToken;
+            storage.storeToken( retTok );
+      
+        }        
+        catch(e)        
+        {            
+                  
+        }
+        
+        alert(res.userId);
+
         // Clears text when user adds another user.
         setMemberError("");
-        if (!loginRegex.test(memberName.value))
+        if (res.userId == undefined)
         {
             setMemberError("That user does not exist.");
             return;
@@ -208,10 +254,17 @@ function EditGroupUI(props)
             return;
         }
 
+        if(res.userId == userId) //User cannot manually add themselves.
+        {
+            setMemberError("You will automatically be an admin on group creation.");
+            return;
+        }
+
         // Put the user in the member list and display it.
-        // TODO: Replace dummy 0 ID with whatever API retrieves for user's ID.
-        setMemberList([...memberList, {name: memberName.value, id:"0"}]);
+        
+        setMemberList([...memberList, {Name: memberName.value, Id:res.userId}]);
     }
+
 
     const confirmDelete = async event =>
     {
@@ -272,9 +325,12 @@ function EditGroupUI(props)
         }
         else
         {
+            var _groupAdmins = adminList.map(user => user.Id);
+            _groupAdmins = [..._groupAdmins, userId]; //Add the user as an admin.
+            var _groupSubscribers = memberList.map(user => user.Id);
+
             var tok = storage.retrieveToken();
-            var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:adminList.map(user => user.name + 
-                " " + user.id),groupSubscribers:memberList.map(user => user.name + " " + user.id),imageURL:groupPictureURL.value,jwtToken:tok};
+            var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:_groupAdmins,groupSubscribers:_groupSubscribers,imageURL:groupPictureURL.value,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
@@ -301,11 +357,6 @@ function EditGroupUI(props)
             {
                 alert(e.toString());
             }
-
-            alert("New data for group " + props.groupId + "\nName: " + groupName.value + 
-            "\nDescription: " + groupDesc.value + "\nAdmins: " + adminList.map(user => user.name + 
-            " " + user.id) + "\nMembers: " + memberList.map(user => user.name + " " + user.id) + 
-            "\nURL: " + groupPictureURL.value + "\nTODO: Call API, cleanup after");
 
         }
     }
