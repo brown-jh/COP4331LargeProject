@@ -977,7 +977,7 @@ exports.setApp = function (app, client)
         const results = await db.collection('Users').findOne(
             {Password:password},
             {
-            $or: [{ email: login}, {Login: login}]
+            $or: [{ Email: login}, {Login: login}]
             }
         )
         var id = -1;  
@@ -1234,7 +1234,7 @@ exports.setApp = function (app, client)
         const results = await db.collection('Users').findOne(
             
             {
-            $or: [{ email: login}, {Login: login}]
+            $or: [{ Email: login}, {Login: login}]
             }
         )
         var id = -1;  
