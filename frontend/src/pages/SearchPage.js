@@ -6,7 +6,7 @@ import Search from '../components/Search';
 const SearchPage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <Search />  
         </div>

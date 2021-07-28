@@ -6,7 +6,7 @@ import EventMakeUI from '../components/EventMakeUI';
 const MakeEventPage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <EventMakeUI />  
         </div>

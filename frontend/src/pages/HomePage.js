@@ -6,7 +6,7 @@ import Home from '../components/Home';
 const HomePage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <Home />  
         </div>

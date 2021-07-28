@@ -8,7 +8,7 @@ const EditEventPage = () =>{
     const {eventId} = useParams();  
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <EditEventUI eventId={eventId}/>  
         </div>

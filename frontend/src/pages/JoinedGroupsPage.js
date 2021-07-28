@@ -6,7 +6,7 @@ import JoinedGroups from '../components/JoinedGroups';
 const JoinedGroupsPage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <JoinedGroups />  
         </div>

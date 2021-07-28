@@ -81,6 +81,66 @@ label
     user-select: none;
 }
 
+#titlenoanimate
+{
+    font-size: 100px;
+    line-height:30px;
+    width: 100%;
+    white-space: nowrap;
+    text-align: center;
+    font-family: 'Gloria Hallelujah', cursive;
+    color: #f75555;
+    filter: drop-shadow(5px 5px 0px rgb(141, 19, 19));
+    opacity: 1;
+    user-select: none;
+}
+
+@media screen and (max-width: 820px) {
+    #titlenoanimate 
+    {
+        font-size: 80px;
+        line-height:30px;
+        width: 100%;
+        white-space: nowrap;
+        text-align: center;
+        font-family: 'Gloria Hallelujah', cursive;
+        color: #f75555;
+        filter: drop-shadow(4px 4px 0px rgb(141, 19, 19));
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 650px) {
+    #titlenoanimate 
+    {
+        font-size: 60px;
+        line-height:30px;
+        width: 100%;
+        white-space: nowrap;
+        text-align: center;
+        font-family: 'Gloria Hallelujah', cursive;
+        color: #f75555;
+        filter: drop-shadow(4px 4px 0px rgb(141, 19, 19));
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 490px) {
+    #titlenoanimate 
+    {
+        font-size: 40px;
+        line-height:30px;
+        width: 100%;
+        white-space: nowrap;
+        text-align: center;
+        font-family: 'Gloria Hallelujah', cursive;
+        color: #f75555;
+        filter: drop-shadow(3px 3px 0px rgb(141, 19, 19));
+        opacity: 1;
+    }
+}
+
+
 @keyframes opacityChange {
     from{ opacity: 0; font-size: 90px;}
     to {opacity: 1; font-size: 100px;}
