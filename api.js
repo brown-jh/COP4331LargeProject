@@ -450,7 +450,7 @@ exports.setApp = function (app, client)
         // returns an error and a refreshed token
         var error = '';  
 
-        const {eventId, eventName, eventDescription, eventDate, eventTime, eventLocation, imageURL, jwtToken } = req.body;      
+        const {eventId, eventName, eventDescription, eventTime, eventLocation, imageURL, jwtToken } = req.body;      
         try      
         {        
             if( token.isExpired(jwtToken))        
@@ -474,7 +474,7 @@ exports.setApp = function (app, client)
                 {_id:eventId},
                 {
                     $set: {EventName: eventName, EventDescription: eventDescription, 
-                        EventDate: eventDate, EventTime: eventTime, EventLocation: eventLocation, ImageURL:imageURL}
+                        EventTime: eventTime, EventLocation: eventLocation, ImageURL:imageURL}
 
                 }
             )  
