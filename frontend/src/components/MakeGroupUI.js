@@ -118,6 +118,12 @@ function MakeGroupUI()
             return;
         }
 
+        if(res.userId == userId) //User cannot manually add themselves.
+        {
+            setAdminError("You will automatically be an admin on group creation.");
+            return;
+        }
+
 
 
         // Put the user in the admin list and display it.
@@ -164,6 +170,12 @@ function MakeGroupUI()
             return;
         }
 
+        if(res.userId == userId) //User cannot manually add themselves.
+        {
+            setMemberError("You will automatically be an admin on group creation.");
+            return;
+        }
+
         // Put the user in the member list and display it.
         
         setMemberList([...memberList, {name: memberName.value, id:res.userId}]);
@@ -206,6 +218,7 @@ function MakeGroupUI()
             //NOTE: Edited these so admins and subscribers treated differently, and API gets IDs
             //as intended.
             var _groupAdmins = adminList.map(user => user.id);
+            _groupAdmins = [..._groupAdmins, userId]; //Add the user as an admin.
             var _groupSubscribers = memberList.map(user => user.id);
 
             //alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
