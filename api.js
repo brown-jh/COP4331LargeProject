@@ -974,11 +974,9 @@ exports.setApp = function (app, client)
         const { login, password } = req.body;  
 
         const db = client.db();  
-        const results = await db.collection('Users').findOne(
-            {Password:password},
-            {
-            $or: [{ Email: login}, {Login: login}]
-            }
+        const results = await db.collection('Users').findOne({
+            $and: [{Password:password},
+            {$or: [{ Email: login}, {Login: login}]}]}
         )
         var id = -1;  
         var fn = '';  
