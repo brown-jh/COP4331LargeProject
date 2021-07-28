@@ -44,6 +44,7 @@ function EditGroupUI(props)
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
+        var res;
 
         const fetchData = async () =>
         {
