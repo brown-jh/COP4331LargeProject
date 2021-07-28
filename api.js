@@ -173,7 +173,7 @@ exports.setApp = function (app, client)
             name += decodeData.username;
             name += '" ';
             name += decodeData.lastName;
-            eventhost = decodeData.userId;
+            grouphost = decodeData.userId;
             //console.log(eventhost);
         })
     
