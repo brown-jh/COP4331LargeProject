@@ -50,6 +50,7 @@ function GroupDisplay(props)
 
 
                     setGroupTitle(res.results[0].GroupName);
+                    var gName = res.results[0].GroupName;
                     setGroupDesc(res.results[0].GroupDescription);
                     setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
                     adminVar = res.results[0].GroupAdmins;
@@ -96,11 +97,10 @@ function GroupDisplay(props)
                             alert(res);
                             alert(res.results)    
 
-                            alert("THIS IS EQUAL" + groupTitle)
-                            alert(res.results[0].GroupName)
+                            alert("THIS IS EQUAL" + gName)
 
                             
-                            const foundevents = res.results.filter(event => event.GroupID == groupTitle);
+                            const foundevents = res.results.filter(event => event.GroupID == gName);
                             alert("this is foundevents: " + foundevents)
                             alert("this is foundvents: " + JSON.stringify(foundevents))
                             
