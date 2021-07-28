@@ -61,7 +61,7 @@ function EditEventUI(props)
 
                     eventName.value = res.results[0].EventName;
                     eventDesc.value = res.results[0].EventDescription;
-                    eventTime = res.results[0].EventTime;
+                    eventTime = res.results[0].EventTime.toLocaleTimeString();
                     alert(eventTime.slice(0, -1))
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
