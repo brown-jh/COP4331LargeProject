@@ -342,7 +342,7 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
         var name = '';
-        var eventhost;
+        var eventhost ='';
 
         const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, jwtToken } = req.body;
 
