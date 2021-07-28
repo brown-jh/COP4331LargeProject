@@ -342,8 +342,9 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
         var name = '';
+        var eventhost;
 
-        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, eventhost, jwtToken } = req.body;
+        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, jwtToken } = req.body;
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
         {
@@ -355,6 +356,7 @@ exports.setApp = function (app, client)
             name += decodeData.firstName;
             name += " ";
             name += decodeData.lastName;
+            eventhost = decodeData.userId;
         })
 
         const comm = [];
@@ -620,6 +622,7 @@ exports.setApp = function (app, client)
     {
         var error = '';
         var userId;
+        var name = "";
         const {eventId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
         {
@@ -630,13 +633,16 @@ exports.setApp = function (app, client)
             }
             
             userId = decodedData.userId;
+            name += decodedData.firstName;
+            name += " ";
+            name += decodedData.lastName;
         })
 
         const db = client.db();
         var o_id = new mongo.ObjectID(eventId);
         const result =  await db.collection('Events').updateOne(
             {_id:o_id},
-            {$push:{EventAttendees:userId}}
+            {$push:{EventAttendees:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
@@ -647,6 +653,7 @@ exports.setApp = function (app, client)
     {
         var error = '';
         var userId;
+        var name = "";
         const {eventId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
         {
@@ -657,13 +664,16 @@ exports.setApp = function (app, client)
             }
             
             userId = decodedData.userId;
+            name += decodedData.firstName;
+            name += " ";
+            name += decodedData.lastName;
         })
 
         const db = client.db();
         var o_id = new mongo.ObjectID(eventId);
         const result =  await db.collection('Events').updateOne(
             {_id:o_id},
-            {$pull:{EventAttendees:userId}}
+            {$pull:{EventAttendees:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
