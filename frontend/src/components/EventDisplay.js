@@ -48,13 +48,15 @@ function EventDisplay(props)
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                     alert(txt);
-                    res = JSON.parse(txt);    
+                    res = JSON.parse(txt); 
+                    alert(res.results[0].EventAttendees);   
+                    alert(res.results[0].EventComments);
 
                         setEventTitle(res.results[0].EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts);
-                        //setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
-                        //attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
+                        setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
+                        attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
                         setEventGroup(res.results[0].GroupID);
                         setEventTime(res.results[0].EventTime);
                         setEventLocation(res.results[0].EventLocation);
