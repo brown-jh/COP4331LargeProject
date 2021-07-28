@@ -342,13 +342,13 @@ exports.setApp = function (app, client)
         // outgoing: error  
         var error = '';  
         var name = '';
-        var eventhost ='';
+        var eventhost = '';
 
         const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, jwtToken } = req.body;
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
         {
-            if (token.isExpired(jwtToken))
+            if (err)
             {
                 var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
                 return res.status(401).json(r);
@@ -356,7 +356,7 @@ exports.setApp = function (app, client)
             name += decodeData.firstName;
             name += " ";
             name += decodeData.lastName;
-            eventhost = decodeData.userId;
+            eventhost += decodeData.userId;
             console.log(eventhost);
         })
 
