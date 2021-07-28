@@ -14,7 +14,7 @@ function EventDisplay(props)
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
-    var userName = ud.username;
+    var userName;
 
     //var userName = "Test User";
 
@@ -54,6 +54,7 @@ function EventDisplay(props)
                         setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts[0].Name);
+                        userName = res.results[0].EventHosts[0].Id;
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
                         attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
                         setEventGroup(res.results[0].GroupID);
@@ -251,7 +252,7 @@ function EventDisplay(props)
 
             {/* Display the edit button to the host and the join/leave button to other users.*/}
             {
-               eventHost == userName ?
+               userId == userName ?
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={() => window.location.href="/editevent/" + props.eventId}>Edit/Cancel Event</button>
                 :
                 <button type="button" style={{width: "40%"}} class="buttons" onClick={joinOrLeave}>{joinLeaveButton}</button>

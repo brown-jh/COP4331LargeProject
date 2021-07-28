@@ -37,7 +37,7 @@ function GroupDisplay(props)
         var res;
 
         // Keep empty
-        var searchParams = "";
+        var searchParams = "b";
 
         const searchEvents = async () =>
         {
