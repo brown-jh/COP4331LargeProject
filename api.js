@@ -341,25 +341,27 @@ exports.setApp = function (app, client)
         // incoming: EventName, EventDescription, EventDate, EventTime, EventLocation
         // outgoing: error  
         var error = '';  
+        var name = '';
+        var eventhost;
 
-        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, eventhost, jwtToken } = req.body;      
-        try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
+        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, jwtToken } = req.body;
 
-        
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
+        {
+            if (token.isExpired(jwtToken))
+            {
+                var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
+                return res.status(401).json(r);
+            }
+            name += decodeData.firstName;
+            name += " ";
+            name += decodeData.lastName;
+            eventhost = decodeData.userId;
+        })
+
+        const comm = [];
         const newEvent = {EventName:eventname, EventDescription:eventDescription, 
-                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:eventhost,EventAttendees:[eventhost],ImageURL:imageURL,};  
+                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[{Name:name, Id:eventhost}],EventAttendees:[{Name:name, Id:eventhost}],ImageURL:imageURL,Comments:comm};  
         var error = '';  
         
         try  
@@ -391,7 +393,7 @@ exports.setApp = function (app, client)
         // Ideally this will change
         
         var error = '';
-        const {eventId, jwtToken } = req.body;
+        const {eventID, jwtToken } = req.body;
         
 
         try
@@ -411,7 +413,7 @@ exports.setApp = function (app, client)
         try
         {
             const db = client.db();
-            const result = await db.collection('Events').deleteOne( {_id:eventId});
+            const result = await db.collection('Events').deleteOne( {_id:eventID});
         }
         catch(e)
         {
@@ -620,6 +622,7 @@ exports.setApp = function (app, client)
     {
         var error = '';
         var userId;
+        var name = "";
         const {eventId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
         {
@@ -630,13 +633,16 @@ exports.setApp = function (app, client)
             }
             
             userId = decodedData.userId;
+            name += decodedData.firstName;
+            name += " ";
+            name += decodedData.lastName;
         })
 
         const db = client.db();
         var o_id = new mongo.ObjectID(eventId);
         const result =  await db.collection('Events').updateOne(
             {_id:o_id},
-            {$push:{EventAttendees:userId}}
+            {$push:{EventAttendees:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
@@ -647,6 +653,7 @@ exports.setApp = function (app, client)
     {
         var error = '';
         var userId;
+        var name = "";
         const {eventId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
         {
@@ -657,13 +664,16 @@ exports.setApp = function (app, client)
             }
             
             userId = decodedData.userId;
+            name += decodedData.firstName;
+            name += " ";
+            name += decodedData.lastName;
         })
 
         const db = client.db();
         var o_id = new mongo.ObjectID(eventId);
         const result =  await db.collection('Events').updateOne(
             {_id:o_id},
-            {$pull:{EventAttendees:userId}}
+            {$pull:{EventAttendees:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
@@ -793,7 +803,7 @@ exports.setApp = function (app, client)
         var _search = search.trim();  
 
         const db = client.db();  
-        const results = await db.collection('Events').find({ "EventAttendees": _search }).toArray();
+        const results = await db.collection('Events').find({"EventAttendees.Id": _search }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
@@ -972,6 +982,7 @@ exports.setApp = function (app, client)
             id = results._id;    
             fn = results.FirstName;    
             ln = results.LastName;
+            un = results.Login;
             verStatus = results.AuthStatus;
             if (verStatus == 0)
             {
@@ -982,7 +993,7 @@ exports.setApp = function (app, client)
                 try        
                 {          
                     const token = require("./createJWT.js");          
-                    ret = token.createToken( fn, ln, id );        
+                    ret = token.createToken( fn, ln, un, id );        
                 }        
                 catch(e)        
                 {          
@@ -1234,4 +1245,27 @@ exports.setApp = function (app, client)
 
 
     })
+    app.post('/api/addcomment', async( req, res, next) =>
+    {
+        const {jwtToken, text, date, eventId} = req.body;
+        var username;
+        const db = client.db();
+
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
+        {
+            if (token.isExpired(jwtToken))
+            {
+                var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
+                return res.status(401).json(r);
+            }
+            username = decodeData.username;
+        })
+
+        var o_id = new mongo.ObjectID(eventId);
+        const result = await db.collection('Events').updateOne(
+            {_id:o_id},
+            {$push:{Comments:{User:username, Text:text, Date:date}}}
+        )
+        return res.status(200).json({error:""});
+    });
 }
