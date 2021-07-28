@@ -743,7 +743,7 @@ exports.setApp = function (app, client)
         var u_id = new mongo.ObjectID(userId);
         var g_id = new mongo.ObjectID(groupId);
         const db = client.db();
-        const results = await db.collection('Groups').find({_id:g_id,GroupAdmins: userId});
+        const results = await db.collection('Groups').find({_id:g_id,GroupAdmins: { "$in" : [userId]}});
         if(!results)
         {
             error = "You are not an admin of this group";
