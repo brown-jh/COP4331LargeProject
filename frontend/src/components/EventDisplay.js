@@ -63,7 +63,7 @@ function EventDisplay(props)
                         setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
-                        if (attendeeVar.filter(user => user.id == userId).length != 0)
+                        if (attendeeVar.filter(user => user.Id == userId).length != 0)
                         {
                             setJoinLeaveButton("Leave");
                         }
@@ -116,7 +116,7 @@ function EventDisplay(props)
     const joinOrLeave = async event =>
     {
         //If user is in the attendee list, remove them.
-        if (attendeeVar.filter(user => user.id == userId).length != 0) 
+        if (attendeeVar.filter(user => user.Id == userId).length != 0) 
         {
             //alert("TODO: use API to remove from event.");
 
@@ -139,7 +139,7 @@ function EventDisplay(props)
                 }
                 else
                 {
-                    attendeeVar = attendeeVar.filter(user => user.id !== userId);
+                    attendeeVar = attendeeVar.filter(user => user.Id !== userId);
                     setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
                     setJoinLeaveButton("Join");
                 }
