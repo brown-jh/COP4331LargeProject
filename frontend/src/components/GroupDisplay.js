@@ -36,6 +36,53 @@ function GroupDisplay(props)
         var js = JSON.stringify(obj);
         var res;
 
+        // Keep empty
+        var searchParams;
+        var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
+
+        const searchEvents = async () =>
+        {
+        
+            var js = JSON.stringify(searchObj);    
+            try        
+            {            
+                const response = await fetch(bp.buildPath('api/searchevents'),            
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                var txt = await response.text();   
+                //alert("Events are: " + txt);      
+                var res = JSON.parse(txt);            
+                if( res.error.length > 0 )            
+                {                
+                    setEventList( "API Error:" + res.error );     
+                    return;
+                }            
+                else            
+                {            
+                    // For each event, make an EventBox with its data.
+                    setEventList(res.results.map((eventData) => (
+                        <EventBox 
+                            imageURL={eventData.ImageURL}
+                            eventId={eventData._id}
+                            title={eventData.EventName}
+                            group={eventData.EventDescription}
+                            // Ensures dates are in: Month Day, Year Time format
+                            time={new Date(eventData.EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                            replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.EventTime).toLocaleTimeString()}
+                            place={eventData.EventLocation}/>)));
+                    
+                    var retTok = res.jwtToken;
+                    storage.storeToken( retTok );
+                    return;
+                }        
+            }        
+            catch(e)        
+            {            
+                setEventList(e.toString());  
+                return;      
+            }
+    
+        }
+
         const fetchData = async () =>
         {
             try        
@@ -67,16 +114,6 @@ function GroupDisplay(props)
                         setJoinLeaveButton("Leave");
                     }
 
-                    // For each event, make an EventBox with its data.
-                    setEventList(thisGroup.events.map((eventData) => (
-                    <EventBox title={eventData.title}
-                        group={eventData.group}
-                        eventId={eventData.id}
-                        // Ensures dates are in: Month Day, Year Time format
-                        time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
-                        place={eventData.place}/>)));
-
                 // Flip the status of the join/leave button to Leave if the user has joined the group.
                 if(memberVar.filter(user => user.Id == userId).length != 0)
                 {
@@ -96,6 +133,7 @@ function GroupDisplay(props)
             }
 
 
+        searchEvents();
         fetchData();
 
         var thisGroup={
