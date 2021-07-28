@@ -50,22 +50,22 @@ function MakeGroupUI()
         )
     }
 
-    function removeAdmin(delName)
+    function removeAdmin(delId)
     {
-        setAdminList(adminList.filter(user => user.Name !== delName));
+        setAdminList(adminList.filter(user => user.Id !== delId));
     }
 
     function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user.Name !== delName));
+        setMemberList(memberList.filter(user => user.Id !== delId));
     }
 
-    // This function determines if there is already an admin or invitee with the same name.
-    function compareUserNames(userName)
+    // This function determines if there is already an admin or invitee with the same id.
+    function compareUserNames(userId)
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i].Name === userName)
+            if (adminList[i].Id === userId)
             {
                 return false;
             }
@@ -73,7 +73,7 @@ function MakeGroupUI()
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i].Name === userName)
+            if (memberList[i].Id === userId)
             {
                 return false;
             }
@@ -115,7 +115,7 @@ function MakeGroupUI()
             return;
         }
 
-        if (!compareUserNames(adminName.value))
+        if (!compareUserNames(res.userId))
         {
             setAdminError("That user is already in the group.");
             return;
@@ -167,7 +167,7 @@ function MakeGroupUI()
             return;
         }
 
-        if (!compareUserNames(memberName.value))
+        if (!compareUserNames(res.userId))
         {
             setMemberError("That user is already in the group.");
             return;
