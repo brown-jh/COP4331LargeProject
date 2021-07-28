@@ -173,7 +173,7 @@ function EventDisplay(props)
                 }
                 else
                 {
-                    attendeeVar = [...attendeeVar, {Name: userName, Id:userId}];
+                    attendeeVar = [...attendeeVar, {Name: res.FullName, Id:userId}];
                     setAttendeeList(<div><p>{makeUsernameList(attendeeVar)}</p></div>);
                     setJoinLeaveButton("Leave");
                 }
@@ -230,7 +230,7 @@ function EventDisplay(props)
                 else
                 {
                     var newComment = {
-                        user: userName,
+                        user: res.FullName,
                         text: commentText,
                         date: currentDate 
                     };

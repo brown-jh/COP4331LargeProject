@@ -17,7 +17,6 @@ function GroupDisplay(props)
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
 
-    var userName = ud.username;
 
     var URLid = props.groupId;
 
@@ -211,7 +210,7 @@ function GroupDisplay(props)
                 else
                 {
                     // Maybe change
-                    memberVar = [...memberVar, {Id:userId, Name:userName}];
+                    memberVar = [...memberVar, {Id:userId, Name:res.FullName}];
                     setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
                     setJoinLeaveButton("Leave");
                 }
