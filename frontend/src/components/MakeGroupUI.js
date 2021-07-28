@@ -11,7 +11,10 @@ function MakeGroupUI()
 
     var adminName = '';
     var memberName = '';
-    
+
+     // TODO: MAKE SURE TO GET RID OF IS ************************************************
+     var userName = "";
+     
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
