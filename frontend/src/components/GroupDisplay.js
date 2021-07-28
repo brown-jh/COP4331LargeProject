@@ -160,7 +160,7 @@ function GroupDisplay(props)
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
-    function joinOrLeave()
+    const joinOrLeave = async event =>
     {
         //If the user is in the list of members, remove them.
         if (memberVar.filter(user => user.id == userId).length != 0)
@@ -173,7 +173,7 @@ function GroupDisplay(props)
 
             try
             {
-                const response = fetch(bp.buildPath('api/unsubgroup'),
+                const response = await fetch(bp.buildPath('api/unsubgroup'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
