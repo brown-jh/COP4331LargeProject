@@ -126,8 +126,9 @@ function EventMakeUI()
             }
 
             // editing to send
-            var _eventPlace = eventPlace.toString()
-            var _eventTime = eventTime.value + ":00.000Z"
+            var _eventPlace = eventPlace.toString();
+            var _eventTime = eventTime.value;
+            // + ":00.000Z"
 
             //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
             //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
