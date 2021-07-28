@@ -14,6 +14,9 @@ function EditGroupUI(props)
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
+    // TODO: MAKE SURE TO GET RID OF IS ************************************************
+    var userName = "";
+
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
