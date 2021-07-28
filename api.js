@@ -740,10 +740,17 @@ exports.setApp = function (app, client)
             }
             userId = decodedData.userId;
         })
-        var u_id = new mongo.ObjectID(userId);
-        var g_id = new mongo.ObjectID(groupId);
+        //var u_id = new mongo.ObjectID(userId);
+        try{
+            var g_id = new mongo.ObjectID(groupId); 
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
+        //var g_id = new mongo.ObjectID(groupId);
         const db = client.db();
-        const results = await db.collection('Groups').find({_id:g_id,GroupAdmins: { "$in" : [userId]}});
+        const results = await db.collection('Groups').find({_id:g_id,GroupAdmins:userId});
         if(!results)
         {
             error = "You are not an admin of this group";
