@@ -19,7 +19,7 @@ function GroupDisplay(props)
 
     var userName = "Test User";
 
-    var URLid;
+    var URLid = props.groupId;
 
     const[groupTitle, setGroupTitle] = useState('');
     const[groupDesc, setGroupDesc] = useState('');
@@ -30,10 +30,7 @@ function GroupDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-        
-
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
+    
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -55,24 +52,18 @@ function GroupDisplay(props)
 
                     setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
-                    setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins[0].Name)}</p></div>);
-                    for( var i=0; i<res.results[0].GroupAdmins.length; i++ )  
-                    {    
-                        adminVar.push( res.results[0].GroupAdmins[i]);  
-                    }
+                    setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
+                    adminVar = res.results[0].GroupAdmins;
                     alert(adminVar);
                     //adminVar = res.results[0].GroupAdmins;
-                    setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers[0].Name)}</p></div>);
-                    for( var i=0; i<res.results[0].GroupSubscribers.length; i++ )  
-                    {    
-                        memberVar.push( res.results[0].GroupSubscribers[i]);  
-                    }
+                    setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
+                    memberVar = res.results[0].GroupSubscribers;
                     alert(memberVar);
                     //memberVar = res.results[0].GroupSubscribers; //So we can track the admins and members outside of useEffect.
                     setGroupImage(res.results[0].ImageURL);
     
                     // Flip the status of the join/leave button to Leave if the user has joined the group.
-                    if(memberVar.filter(user => user.id == userId).length != 0)
+                    if(memberVar.filter(user => user.Id == userId).length != 0)
                     {
                         setJoinLeaveButton("Leave");
                     }
@@ -88,7 +79,7 @@ function GroupDisplay(props)
                         place={eventData.place}/>)));
 
                 // Flip the status of the join/leave button to Leave if the user has joined the group.
-                if(memberVar.filter(user => user.id == userId).length != 0)
+                if(memberVar.filter(user => user.Id == userId).length != 0)
                 {
                     setJoinLeaveButton("Leave");
                 }
@@ -163,7 +154,7 @@ function GroupDisplay(props)
     const joinOrLeave = async event =>
     {
         //If the user is in the list of members, remove them.
-        if (memberVar.filter(user => user.id == userId).length != 0)
+        if (memberVar.filter(user => user.Id == userId).length != 0)
         {
             //alert("TODO: use API to remove from group.");
 
@@ -186,7 +177,7 @@ function GroupDisplay(props)
                 }
                 else
                 {
-                    memberVar = memberVar.filter(user => user.id !== userId);
+                    memberVar = memberVar.filter(user => user.Id !== userId);
                     setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
                     setJoinLeaveButton("Join");
                 }
@@ -219,7 +210,8 @@ function GroupDisplay(props)
                 }
                 else
                 {
-                    memberVar = [...memberVar, {id:userId, name:userName}];
+                    // Maybe change
+                    memberVar = [...memberVar, {Id:userId, Name:userName}];
                     setMemberList(<div><p>{makeUsernameList(memberVar)}</p></div>);
                     setJoinLeaveButton("Leave");
                 }
@@ -237,7 +229,7 @@ function GroupDisplay(props)
         var userList = "";
         for (var i = 0; i < users.length; i++)
         {
-            userList += users[i].name;
+            userList += users[i].Name;
             if (i < users.length-1)
             {
                 userList += ", ";
@@ -252,7 +244,7 @@ function GroupDisplay(props)
             <p>Adminned by: {adminList}</p>
             {
                 /* Display the edit button to admins and the join/leave button to other users.*/
-                (adminVar.filter(user => user.id == userId).length != 0) ?
+                (adminVar.filter(user => user.Id == userId).length != 0) ?
                 <button type="button" style={{width: "40%"}} class="buttons" 
                     onClick={() => window.location.href="/editgroup/" + props.groupId}>
                     Edit/Disband Group</button>
