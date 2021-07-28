@@ -37,26 +37,36 @@ function GroupDisplay(props)
         var res;
 
         // Keep empty
-        var searchParams = "";
-        var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
+        var searchParams = "b";
 
         const searchEvents = async () =>
         {
         
+            alert("BREAKS HERE 1")
+            var tok = storage.retrieveToken();       
+            var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
             var jse = JSON.stringify(searchObj);    
+            alert("BREAKS HERE 2")
+
             try        
             {            
                 const response = await fetch(bp.buildPath('api/searchevents'),            
                     {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();   
-                var res = JSON.parse(txt);            
+                //alert("Events are: " + txt);      
+                var res = JSON.parse(txt);
+                alert("BREAKS HERE 3")
+                            
                 if( res.error.length > 0 )            
                 {                
                     setEventList( "API Error:" + res.error );     
                     return;
                 }            
                 else            
-                {            
+                {           
+                    alert("BREAKS HERE 4")
+
+
                     // For each event, make an EventBox with its data.
                     setEventList(res.results.map((eventData) => (
                         <EventBox 
@@ -75,11 +85,12 @@ function GroupDisplay(props)
                 }        
             }        
             catch(e)        
-            {            
+            {      
+                alert("BREAKS HERE 5")
+
                 setEventList(e.toString());  
                 return;      
             }
-    
         }
 
         const fetchData = async () =>
