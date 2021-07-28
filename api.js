@@ -643,6 +643,33 @@ exports.setApp = function (app, client)
 
 
     });
+    app.post('/api/unsubevent', async (req, res, next) =>
+    {
+        var error = '';
+        var userId;
+        const {eventId, jwtToken} = req.body;
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
+        {
+            if(err)
+            {
+                error = "Invalid token.";
+                return res.status(401).json({error:error});
+            }
+            
+            userId = decodedData.userId;
+        })
+
+        const db = client.db();
+        var o_id = new mongo.ObjectID(eventId);
+        const result =  await db.collection('Events').updateOne(
+            {_id:o_id},
+            {$pull:{EventAttendees:userId}}
+        );
+        return res.status(200).json({error:error});
+
+
+
+    });
     app.post('/api/subtogroup', async (req, res, next) =>
     {
         var error = '';
@@ -664,6 +691,33 @@ exports.setApp = function (app, client)
         const result =  await db.collection('Groups').updateOne(
             {_id:o_id},
             {$push:{GroupSubscribers:userId}}
+        );
+        return res.status(200).json({error:error});
+
+
+
+    });
+    app.post('/api/unsubgroup', async (req, res, next) =>
+    {
+        var error = '';
+        var userId;
+        const {groupId, jwtToken} = req.body;
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
+        {
+            if(err)
+            {
+                error = "Invalid token.";
+                return res.status(401).json({error:error});
+            }
+            
+            userId = decodedData.userId;
+        })
+
+        const db = client.db();
+        var o_id = new mongo.ObjectID(groupId);
+        const result =  await db.collection('Groups').updateOne(
+            {_id:o_id},
+            {$pull:{GroupSubscribers:userId}}
         );
         return res.status(200).json({error:error});
 
