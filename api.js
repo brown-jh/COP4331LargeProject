@@ -807,7 +807,7 @@ exports.setApp = function (app, client)
         }
         //var g_id = new mongo.ObjectID(groupId);
         const db = client.db();
-        const resulting = await db.collection('Groups').find({_id:g_id,GroupAdmins: { $in : [userId]}}).count();
+        const resulting = await db.collection('Groups').find({_id:g_id,"GroupAdmins.Id":userId}).count();
 
         if(resulting > 0)
         {
