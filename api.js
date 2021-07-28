@@ -652,7 +652,7 @@ exports.setApp = function (app, client)
         const results = await db.collection('Events').find(
             {_id:o_id, EventAttendees:{Name:name, Id:userId}}
         )
-        if (results.count > 0)
+        if (results.count() > 0)
         {
             error = "User already in event";
             return res.status(401).json({error:error});
@@ -728,7 +728,7 @@ exports.setApp = function (app, client)
             {_id:o_id, GroupSubscribers:{Name:name, Id:userId}}
         )
 
-        if (results.count > 0)
+        if (results.count() > 0)
         {
             error = "User already in group";
             return res.status(401).json({error:error});
