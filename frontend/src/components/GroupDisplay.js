@@ -60,10 +60,15 @@ function GroupDisplay(props)
                     return;
                 }            
                 else            
-                {           
+                {       
+                    alert(res);
+                    alert(res.results)    
 
 
                     const foundevents = res.results.filter(event => event.GroupID == props.groupId);
+                    alert("this is foundevents: " + foundevents)
+                    alert("this is foundvents: " + JSON.stringify(foundevents))
+                    
 
                     // For each event, make an EventBox with its data.
                     setEventList(foundevents.map((eventData) => (
