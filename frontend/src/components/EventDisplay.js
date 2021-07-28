@@ -211,7 +211,7 @@ function EventDisplay(props)
         // visible comment should use the username instead of userId.
 
         var tok = storage.retrieveToken();       
-        var obj = {jwtToken:tok,Text:commentText, Date:currentDate, eventId:props.eventId};       
+        var obj = {jwtToken:tok,text:commentText, date:currentDate, eventId:props.eventId};       
         var js = JSON.stringify(obj);
 
         try
