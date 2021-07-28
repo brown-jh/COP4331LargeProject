@@ -49,12 +49,12 @@ function MakeGroupUI()
 
     function removeAdmin(delName)
     {
-        setAdminList(adminList.filter(user => user.name !== delName));
+        setAdminList(adminList.filter(user => user.Name !== delName));
     }
 
     function removeMember(delName)
     {
-        setMemberList(memberList.filter(user => user.name !== delName));
+        setMemberList(memberList.filter(user => user.Name !== delName));
     }
 
     // This function determines if there is already an admin or invitee with the same name.
@@ -62,7 +62,7 @@ function MakeGroupUI()
     {
         for(var i = 0; i < adminList.length; i++)
         {
-            if (adminList[i].name === userName)
+            if (adminList[i].Name === userName)
             {
                 return false;
             }
@@ -70,7 +70,7 @@ function MakeGroupUI()
 
         for(var i = 0; i < memberList.length; i++)
         {
-            if (memberList[i].name === userName)
+            if (memberList[i].Name === userName)
             {
                 return false;
             }
@@ -128,7 +128,7 @@ function MakeGroupUI()
 
         // Put the user in the admin list and display it.
         
-        setAdminList([...adminList, {name: adminName.value, id:res.userId}]);
+        setAdminList([...adminList, {Name: adminName.value, Id:res.userId}]);
     }
 
 
@@ -178,7 +178,7 @@ function MakeGroupUI()
 
         // Put the user in the member list and display it.
         
-        setMemberList([...memberList, {name: memberName.value, id:res.userId}]);
+        setMemberList([...memberList, {Name: memberName.value, Id:res.userId}]);
     }
 
     const submitGroup = async event =>
@@ -214,11 +214,7 @@ function MakeGroupUI()
         }
         else
         {
-
-            //NOTE: Edited these so admins and subscribers treated differently, and API gets IDs
-            //as intended.
-            var _groupAdmins = adminList.map(user => user.id);
-            _groupAdmins = [..._groupAdmins, userId]; //Add the user as an admin.
+            setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
             var _groupSubscribers = memberList.map(user => user.id);
 
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
@@ -226,7 +222,7 @@ function MakeGroupUI()
             _groupMembers + "\nURL: " + groupPictureURL.value);
 
             var tok = storage.retrieveToken();
-            var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
+            var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:adminList,jwtToken:tok,groupSubscribers:memberList, imageURL:groupPictureURL.value};
             var js = JSON.stringify(obj);
 
             try

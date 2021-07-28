@@ -325,12 +325,10 @@ function EditGroupUI(props)
         }
         else
         {
-            var _groupAdmins = adminList.map(user => user.Id);
-            _groupAdmins = [..._groupAdmins, userId]; //Add the user as an admin.
-            var _groupSubscribers = memberList.map(user => user.Id);
+            setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
 
             var tok = storage.retrieveToken();
-            var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:_groupAdmins,groupSubscribers:_groupSubscribers,imageURL:groupPictureURL.value,jwtToken:tok};
+            var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:adminList,groupSubscribers:memberList,imageURL:groupPictureURL.value,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
