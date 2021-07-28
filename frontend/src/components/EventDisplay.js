@@ -60,7 +60,7 @@ function EventDisplay(props)
                         setEventTime(new Date(res.results[0].EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                         replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(res.results[0].EventTime).toLocaleTimeString());
                         setEventLocation(res.results[0].EventLocation);
-                        //setEventComments(res.results[0].EventComments);
+                        setEventComments(res.results[0].Comments);
                         setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
