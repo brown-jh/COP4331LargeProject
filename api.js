@@ -755,21 +755,21 @@ exports.setApp = function (app, client)
             if(err || !results)
             {
                 error = "You are not an admin of this group";
+                console.log(error);
                 return res.status(402).json({error:error});
             }
+            const result = db.collection('Groups').updateOne(
+                {_id:g_id},
+                {
+                    $set: {GroupName: groupName, GroupDescription: groupDescription, GroupAdmins:groupAdmins,
+                    GroupSubscribers: groupSubscribers, ImageURL: imageURL}
+                }
+            )         
+            return res.status(200).json({error:error});
         });
 
         
-        const result = db.collection('Groups').updateOne(
-            {_id:g_id},
-            {
-                $set: {GroupName: groupName, GroupDescription: groupDescription, GroupAdmins:groupAdmins,
-                GroupSubscribers: groupSubscribers, ImageURL: imageURL}
-            }
-        )
 
-        
-        return res.status(200).json({error:error});
 
 
 
