@@ -17,7 +17,7 @@ function EventDisplay(props)
 
     var userName = "Test User";
 
-    var URLid;
+    var URLid = props.eventId;
 
     const[eventTitle, setEventTitle] = useState('');
     const[eventDesc, setEventDesc] = useState('');
@@ -31,10 +31,7 @@ function EventDisplay(props)
     const[joinLeaveButton, setJoinLeaveButton] = useState("Join");
 
     useEffect(() => {
-                
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
-        //alert(URLid);        
+                 
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -55,11 +52,12 @@ function EventDisplay(props)
 
                         setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
-                        setEventHost(res.results[0].EventHosts.Name);
+                        setEventHost(res.results[0].EventHosts[0].Name);
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
                         attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
                         setEventGroup(res.results[0].GroupID);
-                        setEventTime(res.results[0].EventTime);
+                        setEventTime(new Date(res.results[0].EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(res.results[0].EventTime).toLocaleTimeString());
                         setEventLocation(res.results[0].EventLocation);
                         //setEventComments(res.results[0].EventComments);
                         setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
