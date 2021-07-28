@@ -670,6 +670,47 @@ exports.setApp = function (app, client)
 
 
     });
+    app.post('/api/updategroup', async (req, res, next) =>
+    {
+
+        var error = "";
+        var userId;
+        const {groupId, groupName, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken} = req.body;
+
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
+        {
+            if (err)
+            {
+                error = "Invalid token."
+                return res.status(401).json({error:error});
+            }
+            userId = decodedData.userId;
+        })
+        var u_id = new mongo.ObjectID(userId);
+        var g_id = new mongo.ObjectID(groupId);
+        const db = client.db();
+        const results = await db.collection('Groups').find({_id:g_id},{GroupAdmins: {userId}});
+        if(!results)
+        {
+            error = "You are not an admin of this group";
+            return res.status(402).json({error:error});
+        }
+        else 
+        {
+            const result = db.collection('Groups').updateOne(
+                {_id:g_id},
+                {
+                    $set: {GroupName: groupName, GroupDescription: groupDescription, GroupAdmins:groupAdmins,
+                    GroupSubscribers: groupSubscribers, ImageURL: imageURL}
+                }
+            )
+
+        }
+        return res.status(200).json({error:error});
+
+
+
+    });
     app.post('/api/searcheventsubbed', async (req, res, next) => {  
  
         var error = '';  
