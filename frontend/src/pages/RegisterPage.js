@@ -6,7 +6,7 @@ import Register from '../components/Register';
 const RegisterPage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={false} />        
+            <PageTitle clickable={false} animated={false}/>          
         
             <Register />      
         </div>

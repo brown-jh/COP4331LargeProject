@@ -6,7 +6,7 @@ import AdminnedGroups from '../components/AdminnedGroups';
 const AdminnedGroupsPage = () =>{    
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <AdminnedGroups />  
         </div>

@@ -8,7 +8,7 @@ const FinishPasswordPage = () =>{
     const {passwordId} = useParams();    
     return(        
         <div>            
-            <PageTitle clickable={false} />        
+            <PageTitle clickable={false} animated={false}/>          
     
             <FinishPassword passwordId={passwordId}/>         
         </div>    

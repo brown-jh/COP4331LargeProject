@@ -8,7 +8,7 @@ const EditGroupPage = () =>{
     const {groupId} = useParams();  
     return(      
         <div>        
-            <PageTitle clickable={true} />        
+            <PageTitle clickable={true} animated={false}/>          
         
             <EditGroupUI groupId={groupId}/>  
         </div>
