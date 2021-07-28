@@ -236,7 +236,7 @@ function EventDisplay(props)
                         Date: currentDate 
                     };
 
-                    setEventComments([...eventComments, JSON.stringify(newComment)]);
+                    setEventComments([...eventComments, newComment]);
                 }
             }
             catch(e)
