@@ -167,19 +167,16 @@ function EditEventUI(props)
             var js = JSON.stringify(obj);
 
             try        
-                {            
-                    const response = await fetch(bp.buildPath('api/deleteevent'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();
-                    //alert("return errors" + txt);
-                }
-                    catch(e)        
-                    {            
-                        alert(e.toString());      
-                    }
-      
-         
-                  
+            {            
+                const response = await fetch(bp.buildPath('api/deleteevent'),            
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                var txt = await response.text();
+                //alert("return errors" + txt);
+            }
+            catch(e)        
+            {            
+                alert(e.toString());      
+            }    
         
         }
         else
@@ -248,7 +245,7 @@ function EditEventUI(props)
             //"\nURL: " + eventPictureURL.value + "\nUser: " + userId);
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var obj = {eventId: props.eventId, eventName:eventName.value, eventDescription:eventDesc.value, eventTime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
