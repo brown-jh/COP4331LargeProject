@@ -16,7 +16,7 @@ function EventDisplay(props)
     var userId = ud.id;
     var userName = ud.un;
 
-    var userName = "Test User";
+    //var userName = "Test User";
 
     var URLid = props.eventId;
 
