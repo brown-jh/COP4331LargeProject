@@ -8,6 +8,8 @@ import GroupUserList from '../components/GroupUserList';
 
 function EditGroupUI(props)
 {
+    var URLid;
+
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
@@ -39,7 +41,7 @@ function EditGroupUI(props)
         
 
         var url = window.location.pathname;
-        var URLid = url.substring(url.lastIndexOf('/') + 1);
+        URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -211,11 +213,25 @@ function EditGroupUI(props)
         setMemberList([...memberList, {name: memberName.value, id:"0"}]);
     }
 
-    function confirmDelete(groupId)
+    const submitGroup = async event =>
     {
         if(window.confirm("Are you sure you want to disband this group?"))
         {
-            alert("deleting id: " + groupId)
+            var tok = storage.retrieveToken();
+            var obj = {groupId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/deletegroup'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();
+                    //alert("return errors" + txt);
+                }
+                    catch(e)        
+                    {            
+                        alert(e.toString());      
+                    }
         }
         else
         {
