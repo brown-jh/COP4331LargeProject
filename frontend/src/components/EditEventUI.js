@@ -159,16 +159,7 @@ function EditEventUI(props)
     {
         if(window.confirm("Are you sure you want to disband this event?"))
         {
-            var tok = storage.retrieveToken();       
-            var obj = {eventID:eventId,jwtToken:tok};       
-            var js = JSON.stringify(obj);    
             
-            fetch(bp.buildPath('api/deleteevent'),            
-                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-  
-                        
-            var retTok = res.jwtToken;
-            storage.storeToken( retTok );
       
          
                   
