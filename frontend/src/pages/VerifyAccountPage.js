@@ -8,7 +8,8 @@ const VerifyAccountPage = () =>{
     const {verifyId} = useParams(); 
     return(        
         <div>            
-            <PageTitle />    
+            <PageTitle clickable={true} />        
+    
             <VerifyAccount verifyId={verifyId}/>         
         </div>    
     );

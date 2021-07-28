@@ -8,7 +8,8 @@ const NewLinkPage = () =>{
     const {email} = useParams(); 
     return(        
         <div>            
-            <PageTitle />    
+            <PageTitle clickable={true} />        
+    
             <NewLink email={email}/>         
         </div>    
     );

@@ -8,7 +8,8 @@ const EventPage = () =>{
     const {eventId} = useParams();  
     return(      
         <div>        
-            <PageTitle />        
+            <PageTitle clickable={true} />        
+        
             <EventDisplay eventId={eventId}/>  
         </div>
     );

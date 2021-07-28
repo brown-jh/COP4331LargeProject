@@ -258,6 +258,7 @@ p .date
 .buttons
 {
     font-size: 20px;
+    padding: 3px;
     margin: 0 auto;
     border-radius: 5px;
     width: 50%;
@@ -291,7 +292,8 @@ p .date
 
 /* Text-Entry Fields CSS */
 input[type="text"],input[type="password"]{
-    font-size: 20px;
+    font-size: 15px;
+    padding: 5px;
     border-radius: 5px;
     text-align: left;
     width: 40%;

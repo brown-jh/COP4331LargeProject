@@ -6,7 +6,8 @@ import PageTitle from '../components/PageTitle';
 const ForgotPasswordPage = () =>{    
     return(        
         <div>            
-            <PageTitle />    
+            <PageTitle clickable={false} />        
+    
             <ForgotPassword />         
         </div>    
     );

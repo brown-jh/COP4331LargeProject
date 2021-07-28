@@ -1,8 +1,15 @@
 import React from 'react';
 
-function PageTitle(){   
+
+function PageTitle(props){   
     return(     
-        <h1 id="title" ><a style={{textDecoration: "none", color: "#f75555"}} href="/home">- Get2Gather -</a></h1>   
+        <h1 id="title" >
+            {
+                props.clickable
+                ? <a style={{textDecoration: "none", color: "#f75555"}} href="/home">- Get2Gather -</a>
+                : "- Get2Gather -"
+            }
+        </h1>   
     );
 };
 
