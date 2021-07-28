@@ -843,7 +843,7 @@ exports.setApp = function (app, client)
             console.log(e.message);      
         }
 
-        var _search = search;  
+        var _search = search.trim();  
 
         const db = client.db();  
         const results = await db.collection('Groups').find({ "GroupSubscribers": _search }).toArray();
