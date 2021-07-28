@@ -54,7 +54,7 @@ function EventDisplay(props)
                         setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
                         setEventDesc(res.results[0].EventDescription);
                         setEventHost(res.results[0].EventHosts[0].Name);
-                        userName = res.results[0].EventHosts[0].Id;
+                        userName = res.results[0].EventHosts[0].Name;
                         setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
                         attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
                         setEventGroup(res.results[0].GroupID);
