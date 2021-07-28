@@ -403,7 +403,7 @@ exports.setApp = function (app, client)
         // Ideally this will change
         
         var error = '';
-        const {eventID, jwtToken } = req.body;
+        const {eventId, jwtToken } = req.body;
         
 
         try
@@ -422,8 +422,10 @@ exports.setApp = function (app, client)
 
         try
         {
+            var o_id = new mongo.ObjectID(eventId);
+
             const db = client.db();
-            const result = await db.collection('Events').deleteOne( {_id:eventID});
+            const result = await db.collection('Events').deleteOne( {_id:o_id});
         }
         catch(e)
         {

@@ -283,6 +283,7 @@ function EditGroupUI(props)
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();
                     //alert("return errors" + txt);
+                    window.location.href = "/joinedgroups";
                 }
                     catch(e)        
                     {            

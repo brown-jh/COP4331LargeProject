@@ -163,7 +163,7 @@ function EditEventUI(props)
         if(window.confirm("Are you sure you want to disband this event?"))
         {
             var tok = storage.retrieveToken();
-            var obj = {eventId:URLid,jwtToken:tok};
+            var obj = {eventId:props.eventId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try        
@@ -172,6 +172,7 @@ function EditEventUI(props)
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();
                 //alert("return errors" + txt);
+                window.location.href = "/joinedevents";
             }
             catch(e)        
             {            
