@@ -975,7 +975,8 @@ exports.setApp = function (app, client)
         )
         var id = -1;  
         var fn = '';  
-        var ln = '';  
+        var ln = '';
+        var un = '';  
         var verStatus = 0;
         if( results )  
         {    
