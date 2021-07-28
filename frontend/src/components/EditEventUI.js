@@ -224,7 +224,7 @@ function EditEventUI(props)
             }
 
             var _eventPlace = eventPlace.toString()
-            var _eventTime = eventTime.value + ":00.000Z"
+            var _eventTime = eventTime.value + ":00.000-04:00"
 
             //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
             //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
