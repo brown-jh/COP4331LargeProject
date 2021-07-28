@@ -59,16 +59,16 @@ function EditEventUI(props)
                     alert(txt);
                     res = JSON.parse(txt); 
 
-                    eventName.value = res.results[0].EventName + "\n" + props.eventId;
-                    eventDesc.value = res.results[0].EventDescription;
-                    eventTime.value = res.results[0].EventTime;
+                    eventName = res.results[0].EventName;
+                    eventDesc = res.results[0].EventDescription;
+                    eventTime = res.results[0].EventTime;
                     eventPlace = res.results[0].EventLocation;
-                    eventPictureURL.value = res.results[0].ImageURL;
+                    eventPictureURL = res.results[0].ImageURL;
                         
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
+                    var retTok = res.jwtToken;     
+                    storage.storeToken( retTok );      
+                    
+                    return;    
 
                 }        
                 catch(e)        
@@ -263,7 +263,7 @@ function EditEventUI(props)
                 }
                 else
                 {
-                    setEventMakeResult("Successfully Updated event! Redirecting back to search.");
+                    setEventMakeResult("Successfully updated event! Redirecting back to search.");
                     storage.storeToken( retTok );
                     window.location.href = "/search";
                 }
