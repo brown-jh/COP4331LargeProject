@@ -36,6 +36,7 @@ function HostedEvents()
                 setHostedEvents(res.results.map((eventData) => (
                     <EventBox 
                         imageURL={eventData.ImageURL}
+                        eventId={eventData._id}
                         title={eventData.EventName}
                         group={eventData.EventDescription}
                         // Ensures dates are in: Month Day, Year Time format
