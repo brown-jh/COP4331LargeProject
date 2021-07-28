@@ -173,7 +173,7 @@ function GroupDisplay(props)
 
             try
             {
-                const response = await fetch(bp.buildPath('api/unsubgroup'),
+                const response = fetch(bp.buildPath('api/unsubgroup'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
