@@ -228,15 +228,46 @@ function EditEventUI(props)
     }
 
     useEffect(() => {
-        // TODO: Here we would find the user's groups and put them in here.
-        userGroups = ["NerdKnighteria of UCF", "Orlando Fencing Club", "Mu Alpha Theta"];
-        setGroupSelector(
-            <select class="meeting-time" onChange={changeGroup}>
-                <option value="">None</option>
-                {userGroups.map((groupName) => (<option value={groupName}>{groupName}</option>))}
-            </select>
-        );
-    });
+
+        var tok = storage.retrieveToken();       
+        var obj = {search:userId,jwtToken:tok}; 
+        var js = JSON.stringify(obj);
+        var res;
+
+        const  fetchdata = async () => 
+            {
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                        //alert("Events are: " + txt);
+                    res = JSON.parse(txt);    
+
+                    setGroupSelector(
+                        <select class="meeting-time" onChange={changeGroup}>
+                            <option value="">None</option>
+                            {res.results.map((Group) => (<option value={Group.GroupName}>{Group.GroupName}</option>))}
+                        </select>
+                        );         
+                        
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
+
+                }        
+                catch(e)        
+                {            
+                    alert(e.toString());      
+                }
+            }
+
+            fetchdata();
+        
+        return;
+
+    },[]);
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
