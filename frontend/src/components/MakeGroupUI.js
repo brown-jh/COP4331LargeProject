@@ -223,7 +223,7 @@ function MakeGroupUI()
 
             alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
             "\nAdmins: " + _groupAdmins + "\nMembers: " + 
-            _groupMembers + "\nURL: " + groupPictureURL.value);
+            _groupSubscribers + "\nURL: " + groupPictureURL.value);
 
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:_groupAdmins,jwtToken:tok,groupSubscribers:_groupSubscribers, imageURL:groupPictureURL.value};
