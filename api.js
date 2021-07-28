@@ -1292,8 +1292,8 @@ exports.setApp = function (app, client)
     app.post('/api/addcomment', async( req, res, next) =>
     {
         const {jwtToken, text, date, eventId} = req.body;
-        var name;
-        var userId;
+        var name = '';
+        var userId = '';
         const db = client.db();
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
