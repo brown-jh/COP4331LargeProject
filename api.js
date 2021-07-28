@@ -107,6 +107,52 @@ exports.setApp = function (app, client)
 
     });
 
+    app.post('/api/searchgroupid', async (req, res, next) => {  
+ 
+        var error = '';  
+        const {search, jwtToken } = req.body;    
+        try      
+        {        
+            if( token.isExpired(jwtToken))        
+            {          
+                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
+                res.status(200).json(r);          
+                return;        
+            }      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }
+
+        var _search =search.trim();  
+
+        var o_id = new mongo.ObjectID(search);
+
+        const db = client.db(); 
+        const results = await db.collection('Groups').find({_id:o_id}).toArray();
+
+        var _ret = [results[0]];  
+        //for( var i=0; i<results.length; i++ )  
+        //{    
+        //    _ret.push( results[i]);  
+        //}
+
+        var refreshedToken = null;      
+        try      
+        {        
+            refreshedToken = token.refresh(jwtToken);      
+        }      
+        catch(e)      
+        {        
+            console.log(e.message);      
+        }  
+   
+        var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
+        res.status(200).json(ret);
+
+    });
+
     app.post('/api/addgroup', async (req, res, next) =>{  
         // incoming: GroupName, GroupDescription
         // outgoing: error  
@@ -679,50 +725,6 @@ exports.setApp = function (app, client)
 
         const db = client.db(); 
         const results = await db.collection('Events').find({$or: [ { "EventName": {$regex:_search+'.*',$options:'i'} }, {"EventDescription": {$regex:_search+'.*',$options:'i'} } ] }).toArray();
-
-        var _ret = [];  
-        for( var i=0; i<results.length; i++ )  
-        {    
-            _ret.push( results[i]);  
-        }
-
-        var refreshedToken = null;      
-        try      
-        {        
-            refreshedToken = token.refresh(jwtToken);      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }      
-        var ret = { results:_ret, error: error, jwtToken: refreshedToken };      
-        res.status(200).json(ret);
-
-    });
-
-    app.post('/api/searchgroupid', async (req, res, next) => {  
-        // incoming: userId(will be implemented later), search  
-        // outgoing: results[], error  
-        var error = '';  
-        const { userId, search, jwtToken } = req.body;    
-        try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid.', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
-
-        var _search = search.trim();  
-
-        const db = client.db(); 
-        const results = await db.collection('Groups').find({"_id":ObjectId(_search) }).toArray();
 
         var _ret = [];  
         for( var i=0; i<results.length; i++ )  
