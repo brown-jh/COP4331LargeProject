@@ -55,16 +55,16 @@ function EventDisplay(props)
                     alert(res.results[0].EventName);
 
 
-                        setEventTitle(res.results.EventName.stringify() + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
-                        //setEventDesc(_res.EventDescription);
-                        //setEventHost(_res.EventHosts);
-                        //setAttendeeList(<div><p>{makeUsernameList(_res.EventAttendees)}</p></div>);
-                        //attendeeVar = _res.EventAttendees; //So we can access the attendees outside of useEffect.
-                        //setEventGroup(_res.GroupID);
-                        //setEventTime(_res.EventTime);
-                        //setEventLocation(_res.EventLocation);
-                        //setEventComments(_res.EventComments);
-                        setEventImage("https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6"); //Dummy data, fix with rest of API call.
+                        setEventTitle(res.results[0].EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                        setEventDesc(res.results[0].EventDescription);
+                        setEventHost(res.results[0].EventHosts);
+                        setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
+                        attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
+                        setEventGroup(res.results[0].GroupID);
+                        setEventTime(res.results[0].EventTime);
+                        setEventLocation(res.results[0].EventLocation);
+                        setEventComments(res.results[0].EventComments);
+                        setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
 
                         // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
                         if (attendeeVar.filter(user => user.id == userId).length != 0)
