@@ -56,7 +56,7 @@ function GroupDisplay(props)
                     adminVar = res.results[0].GroupAdmins;
                     setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
                     memberVar = res.results[0].GroupSubscribers; //So we can track the admins and members outside of useEffect.
-                    setGroupImage("https://image.cnbcfm.com/api/v1/image/104151701-GettyImages-143949731.jpg?v=1481108000&w=1600&h=900");
+                    setGroupImage(res.results[0].ImageURL);
     
                     // Flip the status of the join/leave button to Leave if the user has joined the group.
                     if(memberVar.filter(user => user.id == userId).length != 0)
