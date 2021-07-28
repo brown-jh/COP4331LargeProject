@@ -163,7 +163,7 @@ function EditEventUI(props)
             var obj = {eventID:eventId,jwtToken:tok};       
             var js = JSON.stringify(obj);    
             
-            const response = await fetch(bp.buildPath('api/deleteevent'),            
+            fetch(bp.buildPath('api/deleteevent'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
   
                         
