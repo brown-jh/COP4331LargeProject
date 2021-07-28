@@ -37,7 +37,7 @@ function GroupDisplay(props)
         var res;
 
         // Keep empty
-        var searchParams;
+        var searchParams = "";
         var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
 
         const searchEvents = async () =>
