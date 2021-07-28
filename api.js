@@ -570,6 +570,33 @@ exports.setApp = function (app, client)
 
     });
 
+    app.post('/api/subtoevent', async (req, res, next) =>
+    {
+        var error = '';
+        var userId;
+        const {eventId, jwtToken} = req.body;
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
+        {
+            if(err)
+            {
+                error = "Invalid token.";
+                return res.status(401).json({error:error});
+            }
+            
+            userId = decodedData.userId;
+        })
+
+        const db = client.db();
+        var o_id = new mongo.ObjectID(eventId);
+        const result =  await db.collection('Events').updateOne(
+            {_id:o_id},
+            {$push:{EventAttendees:userId}}
+        );
+        return res.status(200).json({error:error});
+
+
+
+    });
     app.post('/api/searcheventsubbed', async (req, res, next) => {  
  
         var error = '';  
