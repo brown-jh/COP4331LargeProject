@@ -155,11 +155,25 @@ function EditEventUI(props)
         )
     }
 
-    function confirmDelete(eventId)
+    const confirmDelete = async event =>
     {
         if(window.confirm("Are you sure you want to disband this event?"))
         {
-            
+            var tok = storage.retrieveToken();
+            var obj = {eventId:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/deleteevent'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();
+                    //alert("return errors" + txt);
+                }
+                    catch(e)        
+                    {            
+                        alert(e.toString());      
+                    }
       
          
                   
