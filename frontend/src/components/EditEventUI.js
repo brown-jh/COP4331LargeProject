@@ -217,13 +217,46 @@ function EditEventUI(props)
                 eventPlace = ""; // No place if online.
             }
 
-            // May need to append :00.000Z to eventTime.value to add to database
-            alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
-            "\nURL: " + eventPictureURL.value);
+            var _eventPlace = eventPlace.toString()
+            var _eventTime = eventTime.value + ":00.000Z"
 
-            setEventMakeResult("Successfully created event! Redirecting back to search.");
-            window.location.href = "/search";
+            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
+            //"\nURL: " + eventPictureURL.value + "\nUser: " + userId);
+
+            var tok = storage.retrieveToken();
+            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var js = JSON.stringify(obj);
+
+            try
+            {
+                const response = await fetch(bp.buildPath('api/updateevent'),
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+
+                var txt = await response.text();
+                var res = JSON.parse(txt);
+                var retTok = res.jwtToken;
+
+                if( res.error.length > 0 )
+                {
+                    alert( "API Error:" + res.error );
+                }
+                else
+                {
+                    setEventMakeResult("Successfully Updated event! Redirecting back to search.");
+                    storage.storeToken( retTok );
+                    window.location.href = "/search";
+                }
+            }
+            catch(e)
+            {
+                alert(e.toString());
+            }
+
+            // May need to append :00.000Z to eventTime.value to add to database
+            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
+            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
+            //"\nURL: " + eventPictureURL.value);
         }
     }
 
