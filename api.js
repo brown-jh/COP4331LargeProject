@@ -318,8 +318,10 @@ exports.setApp = function (app, client)
 
         try
         {
+            //var o_id = new mongo.ObjectID(groupId);
+
             const db = client.db();
-            const result = await db.collection('Events').deleteOne( {_id:groupId});
+            const result = await db.collection('Groups').deleteOne( {_id:groupId});
         }
         catch(e)
         {
