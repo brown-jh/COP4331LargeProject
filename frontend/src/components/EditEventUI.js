@@ -6,6 +6,8 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
+var URLid;
+
 function EditEventUI(props)
 {
  
@@ -40,7 +42,7 @@ function EditEventUI(props)
         //TODO : Also add groups.
 
         var url = window.location.pathname;
-        var URLid = url.substring(url.lastIndexOf('/') + 1);
+        URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -157,7 +159,20 @@ function EditEventUI(props)
     {
         if(window.confirm("Are you sure you want to disband this event?"))
         {
-            alert("deleting id: " + eventId)
+            var tok = storage.retrieveToken();       
+            var obj = {eventID:eventId,jwtToken:tok};       
+            var js = JSON.stringify(obj);    
+            
+            const response = await fetch(bp.buildPath('api/deleteevent'),            
+                {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+  
+                        
+            var retTok = res.jwtToken;
+            storage.storeToken( retTok );
+      
+         
+                  
+        
         }
         else
         {

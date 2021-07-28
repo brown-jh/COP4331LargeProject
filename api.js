@@ -391,7 +391,7 @@ exports.setApp = function (app, client)
         // Ideally this will change
         
         var error = '';
-        const {eventId, jwtToken } = req.body;
+        const {eventID, jwtToken } = req.body;
         
 
         try
@@ -411,7 +411,7 @@ exports.setApp = function (app, client)
         try
         {
             const db = client.db();
-            const result = await db.collection('Events').deleteOne( {_id:eventId});
+            const result = await db.collection('Events').deleteOne( {_id:eventID});
         }
         catch(e)
         {
