@@ -55,14 +55,14 @@ function GroupDisplay(props)
 
                     setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
-                    setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
+                    setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins[0].Name)}</p></div>);
                     for( var i=0; i<res.results[0].GroupAdmins.length; i++ )  
                     {    
                         adminVar.push( res.results[0].GroupAdmins[i]);  
                     }
                     alert(adminVar);
                     //adminVar = res.results[0].GroupAdmins;
-                    setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
+                    setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers[0].Name)}</p></div>);
                     for( var i=0; i<res.results[0].GroupSubscribers.length; i++ )  
                     {    
                         memberVar.push( res.results[0].GroupSubscribers[i]);  
