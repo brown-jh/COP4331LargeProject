@@ -61,6 +61,22 @@ function GroupDisplay(props)
                     {
                         setJoinLeaveButton("Leave");
                     }
+
+                    // For each event, make an EventBox with its data.
+                    setEventList(thisGroup.events.map((eventData) => (
+                    <EventBox title={eventData.title}
+                        group={eventData.group}
+                        eventId={eventData.id}
+                        // Ensures dates are in: Month Day, Year Time format
+                        time={new Date(eventData.time).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventData.time).toLocaleTimeString()}
+                        place={eventData.place}/>)));
+
+                // Flip the status of the join/leave button to Leave if the user has joined the group.
+                if(memberVar.filter(user => user.id == userId).length != 0)
+                {
+                    setJoinLeaveButton("Leave");
+                }
                         
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
