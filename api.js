@@ -341,25 +341,25 @@ exports.setApp = function (app, client)
         // incoming: EventName, EventDescription, EventDate, EventTime, EventLocation
         // outgoing: error  
         var error = '';  
+        var name = '';
 
-        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, eventhost, jwtToken } = req.body;      
-        try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
+        const { eventname, eventDescription, eventtime, eventLocation, groupID, imageURL, eventhost, jwtToken } = req.body;
 
-        
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
+        {
+            if (token.isExpired(jwtToken))
+            {
+                var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
+                return res.status(401).json(r);
+            }
+            name += decodeData.firstName;
+            name += " ";
+            name += decodeData.lastName;
+        })
+
+        const comm = [];
         const newEvent = {EventName:eventname, EventDescription:eventDescription, 
-                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:eventhost,EventAttendees:[eventhost],ImageURL:imageURL,};  
+                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[{Name:name, Id:eventhost}],EventAttendees:[{Name:name, Id:eventhost}],ImageURL:imageURL,Comments:comm};  
         var error = '';  
         
         try  
@@ -972,6 +972,7 @@ exports.setApp = function (app, client)
             id = results._id;    
             fn = results.FirstName;    
             ln = results.LastName;
+            un = results.Login;
             verStatus = results.AuthStatus;
             if (verStatus == 0)
             {
@@ -982,7 +983,7 @@ exports.setApp = function (app, client)
                 try        
                 {          
                     const token = require("./createJWT.js");          
-                    ret = token.createToken( fn, ln, id );        
+                    ret = token.createToken( fn, ln, un, id );        
                 }        
                 catch(e)        
                 {          
@@ -1234,4 +1235,27 @@ exports.setApp = function (app, client)
 
 
     })
+    app.post('/api/addcomment', async( req, res, next) =>
+    {
+        const {jwtToken, text, date, eventId} = req.body;
+        var username;
+        const db = client.db();
+
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
+        {
+            if (token.isExpired(jwtToken))
+            {
+                var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
+                return res.status(401).json(r);
+            }
+            username = decodeData.username;
+        })
+
+        var o_id = new mongo.ObjectID(eventId);
+        const result = await db.collection('Events').updateOne(
+            {_id:o_id},
+            {$push:{Comments:{User:username, Text:text, Date:date}}}
+        )
+        return res.status(200).json({error:""});
+    });
 }
