@@ -157,25 +157,29 @@ exports.setApp = function (app, client)
         // incoming: GroupName, GroupDescription
         // outgoing: error  
         var error = '';  
+        var name = '';
+        var grouphost = '';
     
-        const { groupname, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken } = req.body;      
-        try      
-        {        
-            if( token.isExpired(jwtToken))        
-            {          
-                var r = {error:'The JWT is no longer valid', jwtToken: ''};          
-                res.status(200).json(r);          
-                return;        
-            }      
-        }      
-        catch(e)      
-        {        
-            console.log(e.message);      
-        }
+        const { groupname, groupDescription, imageURL, jwtToken } = req.body;      
+        jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodeData)
+        {
+            if (err)
+            {
+                var r = {error: 'The JWT is no longer valid.', jwtToken: ''};
+                return res.status(401).json(r);
+            }
+            name += decodeData.firstName;
+            name += ' "';
+            name += decodeData.username;
+            name += '" ';
+            name += decodeData.lastName;
+            eventhost = decodeData.userId;
+            //console.log(eventhost);
+        })
     
         
-        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:groupAdmins,
-            GroupSubscribers:groupSubscribers, ImageURL:imageURL};  
+        const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:[{Name:name, Id:grouphost}],
+            GroupSubscribers:[{Name:name, Id:grouphost}], ImageURL:imageURL};  
         var error = '';  
         
         try  
@@ -645,6 +649,15 @@ exports.setApp = function (app, client)
 
         const db = client.db();
         var o_id = new mongo.ObjectID(eventId);
+        const results = await db.collection('Events').find(
+            {_id:o_id, EventAttendees:{Name:name, Id:userId}}
+        )
+        if (results.count > 0)
+        {
+            error = "User already in event";
+            return res.status(401).json({error:error});
+        }
+
         const result =  await db.collection('Events').updateOne(
             {_id:o_id},
             {$push:{EventAttendees:{Name:name, Id:userId}}}
@@ -690,6 +703,8 @@ exports.setApp = function (app, client)
     app.post('/api/subtogroup', async (req, res, next) =>
     {
         var error = '';
+        var name = '';
+
         var userId;
         const {groupId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
@@ -700,14 +715,30 @@ exports.setApp = function (app, client)
                 return res.status(401).json({error:error});
             }
             
+            name += decodedData.firstName;
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
+            name += decodedData.lastName;
             userId = decodedData.userId;
         })
-
         const db = client.db();
+        
+        const results = await db.collection('Groups').find(
+            {_id:o_id, GroupSubscribers:{Name:name, Id:userId}}
+        )
+
+        if (results.count > 0)
+        {
+            error = "User already in group";
+            return res.status(401).json({error:error});
+        }
+
+        
         var o_id = new mongo.ObjectID(groupId);
         const result =  await db.collection('Groups').updateOne(
             {_id:o_id},
-            {$push:{GroupSubscribers:userId}}
+            {$push:{GroupSubscribers:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
@@ -717,6 +748,8 @@ exports.setApp = function (app, client)
     app.post('/api/unsubgroup', async (req, res, next) =>
     {
         var error = '';
+        var name = '';
+
         var userId;
         const {groupId, jwtToken} = req.body;
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
@@ -727,6 +760,11 @@ exports.setApp = function (app, client)
                 return res.status(401).json({error:error});
             }
             
+            name += decodedData.firstName;
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
+            name += decodedData.lastName;
             userId = decodedData.userId;
         })
 
@@ -734,7 +772,7 @@ exports.setApp = function (app, client)
         var o_id = new mongo.ObjectID(groupId);
         const result =  await db.collection('Groups').updateOne(
             {_id:o_id},
-            {$pull:{GroupSubscribers:userId}}
+            {$pull:{GroupSubscribers:{Name:name, Id:userId}}}
         );
         return res.status(200).json({error:error});
 
