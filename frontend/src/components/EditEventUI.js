@@ -351,7 +351,7 @@ function EditEventUI(props)
             <span class="inner-title it_green">Date/Time</span><br />
             <p><i>When is the event going to happen?</i></p>
             <input type="datetime-local" class="meeting-time"
-                name="meeting-time" onChange={updateTime} defaultValue={eventTime.slice(0, -1).toString()} ref={(c) => eventTime = c} />
+                name="meeting-time" onChange={updateTime} defaultValue="2021-07-08T14:53:00.000" ref={(c) => eventTime = c} />
             <span id="error-text">{timeError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
