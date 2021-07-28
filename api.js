@@ -750,14 +750,10 @@ exports.setApp = function (app, client)
         }
         //var g_id = new mongo.ObjectID(groupId);
         const db = client.db();
-        const resulting = await db.collection('Groups').find({_id:g_id,GroupAdmins: { "$in" : [userId]}}, function(err, results)
+        const resulting = await db.collection('Groups').find({_id:g_id,GroupAdmins: { "$in" : [userId]}})
+
+        if(resulting.count() > 0)
         {
-            if(err || !results)
-            {
-                error = "You are not an admin of this group";
-                console.log(error);
-                return res.status(402).json({error:error});
-            }
             const result = db.collection('Groups').updateOne(
                 {_id:g_id},
                 {
@@ -766,10 +762,10 @@ exports.setApp = function (app, client)
                 }
             )         
             return res.status(200).json({error:error});
-        });
-
-        
-
+        }
+        error = "You are not an admin of this group";
+        console.log(error);
+        return res.status(402).json({error:error});
 
 
 
