@@ -434,6 +434,7 @@ textarea:focus
 .imgeventpage
 {
     max-width: 80%;
+    min-width: 80%;
     height: auto;
     border-top-right-radius: 15px;
     border-top-left-radius: 15px;
