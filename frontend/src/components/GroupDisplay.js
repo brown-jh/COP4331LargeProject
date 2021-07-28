@@ -96,8 +96,11 @@ function GroupDisplay(props)
                             alert(res);
                             alert(res.results)    
 
+                            alert("THIS IS EQUAL" + groupTitle)
+                            alert(res.results[0].GroupName)
+
                             
-                            const foundevents = res.results.filter(event => event.GroupID == res.results[0].GroupName);
+                            const foundevents = res.results.filter(event => event.GroupID == groupTitle);
                             alert("this is foundevents: " + foundevents)
                             alert("this is foundvents: " + JSON.stringify(foundevents))
                             
