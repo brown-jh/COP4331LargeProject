@@ -45,35 +45,35 @@ function EditEventUI(props)
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
+        var res;
 
-        async function fetchData(){
-            try
-            {
-                const response = await fetch(bp.buildPath('api/searcheventid'),
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+        const fetchData = async () =>
+        {
+            try        
+                {            
+                    const response = await fetch(bp.buildPath('api/searcheventid'),            
+                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    var txt = await response.text();   
+                    alert(txt);
+                    res = JSON.parse(txt); 
 
-                var txt = await response.text();
-                alert(txt);
-                var res = JSON.parse(txt);
-
-                //TODO: connect api out to frontend in
-                eventName.value = thisEvent.name + "\n" + props.eventId;
-                eventDesc.value = thisEvent.description;
-                eventTime.value = thisEvent.time;
-                eventPlace = thisEvent.location;
-                eventPictureURL.value = thisEvent.url;            
+                    eventName.value = res.results[0].EventName + "\n" + props.eventId;
+                    eventDesc.value = res.results[0].EventDescription;
+                    eventTime.value = res.results[0].EventTime;
+                    eventPlace = res.results[0].EventLocation;
+                    eventPictureURL.value = res.results[0].ImageURL;
                         
-                    var retTok = res.jwtToken;
-                   storage.storeToken( retTok );
-                  return;
+                        var retTok = res.jwtToken;     
+                        storage.storeToken( retTok );      
+                        
+                        return;    
 
+                }        
+                catch(e)        
+                {            
+                    alert(e.toString());      
+                }
             }
-            catch(e)
-            {
-                
-                return;
-            }
-        };
 
         fetchData();
 
