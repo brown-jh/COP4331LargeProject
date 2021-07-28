@@ -14,7 +14,7 @@ function EventDisplay(props)
     var _ud = localStorage.getItem('user_data');    
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
-    var userName = ud.un;
+    var userName = ud.username;
 
     //var userName = "Test User";
 

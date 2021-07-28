@@ -17,7 +17,7 @@ function GroupDisplay(props)
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
 
-    var userName = ud.un;
+    var userName = ud.username;
 
     var URLid = props.groupId;
 
