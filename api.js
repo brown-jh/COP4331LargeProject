@@ -176,7 +176,8 @@ exports.setApp = function (app, client)
             grouphost = decodeData.userId;
             //console.log(eventhost);
         })
-    
+        
+        groupAdmins.push({Name:name, Id:grouphost});
         
         const newGroup = {GroupName:groupname, GroupDescription:groupDescription, GroupAdmins:groupAdmins,
             GroupSubscribers:groupSubscribers, ImageURL:imageURL};  
