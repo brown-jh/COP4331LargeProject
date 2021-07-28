@@ -786,6 +786,7 @@ exports.setApp = function (app, client)
         var error = "";
         var userId;
         var g_id;
+        var name = '';
         const {groupId, groupName, groupDescription, groupAdmins, groupSubscribers, imageURL, jwtToken} = req.body;
 
         jwt.verify(jwtToken, process.env.ACCESS_TOKEN_SECRET, function(err, decodedData)
@@ -795,6 +796,11 @@ exports.setApp = function (app, client)
                 error = "Invalid token."
                 return res.status(401).json({error:error});
             }
+            name += decodedData.firstName;
+            name += ' "';
+            name += decodedData.username;
+            name += '" ';
+            name += decodedData.lastName;
             userId = decodedData.userId;
         })
         //var u_id = new mongo.ObjectID(userId);
@@ -811,6 +817,10 @@ exports.setApp = function (app, client)
 
         if(resulting > 0)
         {
+            if(groupAdmins.filter(user => user.Id === userId).length == 0)
+            {
+                groupAdmins.push({Name:name, Id:userId});
+            }
             const result = db.collection('Groups').updateOne(
                 {_id:g_id},
                 {
