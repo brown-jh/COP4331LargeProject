@@ -218,11 +218,10 @@ function MakeGroupUI()
         else
         {
             setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
-            var _groupSubscribers = memberList.map(user => user.id);
 
-            // alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            // "\nAdmins: " + _groupAdmins + "\nMembers: " + 
-            // _groupSubscribers + "\nURL: " + groupPictureURL.value);
+            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
+            "\nAdmins: " + adminList.map(user => user.Id + " " + user.Name) + "\nMembers: " + 
+            memberList.map(user => user.Id + " " + user.Name) + "\nURL: " + groupPictureURL.value);
 
             
 
