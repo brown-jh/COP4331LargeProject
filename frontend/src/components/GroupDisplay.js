@@ -37,19 +37,18 @@ function GroupDisplay(props)
         var res;
 
         // Keep empty
-        var searchParams;
+        var searchParams = "";
         var searchObj = {userId:userId,search:searchParams.value,jwtToken:tok};       
 
         const searchEvents = async () =>
         {
         
-            var js = JSON.stringify(searchObj);    
+            var jse = JSON.stringify(searchObj);    
             try        
             {            
                 const response = await fetch(bp.buildPath('api/searchevents'),            
-                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                    {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();   
-                //alert("Events are: " + txt);      
                 var res = JSON.parse(txt);            
                 if( res.error.length > 0 )            
                 {                
