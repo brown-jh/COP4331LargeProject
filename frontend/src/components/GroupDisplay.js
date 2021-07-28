@@ -37,28 +37,22 @@ function GroupDisplay(props)
         var res;
 
         // Keep empty
-        var searchParams = "b";
+        var searchParams = "";
 
         const searchEvents = async () =>
         {
         
-            alert("BREAKS HERE 1")
             var tok = storage.retrieveToken();       
             var searchObj = {userId:userId,search:searchParams,jwtToken:tok};
-            alert("this is searchobj: " + searchObj)       
             var jse = JSON.stringify(searchObj);    
-            alert("this is jse: " + jse)       
 
-            alert("BREAKS HERE 2")
 
             try        
             {            
                 const response = await fetch(bp.buildPath('api/searchevents'),            
                     {method:'POST',body:jse,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();   
-                //alert("Events are: " + txt);      
                 var res = JSON.parse(txt);
-                alert("BREAKS HERE 3")
                             
                 if( res.error.length > 0 )            
                 {                
@@ -67,11 +61,12 @@ function GroupDisplay(props)
                 }            
                 else            
                 {           
-                    alert("BREAKS HERE 4")
 
+
+                    const foundevents = res.results.filter(event => event.GroupID == props.groupId);
 
                     // For each event, make an EventBox with its data.
-                    setEventList(res.results.map((eventData) => (
+                    setEventList(foundevents.map((eventData) => (
                         <EventBox 
                             imageURL={eventData.ImageURL}
                             eventId={eventData._id}
@@ -89,7 +84,6 @@ function GroupDisplay(props)
             }        
             catch(e)        
             {      
-                alert("BREAKS HERE 5")
 
                 setEventList(e.toString());  
                 return;      
@@ -103,21 +97,16 @@ function GroupDisplay(props)
                     const response = await fetch(bp.buildPath('api/searchgroupid'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                    //alert(txt);
                     res = JSON.parse(txt); 
 
-                    alert(res.results[0].GroupAdmins);
-                    alert(res.results[0].GroupSubscribers);
 
                     setGroupTitle(res.results[0].GroupName);
                     setGroupDesc(res.results[0].GroupDescription);
                     setAdminList(<div><p>{makeUsernameList(res.results[0].GroupAdmins)}</p></div>);
                     adminVar = res.results[0].GroupAdmins;
-                    alert(adminVar);
                     //adminVar = res.results[0].GroupAdmins;
                     setMemberList(<div><p>{makeUsernameList(res.results[0].GroupSubscribers)}</p></div>);
                     memberVar = res.results[0].GroupSubscribers;
-                    alert(memberVar);
                     //memberVar = res.results[0].GroupSubscribers; //So we can track the admins and members outside of useEffect.
                     setGroupImage(res.results[0].ImageURL);
     
