@@ -50,10 +50,12 @@ function EventDisplay(props)
                     alert(txt);
                     res = JSON.parse(txt);    
                     //var _res = JSON.parse(res.results);
-                    alert(res.result.stringify());
-                    alert(res.result.EventName.stringify())
+                    alert(res.results);
+                    alert(res.results.EventName);
+                    alert(res.results.stringify());
+                    alert(res.results.EventName.stringify());
 
-                        setEventTitle(res.EventName.toString() + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
+                        setEventTitle(res.results.EventName + "\nEvent ID: " + props.eventId); //To test the parameter pass-in.
                         //setEventDesc(_res.EventDescription);
                         //setEventHost(_res.EventHosts);
                         //setAttendeeList(<div><p>{makeUsernameList(_res.EventAttendees)}</p></div>);
