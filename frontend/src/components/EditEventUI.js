@@ -3,18 +3,13 @@ import GoogleAutocomplete from '../components/GoogleAutocomplete';
 import EventBoxPreview from './EventBoxPreview';
 
 // Global variables, these we're getting reset for some reason.
-var eventPlace = '';
-var eventGroup = '';
 
-var URLid;
-var eventTime = '';
-var isoDateTime;
 
-var groupId = '';
+
 
 function EditEventUI(props)
 {
- 
+    var URLid = props.eventId;
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
@@ -27,7 +22,10 @@ function EditEventUI(props)
     var eventName = '';
     var eventDesc = '';
     var eventPictureURL = '';
-
+    var eventPlace = '';
+    var groupId = '';
+    var eventTime = '';
+    var isoDateTime;
     
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
@@ -132,14 +130,6 @@ function EditEventUI(props)
     {
         setIsOnline(!isOnline);
         alert("Flipped online value");
-    }
-
-    function changeGroup(event)
-    {
-        eventGroup = event.target.value;
-        // alert("Updated group to event: " + event + "\nTarget: " + event.target + 
-        // "\nValue: " + event.target.value);
-        // alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
     }
 
     // Updates eventPlace variable when user selects a location from Google API.

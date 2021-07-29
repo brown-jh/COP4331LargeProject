@@ -8,7 +8,7 @@ import GroupUserList from '../components/GroupUserList';
 
 function EditGroupUI(props)
 {
-    var URLid;
+    var URLid = props.groupId;
 
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
@@ -41,11 +41,6 @@ function EditGroupUI(props)
     const [cardResults, setCardResults] = useState('');
 
     useEffect(() => {
-
-        
-
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
