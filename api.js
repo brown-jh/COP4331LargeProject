@@ -370,8 +370,9 @@ exports.setApp = function (app, client)
         })
 
         const comm = [];
+        const attendees = [];
         const newEvent = {EventName:eventname, EventDescription:eventDescription, 
-                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[{Name:name, Id:eventhost}],EventAttendees:[{Name:name, Id:eventhost}],ImageURL:imageURL,Comments:comm};  
+                            EventTime: new Date(eventtime), EventLocation:eventLocation,GroupID:groupID,EventHosts:[{Name:name, Id:eventhost}],EventAttendees:attendees,ImageURL:imageURL,Comments:comm};  
         var error = '';  
         
         try  
