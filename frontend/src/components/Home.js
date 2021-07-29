@@ -25,13 +25,13 @@ const Home = () =>
     const ToManageEvents = async event =>     
     {    
         event.preventDefault();    
-        window.location.href = "/joinedevents";
+        window.location.href = "/hostedevents";
     }
 
     const ToManageGroups = async event =>     
     {    
         event.preventDefault();    
-        window.location.href = "/joinedgroups";
+        window.location.href = "/adminnedgroups";
     }
 
     return(

@@ -89,25 +89,6 @@ function EditGroupUI(props)
         // This [], ensures useEffect only runs once.
     }, []);
 
-    // Note: Are these needed?
-    function updateName(event)
-    {
-        event.preventDefault();
-        setNameError(event.target.value);
-    }
-
-    function updateDesc(event)
-    {
-        event.preventDefault();
-        setDescError(event.target.value);
-    }
-
-    function updateURL(event)
-    {
-        event.preventDefault();
-        setPictureError(event.target.value);
-    }
-
     const refreshCard = async event =>
     {
         setCardResults(
@@ -351,14 +332,14 @@ function EditGroupUI(props)
         <div id="mainDiv" style={{width: "60%"}}>
             
             <span class="inner-title">Create Group</span><br/>
-            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedgroups"}>Cancel</button><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/adminnedgroups"}>Back</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete()}>Disband Group</button><br/>
             <br/>
 
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the group a short, descriptive name.</i></p>
-            <input type="text" defaultValue={groupName} onChange={updateName} ref={(c) => groupName = c}/>
+            <input type="text" defaultValue={groupName} ref={(c) => groupName = c}/>
             <span id="error-text">{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
@@ -366,14 +347,14 @@ function EditGroupUI(props)
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Describe the group you're making; what will you do, when and where, who is invited, etc.</i></p>
-            <textarea rows="7" cols= "40" maxLength="290" defaultValue={groupDesc} onChange={updateDesc} ref={(c) => groupDesc = c}></textarea>
+            <textarea rows="7" cols= "40" maxLength="290" defaultValue={groupDesc} ref={(c) => groupDesc = c}></textarea>
             <span id="error-text">{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             <br/>
             <span class="inner-title it_green">Group Image</span><br />
             <p><i>Give a image to represent your group; this must be uploaded as a url.</i></p>
-            <input type="text" id="location" defaultValue={groupPictureURL} onChange={updateURL} ref={(c) => groupPictureURL = c} />
+            <input type="text" id="location" defaultValue={groupPictureURL} ref={(c) => groupPictureURL = c} />
             <span id="error-text">{pictureError}</span> <br /> 
             <span class="inner-title it_green"></span><br />
 
