@@ -10,6 +10,8 @@ var URLid;
 var eventTime = '';
 var isoDateTime;
 
+var groupId;
+
 function EditEventUI(props)
 {
  
@@ -32,7 +34,7 @@ function EditEventUI(props)
     const [locationError, setLocationError] = useState('');
     const [pictureError, setPictureError] = useState('');
     const [eventMakeResult, setEventMakeResult] = useState('');
-    const [groupSelector, setGroupSelector] = useState('');
+    // const [groupSelector, setGroupSelector] = useState('');
     const [isOnline, setIsOnline] = useState(false);
 
     const [cardResults, setCardResults] = useState('');
@@ -67,6 +69,7 @@ function EditEventUI(props)
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
+                    groupId = res.results[0].GroupID;
                         
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
@@ -281,48 +284,6 @@ function EditEventUI(props)
         }
     }
 
-    useEffect(() => {
-
-        var tok = storage.retrieveToken();       
-        var obj = {search:userId,jwtToken:tok}; 
-        var js = JSON.stringify(obj);
-        var res;
-
-        const  fetchdata = async () => 
-            {
-            try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                        //alert("Events are: " + txt);
-                    res = JSON.parse(txt);    
-
-                    setGroupSelector(
-                        <select class="meeting-time" onChange={changeGroup}>
-                            <option value="">None</option>
-                            {res.results.map((Group) => (<option value={Group.GroupName}>{Group.GroupName}</option>))}
-                        </select>
-                        );         
-                        
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
-
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());      
-                }
-            }
-
-            fetchdata();
-        
-        return;
-
-    },[]);
-
     return(
         <div id="mainDiv" style={{width: "60%"}}>
             <span class="inner-title">Create Event</span><br />
@@ -376,8 +337,8 @@ function EditEventUI(props)
          
             <br/>
             <span class="inner-title it_pink">Group</span><br />
-            <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
-            {groupSelector}
+            <p><i>We currently do not support editing groups at this time.</i></p>
+            <p style={{fontSize: "20px"}}>Current Group ID: {groupId}</p>
             <span class="inner-title it_pink"><b></b></span><br />
 
             <br/>
