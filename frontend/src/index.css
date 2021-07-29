@@ -469,7 +469,7 @@ textarea:focus
 {
     display: grid;
     grid-template-columns: 292px;
-    grid-template-rows: 210px 210px 100px;
+    grid-template-rows: 210px 210px 120px;
     grid-template-areas: "image" "text" "stats";
     border-radius: 18px;
     background: white;
