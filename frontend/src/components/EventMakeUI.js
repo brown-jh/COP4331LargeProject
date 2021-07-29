@@ -165,7 +165,7 @@ function EventMakeUI()
             {
             try        
                 {            
-                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
+                    const response = await fetch(bp.buildPath('api/searchgroupadmins'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
                     res = JSON.parse(txt);    
