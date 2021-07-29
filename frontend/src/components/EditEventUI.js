@@ -262,7 +262,7 @@ function EditEventUI(props)
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the event a short, descriptive name.</i></p>
             <input type="text" onChange={updateName} defaultValue={eventName} ref={(c) => eventName = c} />
-            <span id="error-text" style={{color="#FFFFFF"}}>{nameError}</span> <br /> 
+            <span id="error-text" >{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
             
