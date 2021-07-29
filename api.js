@@ -506,8 +506,8 @@ exports.setApp = function (app, client)
         {        
             console.log(e.message);      
         }      
-        var ret = {  };      
-        res.status(200).json(refreshedToken);
+        var ret = {error:error, jwtToken: refreshedToken};      
+        res.status(200).json(ret);
     });
 
     app.post('/api/searchgroups', async (req, res, next) => {  
