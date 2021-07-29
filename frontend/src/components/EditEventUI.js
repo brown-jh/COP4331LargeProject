@@ -59,7 +59,8 @@ function EditEventUI(props)
                     eventDesc.value = res.results[0].EventDescription;
                     eventTime.value = res.results[0].EventTime;
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
-                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -4);
+                    alert(isoDateTime);
                     eventGroup = res.results[0].GroupID;
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
