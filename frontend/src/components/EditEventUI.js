@@ -3,8 +3,8 @@ import GoogleAutocomplete from '../components/GoogleAutocomplete';
 import EventBoxPreview from './EventBoxPreview';
 
 // Global variables, these we're getting reset for some reason.
-var eventPlace = {};
-var eventGroup = {};
+var eventPlace = '';
+var eventGroup = '';
 
 var eventTime = '';
 var isoDateTime;
@@ -60,8 +60,8 @@ function EditEventUI(props)
                     eventTime.value = res.results[0].EventTime;
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
-                    eventGroup.value = res.results[0].GroupID;
-                    eventPlace.value = res.results[0].EventLocation;
+                    eventGroup = res.results[0].GroupID;
+                    eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
                         
                         var retTok = res.jwtToken;     
