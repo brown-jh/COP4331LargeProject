@@ -59,8 +59,7 @@ function EditEventUI(props)
                     eventDesc.value = res.results[0].EventDescription;
                     eventTime.value = res.results[0].EventTime;
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
-                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -5);
-                    alert(isoDateTime);
+                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventGroup = res.results[0].GroupID;
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
@@ -73,7 +72,7 @@ function EditEventUI(props)
                 }        
                 catch(e)        
                 {            
-                    alert(e.toString());      
+                    alert(e.toString() + "ALYX'S ERROR");      
                 }
             }
 
@@ -113,7 +112,6 @@ function EditEventUI(props)
     const flipOnlineCheck = async event =>
     {
         setIsOnline(!isOnline);
-        alert("Flipped online value");
     }
 
     // Updates eventPlace variable when user selects a location from Google API.
