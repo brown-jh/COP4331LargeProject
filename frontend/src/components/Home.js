@@ -43,11 +43,11 @@ const Home = () =>
         
             <span class="inner-title it_orange">Features</span>
             <button style={{width: "28%", marginRight:"2%"}} onClick={ToSearchPage} type="button" 
-                class="buttons btn-search">Search Events & Groups</button>
+                class="buttons btn-homepage">Search Events & Groups</button>
             <button style={{width: "28%", marginRight:"2%"}} onClick={ToManageEvents} type="button" 
-                class="buttons btn-search">Manage My Events</button>
+                class="buttons btn-homepage">Manage My Events</button>
             <button style={{width: "28%"}} onClick={ToManageGroups} type="button" 
-                class="buttons btn-search">Manage My Groups</button>
+                class="buttons btn-homepage">Manage My Groups</button>
                 <br /><br />
             <img src="/images/download.png" class="imgresponsive"/>
             {/* <FrontButton txt="Search Events and Groups" clickAct={ToSearchPage}/> */}
