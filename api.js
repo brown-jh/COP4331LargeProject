@@ -1292,7 +1292,10 @@ exports.setApp = function (app, client)
         if( results )  
         {    
             id = results._id;    
-            ret = {userId:id};
+            firstname = results.FirstName;
+            username = results.Login;
+            lastname = results.LastName;
+            ret = {userId:id,firstName:firstname,userName:username,lastName:lastname};
             return res.status(200).json(ret);
     
         }      
