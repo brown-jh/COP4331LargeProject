@@ -95,7 +95,6 @@ function MakeGroupUI()
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
             var txt = await response.text();   
-            //alert(txt);       
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -218,11 +217,6 @@ function MakeGroupUI()
         }
         else
         {
-            //NOTE: Is this needed?
-            setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
-
-            
-
             var tok = storage.retrieveToken();
             var obj = {groupname:groupName.value, groupDescription:groupDesc.value, groupAdmins:adminList,jwtToken:tok,groupSubscribers:memberList, imageURL:groupPictureURL.value};
             var js = JSON.stringify(obj);

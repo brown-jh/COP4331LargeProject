@@ -151,8 +151,6 @@ function EditGroupUI(props)
 
         }
 
-        alert(res.userId);
-
         // Clears text when user adds another user.
         setAdminError("");
         if (res.userId == undefined)
@@ -201,11 +199,9 @@ function EditGroupUI(props)
         {
 
         }
-
-        alert(res.userId);
-
         // Clears text when user adds another user.
         setMemberError("");
+
         if (res.userId == undefined)
         {
             setMemberError("That user does not exist.");
@@ -289,7 +285,6 @@ function EditGroupUI(props)
         }
         else
         {
-            setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
 
             var tok = storage.retrieveToken();
             var obj = {groupId:props.groupId,groupName:groupName.value,groupDescription:groupDesc.value,groupAdmins:adminList,groupSubscribers:memberList,imageURL:groupPictureURL.value,jwtToken:tok};
@@ -327,7 +322,7 @@ function EditGroupUI(props)
         <div id="mainDiv" style={{width: "60%"}}>
 
             <span class="inner-title">Update Group</span><br/>
-            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/adminnedgroups"}>Cancel</button><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/adminnedgroups"}>Back</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete()}>Disband Group</button><br/>
             <br/>
@@ -355,7 +350,7 @@ function EditGroupUI(props)
 
             <br/>
             <span class="inner-title it_blue">Admins</span><br />
-            <p><i>If you want to include other users as group admins, enter their names here.</i></p>
+            <p><i>If you want to include other users as group admins, enter their usernames here.</i></p>
             <input type="text" ref={(c) => adminName = c} /><br />
             <button type="button" style={{width: "30%"}}
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
@@ -365,7 +360,7 @@ function EditGroupUI(props)
             <br />
 
             <span class="inner-title it_purple">Invitees</span><br />
-            <p><i>If you want to invite users as group attendees, enter their names here.</i></p>
+            <p><i>If you want to invite users as group attendees, enter their usernames here.</i></p>
             <input type="text" ref={(c) => memberName = c} /><br />
             <button type="button" style={{width: "30%"}}
             class="buttons" onClick={addMember}>Invite User</button>

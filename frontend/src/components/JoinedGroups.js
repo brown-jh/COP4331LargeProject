@@ -56,7 +56,7 @@ function JoinedGroups()
     return (
 
         <div id="mainDiv" style={{width: "80%"}}>
-                <span class="inner-title">Your Attending Groups</span><br />
+                <span class="inner-title">Your Joined Groups</span><br />
                 <button type="button" 
                 class="buttons buttons btn-search" onClick={() => window.location.href="/adminnedgroups"}>Adminned Groups</button>
             <div class = "flex-container">

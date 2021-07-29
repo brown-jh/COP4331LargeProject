@@ -81,15 +81,6 @@ function EditEventUI(props)
             }
 
         fetchData();
-
-
-        var thisEvent={
-            name: "Firehawks",
-            description: "This is a bird watching group with an unbefitting name. YEE.",
-            time: "2021-08-08T00:00:00",
-            location: "University of Central Florida",
-            url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
-        };
         
         // This [], ensures useEffect only runs once.
     }, []);
@@ -125,14 +116,6 @@ function EditEventUI(props)
     {
         setIsOnline(!isOnline);
         alert("Flipped online value");
-    }
-
-    function changeGroup(event)
-    {
-        eventGroup = event.target.value;
-        // alert("Updated group to event: " + event + "\nTarget: " + event.target + 
-        // "\nValue: " + event.target.value);
-        // alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
     }
 
     // Updates eventPlace variable when user selects a location from Google API.
@@ -201,31 +184,26 @@ function EditEventUI(props)
         if (eventName.value == "") //Check for any missing information.
         {
             setNameError("Please give a name.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventDesc.value == "")
         {
             setDescError("Please give a description.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventTime.value == "")
         {
             setTimeError("Please give a time.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventPlace == "" && !isOnline)
         {
             setLocationError("Please give a location or check \"Online\".");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventPictureURL.value == "")
         {
             setPictureError("Please enter a URL that contains desired image.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
 
@@ -242,10 +220,6 @@ function EditEventUI(props)
 
             var _eventPlace = eventPlace.toString()
             var _eventTime = eventTime.value + ":00.000"
-
-            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
-            //"\nURL: " + eventPictureURL.value + "\nUser: " + userId);
 
             var tok = storage.retrieveToken();
             var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
@@ -277,9 +251,6 @@ function EditEventUI(props)
             }
 
             // May need to append :00.000Z to eventTime.value to add to database
-            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
-            //"\nURL: " + eventPictureURL.value);
         }
 
         
@@ -287,8 +258,6 @@ function EditEventUI(props)
 
     useEffect(() => {
 
-        //TODO: get the event with this ID via API.
-        //TODO : Also add groups.
 
         var url = window.location.pathname;
         URLid = url.substring(url.lastIndexOf('/') + 1);
@@ -329,15 +298,6 @@ function EditEventUI(props)
             }
 
         fetchData();
-
-
-        var thisEvent={
-            name: "Firehawks",
-            description: "This is a ird watching group with an unbefitting name. YEE.",
-            time: "2021-08-08T00:00:00",
-            location: "University of Central Florida",
-            url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
-        };
         
         // This [], ensures useEffect only runs once.
     }, []);
@@ -347,7 +307,7 @@ function EditEventUI(props)
     return(
         <div id="mainDiv" style={{width: "60%"}}>
             <span class="inner-title">Update Event</span><br />
-            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/hostedevents"}>Cancel</button><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/hostedevents"}>Back</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.eventId)}>Disband Event</button><br/>
             <br/>
@@ -395,6 +355,7 @@ function EditEventUI(props)
             <span id="error-text">{pictureError}</span> <br /> 
             <span class="inner-title it_purple"></span><br />
          
+            {/*NOTE: Should be unavailable.*/}
             <br/>
             <span class="inner-title it_pink">Group</span><br />
             <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>

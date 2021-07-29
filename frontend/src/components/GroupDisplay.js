@@ -94,16 +94,8 @@ function GroupDisplay(props)
                             return;
                         }            
                         else            
-                        {       
-                            alert(res);
-                            alert(res.results)    
-
-                            alert("THIS IS EQUAL" + gName)
-
-                            
+                        { 
                             const foundevents = res.results.filter(event => event.GroupID == gName);
-                            alert("this is foundevents: " + foundevents)
-                            alert("this is foundvents: " + JSON.stringify(foundevents))
                             
 
                             // For each event, make an EventBox with its data.

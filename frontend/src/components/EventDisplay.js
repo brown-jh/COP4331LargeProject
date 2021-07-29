@@ -66,6 +66,7 @@ function EventDisplay(props)
                     setJoinLeaveButton("Leave");
                 }
                 
+                //NOTE: Why is this?
                 var retTok = res.jwtToken;     
                 storage.storeToken( retTok );      
                 

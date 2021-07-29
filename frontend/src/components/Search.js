@@ -132,9 +132,9 @@ const Search = () =>{
             <span class="inner-title">Search Events and Groups</span><br />
             <input type="text" onChange={searchEventsAndGroups} ref={(c) => searchParams = c} /><br / >
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons buttons btn-search" onClick={setTypeEvent}>View Only Events</button>
+                class="buttons buttons btn-search" onClick={setTypeEvent}>Search Events</button>
             <button style={{width: "25%", marginLeft:"12%", marginRight:"12%"}} type="button" 
-                class="buttons btn-search" onClick={setTypeGroup}>View Only Groups</button><br />
+                class="buttons btn-search" onClick={setTypeGroup}>Search Groups</button><br />
             
             <div class = "flex-container">
                 {searchResults}
