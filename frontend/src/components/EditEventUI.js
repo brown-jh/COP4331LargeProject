@@ -82,45 +82,45 @@ function EditEventUI(props)
         // This [], ensures useEffect only runs once.
     }, []);
 
-    function updateName(event)
-    {
-        event.preventDefault();
-        setNameError(event.target.value);
-    }
+    // function updateName(event)
+    // {
+    //     event.preventDefault();
+    //     setNameError(event.target.value);
+    // }
 
-    function updateDesc(event)
-    {
-        event.preventDefault();
-        setDescError(event.target.value);
-    }
+    // function updateDesc(event)
+    // {
+    //     event.preventDefault();
+    //     setDescError(event.target.value);
+    // }
 
-    function updateTime(event)
-    {
-        event.preventDefault();
-        var newTime = new Date(event.target.value).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(event.target.value).toLocaleTimeString()
-        setTimeError(newTime);
-    }
+    // function updateTime(event)
+    // {
+    //     event.preventDefault();
+    //     var newTime = new Date(event.target.value).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+    //     replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(event.target.value).toLocaleTimeString()
+    //     setTimeError(newTime);
+    // }
 
-    function updateURL(event)
-    {
-        event.preventDefault();
-        setPictureError(event.target.value);
-    }
+    // function updateURL(event)
+    // {
+    //     event.preventDefault();
+    //     setPictureError(event.target.value);
+    // }
 
 
     const flipOnlineCheck = async event =>
     {
         setIsOnline(!isOnline);
-        alert("Flipped online value");
+        // alert("Flipped online value");
     }
 
-    // Updates eventPlace variable when user selects a location from Google API.
-    const getGoogleData = (e) =>
-    {
-        eventPlace = e;
-        setLocationError(e);
-    }
+    // // Updates eventPlace variable when user selects a location from Google API.
+    // const getGoogleData = (e) =>
+    // {
+    //     eventPlace = e;
+    //     setLocationError(e);
+    // }
 
     const refreshCard = async event =>
     {
