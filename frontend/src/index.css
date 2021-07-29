@@ -335,12 +335,13 @@ p .date
 
 .btn-home
 {
+    vertical-align:middle;
     margin-bottom: 30px;
 }
 
 .btn-search
 {
-    height: 50px;
+    height: 80px;
 }
 
 .buttons:hover

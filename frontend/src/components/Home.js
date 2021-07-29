@@ -40,19 +40,18 @@ const Home = () =>
             
             
             <span class="inner-title">Hello {firstName} {lastName}! What would you like to do?</span><br />
-            
-            <span class="inner-title it_orange">Search</span><br />
+        
+            <span class="inner-title it_orange">Features</span>
+            <button style={{width: "28%", marginRight:"2%"}} onClick={ToSearchPage} type="button" 
+                class="buttons btn-search">Search Events & Groups</button>
+            <button style={{width: "28%", marginRight:"2%"}} onClick={ToManageEvents} type="button" 
+                class="buttons btn-search">Manage My Events</button>
+            <button style={{width: "28%"}} onClick={ToManageGroups} type="button" 
+                class="buttons btn-search">Manage My Groups</button>
+                <br /><br />
             <img src="/images/download.png" class="imgresponsive"/>
-            <FrontButton txt="Search Events and Groups" clickAct={ToSearchPage}/>
+            {/* <FrontButton txt="Search Events and Groups" clickAct={ToSearchPage}/> */}
             <span class="inner-title it_orange"></span><br />
-
-
-            <span class="inner-title it_yellow">Manage</span><br />
-            <FrontButton txt="Manage My Events" clickAct={ToManageEvents}/>
-            <FrontButton txt="Manage My Groups" clickAct={ToManageGroups}/>
-            <span class="inner-title it_yellow"></span><br />
-
-            <br/>
             <button type="button" style={{width: "25%"}} class="buttons" onClick={LogOut}>Log Out</button>
         </div>
     );
