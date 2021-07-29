@@ -37,63 +37,6 @@ function EditEventUI(props)
 
     const [cardResults, setCardResults] = useState('');
 
-    useEffect(() => {
-
-        //TODO: get the event with this ID via API.
-        //TODO : Also add groups.
-
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
-
-        var tok = storage.retrieveToken();
-        var obj = {search:URLid,jwtToken:tok};
-        var js = JSON.stringify(obj);
-        var res;
-
-        const fetchData = async () =>
-        {
-            try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searcheventid'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                    alert(txt);
-                    res = JSON.parse(txt); 
-
-                    eventName.value = res.results[0].EventName;
-                    eventDesc.value = res.results[0].EventDescription;
-                    eventTime = res.results[0].EventTime;
-                    var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
-                    isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
-                    eventPlace = res.results[0].EventLocation;
-                    eventPictureURL.value = res.results[0].ImageURL;
-                        
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
-
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());      
-                }
-            }
-
-        fetchData();
-
-
-        var thisEvent={
-            name: "Firehawks",
-            description: "This is a bird watching group with an unbefitting name. YEE.",
-            time: "2021-08-08T00:00:00",
-            location: "University of Central Florida",
-            url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
-        };
-        
-        // This [], ensures useEffect only runs once.
-    }, []);
-
     function updateName(event)
     {
         event.preventDefault();
@@ -281,6 +224,63 @@ function EditEventUI(props)
             //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
             //"\nURL: " + eventPictureURL.value);
         }
+
+        useEffect(() => {
+
+            //TODO: get the event with this ID via API.
+            //TODO : Also add groups.
+    
+            var url = window.location.pathname;
+            URLid = url.substring(url.lastIndexOf('/') + 1);
+    
+            var tok = storage.retrieveToken();
+            var obj = {search:URLid,jwtToken:tok};
+            var js = JSON.stringify(obj);
+            var res;
+    
+            const fetchData = async () =>
+            {
+                try        
+                    {            
+                        const response = await fetch(bp.buildPath('api/searcheventid'),            
+                            {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                        var txt = await response.text();   
+                        alert(txt);
+                        res = JSON.parse(txt); 
+    
+                        eventName.value = res.results[0].EventName;
+                        eventDesc.value = res.results[0].EventDescription;
+                        eventTime = res.results[0].EventTime;
+                        var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
+                        isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+                        eventPlace = res.results[0].EventLocation;
+                        eventPictureURL.value = res.results[0].ImageURL;
+                            
+                            var retTok = res.jwtToken;     
+                            storage.storeToken( retTok );      
+                            
+                            return;    
+    
+                    }        
+                    catch(e)        
+                    {            
+                        alert(e.toString());      
+                    }
+                }
+    
+            fetchData();
+    
+    
+            var thisEvent={
+                name: "Firehawks",
+                description: "This is a bird watching group with an unbefitting name. YEE.",
+                time: "2021-08-08T00:00:00",
+                location: "University of Central Florida",
+                url: "https://wildlife.org/wp-content/uploads/2018/02/firehawks.png"
+            };
+            
+            // This [], ensures useEffect only runs once.
+        }, []);
     }
 
     return(
