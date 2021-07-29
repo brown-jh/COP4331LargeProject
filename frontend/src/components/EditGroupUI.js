@@ -215,7 +215,7 @@ function EditGroupUI(props)
 
         // Put the user in the admin list and display it.
         
-        setAdminList([...adminList, {Name: adminName.value, Id:res.userId}]);
+        setAdminList([...adminList, {Name: res.Name, Id:res.userId}]);
     }
 
 
@@ -265,7 +265,7 @@ function EditGroupUI(props)
 
         // Put the user in the member list and display it.
         
-        setMemberList([...memberList, {Name: memberName.value, Id:res.userId}]);
+        setMemberList([...memberList, {Name: res.Name, Id:res.userId}]);
     }
 
 

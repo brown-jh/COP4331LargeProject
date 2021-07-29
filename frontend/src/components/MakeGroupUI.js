@@ -131,7 +131,7 @@ function MakeGroupUI()
 
         // Put the user in the admin list and display it.
         
-        setAdminList([...adminList, {Name: adminName.value, Id:res.userId}]);
+        setAdminList([...adminList, {Name: res.Name, Id:res.userId}]);
     }
 
 
@@ -181,7 +181,7 @@ function MakeGroupUI()
 
         // Put the user in the member list and display it.
         
-        setMemberList([...memberList, {Name: memberName.value, Id:res.userId}]);
+        setMemberList([...memberList, {Name: res.Name, Id:res.userId}]);
     }
 
     const submitGroup = async event =>
@@ -283,7 +283,7 @@ function MakeGroupUI()
 
             <br/>
             <span class="inner-title it_blue">Admins</span><br />
-            <p><i>If you want to include other users as group admins, enter their names here.</i></p>
+            <p><i>If you want to include other users as group admins, enter their usernames here.</i></p>
             <input type="text" ref={(c) => adminName = c} /><br />
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addAdmin}>Add User as Admin</button>
@@ -293,7 +293,7 @@ function MakeGroupUI()
             <br />
 
             <span class="inner-title it_purple">Invitees</span><br />
-            <p><i>If you want to invite users as group attendees, enter their names here.</i></p>
+            <p><i>If you want to invite users as group attendees, enter their usernames here.</i></p>
             <input type="text" ref={(c) => memberName = c} /><br />
             <button type="button" style={{width: "30%"}} 
             class="buttons" onClick={addMember}>Invite User</button>
