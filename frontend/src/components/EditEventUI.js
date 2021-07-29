@@ -10,6 +10,7 @@ var URLid;
 var eventTime = '';
 var isoDateTime;
 
+var groupId = '';
 
 function EditEventUI(props)
 {
@@ -26,7 +27,6 @@ function EditEventUI(props)
     var eventName = '';
     var eventDesc = '';
     var eventPictureURL = '';
-    var groupId = '';
 
 
     const [nameError, setNameError] = useState('');
@@ -67,8 +67,9 @@ function EditEventUI(props)
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventPlace = res.results[0].EventLocation;
                     groupId = res.results[0].GroupID;
-                    alert(groupId);
-                    alert(res.results[0].GroupID);
+                    alert("this is groupid" + groupId);
+                    
+                    alert("this is other " + res.results[0].GroupID);
                     eventPictureURL.value = res.results[0].ImageURL;
 
                         var retTok = res.jwtToken;
