@@ -76,9 +76,10 @@ function EditEventUI(props)
                 }
             }
 
+        setNameError("hey");
         fetchData();
-        flipOnlineCheck();
-        flipOnlineCheck();
+        setNameError("hey");
+
         
         // This [], ensures useEffect only runs once.
     }, []);
