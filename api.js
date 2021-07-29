@@ -454,6 +454,7 @@ exports.setApp = function (app, client)
         // (Currently just the event's name, description, date, time, and location)
         // returns an error and a refreshed token
         var error = '';  
+        var e_id;
 
         const {eventId, eventName, eventDescription, eventTime, eventLocation, imageURL, jwtToken } = req.body;      
         try      
@@ -471,12 +472,19 @@ exports.setApp = function (app, client)
         }
   
         var error = '';  
+        try{
+            e_id = new mongo.ObjectID(eventId);
+        }
+        catch(e)
+        {
+            console.log(e.message);
+        }
         
         try  
         {    
             const db = client.db();    
             const result = db.collection('Events').updateOne(
-                {_id:eventId},
+                {_id:e_id},
                 {
                     $set: {EventName: eventName, EventDescription: eventDescription, 
                         EventTime: eventTime, EventLocation: eventLocation, ImageURL:imageURL}
@@ -498,8 +506,8 @@ exports.setApp = function (app, client)
         {        
             console.log(e.message);      
         }      
-        var ret = { error: error, jwtToken: refreshedToken };      
-        res.status(200).json(ret);
+        var ret = {  };      
+        res.status(200).json(refreshedToken);
     });
 
     app.post('/api/searchgroups', async (req, res, next) => {  
