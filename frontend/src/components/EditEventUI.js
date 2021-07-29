@@ -6,12 +6,12 @@ import EventBoxPreview from './EventBoxPreview';
 var eventPlace = '';
 var eventGroup = '';
 
-var URLid;
 var eventTime = '';
 var isoDateTime;
 
 function EditEventUI(props)
 {
+    var URLid = props.eventId;
  
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
@@ -39,11 +39,6 @@ function EditEventUI(props)
 
     useEffect(() => {
 
-        //TODO: get the event with this ID via API.
-        //TODO : Also add groups.
-
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
 
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
@@ -146,7 +141,7 @@ function EditEventUI(props)
         if(window.confirm("Are you sure you want to disband this event?"))
         {
             var tok = storage.retrieveToken();
-            var obj = {eventId:URLid,jwtToken:tok};
+            var obj = {eventId:props.eventId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try        
@@ -222,7 +217,7 @@ function EditEventUI(props)
             var _eventTime = eventTime.value + ":00.000"
 
             var tok = storage.retrieveToken();
-            var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
+            var obj = {eventId:props.eventId, eventName:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventTime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
             try
