@@ -105,7 +105,6 @@ function MakeGroupUI()
                   
         }
         
-        alert(res.userId);
 
         // Clears text when user adds another user.
         setAdminError("");
@@ -157,7 +156,6 @@ function MakeGroupUI()
                   
         }
         
-        alert(res.userId);
 
         // Clears text when user adds another user.
         setMemberError("");
