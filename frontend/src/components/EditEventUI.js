@@ -40,9 +40,6 @@ function EditEventUI(props)
 
     useEffect(() => {
 
-        var url = window.location.pathname;
-        URLid = url.substring(url.lastIndexOf('/') + 1);
-
         var tok = storage.retrieveToken();
         var obj = {search:URLid,jwtToken:tok};
         var js = JSON.stringify(obj);
@@ -284,7 +281,7 @@ function EditEventUI(props)
             <br/>
             <span class="inner-title it_pink">Group</span><br />
             <p><i>We currently do not support switching groups at this time.</i></p>
-            <p style={{fontSize: "20px"}}>Current Group ID: {groupId.value}</p>
+            <p style={{fontSize: "20px"}}>Current Group ID: {groupId}</p>
             <span class="inner-title it_pink"><b></b></span><br />
 
             <br/>
