@@ -57,11 +57,11 @@ function EditEventUI(props)
 
                     eventName.value = res.results[0].EventName;
                     eventDesc.value = res.results[0].EventDescription;
-                    eventTime = res.results[0].EventTime;
+                    eventTime.value = res.results[0].EventTime;
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
-                    eventGroup = res.results[0].GroupID;
-                    eventPlace = res.results[0].EventLocation;
+                    eventGroup.value = res.results[0].GroupID;
+                    eventPlace.value = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
                         
                         var retTok = res.jwtToken;     
