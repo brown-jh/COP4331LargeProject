@@ -3,8 +3,8 @@ import GoogleAutocomplete from '../components/GoogleAutocomplete';
 import EventBoxPreview from './EventBoxPreview';
 
 // Global variables, these we're getting reset for some reason.
-var eventPlace = '';
-var eventGroup = '';
+var eventPlace = {};
+var eventGroup = {};
 
 var eventTime = '';
 var isoDateTime;
