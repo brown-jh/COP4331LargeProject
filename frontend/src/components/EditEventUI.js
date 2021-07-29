@@ -77,17 +77,11 @@ function EditEventUI(props)
             }
 
         fetchData();
-        updateNameTest(res.results[0].EventName);
-        fetchData();
-        updateNameTest(res.results[0].EventName);
+        flipOnlineCheck();
+        flipOnlineCheck();
         
         // This [], ensures useEffect only runs once.
     }, []);
-
-    function updateNameTest(event)
-    {
-        setNameError(event);
-    }
 
     function updateName(event)
     {
