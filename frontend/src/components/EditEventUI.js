@@ -283,52 +283,10 @@ function EditEventUI(props)
         }
     }
 
-    useEffect(() => {
-
-        var tok = storage.retrieveToken();       
-        var obj = {search:userId,jwtToken:tok}; 
-        var js = JSON.stringify(obj);
-        var res;
-
-        const  fetchdata = async () => 
-            {
-            try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                        //alert("Events are: " + txt);
-                    res = JSON.parse(txt);    
-
-                    setGroupSelector(
-                        <select class="meeting-time" onChange={changeGroup}>
-                            <option value="">None</option>
-                            {res.results.map((Group) => (<option value={Group.GroupName}>{Group.GroupName}</option>))}
-                        </select>
-                        );         
-                        
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
-
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());      
-                }
-            }
-
-            fetchdata();
-        
-        return;
-
-    },[]);
-
     return(
         <div id="mainDiv" style={{width: "60%"}}>
             <span class="inner-title">Update Event</span><br />
-            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedevents"}>Cancel</button><br/>
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/hostedevents"}>Cancel</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.eventId)}>Disband Event</button><br/>
             <br/>
