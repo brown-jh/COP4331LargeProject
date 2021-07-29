@@ -55,14 +55,19 @@ function EditEventUI(props)
                     alert(txt);
                     res = JSON.parse(txt); 
 
+                    alert("Starting sets");
                     eventName.value = res.results[0].EventName;
+                    alert("Set name");
                     eventDesc.value = res.results[0].EventDescription;
+                    alert("Set desc");
                     eventTime.value = res.results[0].EventTime;
+                    alert("Set time");
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventGroup = res.results[0].GroupID;
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
+                    alert("Set image");
                         
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
@@ -76,9 +81,8 @@ function EditEventUI(props)
                 }
             }
 
-        setNameError("hey");
         fetchData();
-        setNameError("hey");
+        setNameError(".");
 
         
         // This [], ensures useEffect only runs once.
