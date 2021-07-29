@@ -161,7 +161,7 @@ function EditEventUI(props)
                         alert(e.toString());      
                     }
       
-         
+                window.location.href = "/hostedevents";
                   
         
         }
