@@ -84,25 +84,27 @@ function EditEventUI(props)
     function updateName(event)
     {
         event.preventDefault();
-        setNameError("");
+        setNameError(event.target.value);
     }
 
     function updateDesc(event)
     {
         event.preventDefault();
-        setDescError("");
+        setDescError(event.target.value);
     }
 
     function updateTime(event)
     {
         event.preventDefault();
-        setTimeError("");
+        // var newTime = new Date(event.target.value).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+        // replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(event.target.value).toLocaleTimeString()
+        // setTimeError(newTime);
     }
 
     function updateURL(event)
     {
         event.preventDefault();
-        setPictureError("");
+        // setPictureError(event.target.value);
     }
 
 
@@ -115,7 +117,7 @@ function EditEventUI(props)
     const getGoogleData = (e) =>
     {
         eventPlace = e;
-        setLocationError("");
+        // setLocationError(e);
     }
 
     const refreshCard = async event =>
@@ -260,7 +262,7 @@ function EditEventUI(props)
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the event a short, descriptive name.</i></p>
             <input type="text" onChange={updateName} defaultValue={eventName} ref={(c) => eventName = c} />
-            <span id="error-text">{nameError}</span> <br /> 
+            <span id="error-text" style={{color="#FFFFFF"}}>{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
             
@@ -268,7 +270,7 @@ function EditEventUI(props)
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
             <textarea rows="7" cols= "40" maxLength= "210" onChange={updateDesc} defaultValue={eventDesc} ref={(c) => eventDesc = c} />
-            <span id="error-text">{descError}</span> <br /> 
+            <span id="error-text" style={{color="#FFFFFF"}} >{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             
