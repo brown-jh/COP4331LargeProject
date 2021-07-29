@@ -84,21 +84,25 @@ function EditEventUI(props)
     function updateName(event)
     {
         event.preventDefault();
+        setNameError("");
     }
 
     function updateDesc(event)
     {
         event.preventDefault();
+        setDescError("");
     }
 
     function updateTime(event)
     {
         event.preventDefault();
+        setTimeError("");
     }
 
     function updateURL(event)
     {
         event.preventDefault();
+        setPictureError("");
     }
 
 
@@ -111,6 +115,7 @@ function EditEventUI(props)
     const getGoogleData = (e) =>
     {
         eventPlace = e;
+        setLocationError("");
     }
 
     const refreshCard = async event =>
