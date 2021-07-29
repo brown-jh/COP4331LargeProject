@@ -10,24 +10,25 @@ var URLid;
 var eventTime = '';
 var isoDateTime;
 
-var groupId;
 
 function EditEventUI(props)
 {
- 
+
     var bp = require('./Path.js');
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
-    var _ud = localStorage.getItem('user_data');    
-    var ud = JSON.parse(_ud);    
+    var _ud = localStorage.getItem('user_data');
+    var ud = JSON.parse(_ud);
     var userId = ud.id;
 
     var userGroups = [];
     var eventName = '';
     var eventDesc = '';
     var eventPictureURL = '';
-    
+    var groupId = '';
+
+
     const [nameError, setNameError] = useState('');
     const [descError, setDescError] = useState('');
     const [timeError, setTimeError] = useState('');
@@ -51,13 +52,13 @@ function EditEventUI(props)
 
         const fetchData = async () =>
         {
-            try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searcheventid'),            
+            try
+                {
+                    const response = await fetch(bp.buildPath('api/searcheventid'),
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
+                    var txt = await response.text();
                     alert(txt);
-                    res = JSON.parse(txt); 
+                    res = JSON.parse(txt);
 
                     eventName.value = res.results[0].EventName;
                     eventDesc.value = res.results[0].EventDescription;
@@ -66,24 +67,24 @@ function EditEventUI(props)
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventPlace = res.results[0].EventLocation;
                     groupId = res.results[0].GroupID;
-                    alert(groupId)
-                    alert(groupId.value)
+                    alert(groupId);
+                    alert(res.results[0].GroupID);
                     eventPictureURL.value = res.results[0].ImageURL;
-                        
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
 
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());      
+                        var retTok = res.jwtToken;
+                        storage.storeToken( retTok );
+
+                        return;
+
+                }
+                catch(e)
+                {
+                    alert(e.toString());
                 }
             }
 
         fetchData();
-        
+
         // This [], ensures useEffect only runs once.
     }, []);
 
@@ -96,7 +97,7 @@ function EditEventUI(props)
     function changeGroup(event)
     {
         eventGroup = event.target.value;
-        // alert("Updated group to event: " + event + "\nTarget: " + event.target + 
+        // alert("Updated group to event: " + event + "\nTarget: " + event.target +
         // "\nValue: " + event.target.value);
         // alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
     }
@@ -111,15 +112,15 @@ function EditEventUI(props)
     const refreshCard = async event =>
     {
         setCardResults(
-            <div>{ 
-                <EventBoxPreview 
+            <div>{
+                <EventBoxPreview
                         imageURL={eventPictureURL.value}
                         title={eventName.value}
                         group={eventDesc.value}
                         time={new Date(eventTime.value).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
                         replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(eventTime.value).toLocaleTimeString()}
                         place={eventPlace.toString()}/>}
-            </div>  
+            </div>
 
         )
     }
@@ -132,18 +133,18 @@ function EditEventUI(props)
             var obj = {eventId:props.eventId,jwtToken:tok};
             var js = JSON.stringify(obj);
 
-            try        
-            {            
-                const response = await fetch(bp.buildPath('api/deleteevent'),            
+            try
+            {
+                const response = await fetch(bp.buildPath('api/deleteevent'),
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                 var txt = await response.text();
                 window.location.href = "/hostedevents";
             }
-            catch(e)        
-            {            
-                alert(e.toString());      
-            }    
-        
+            catch(e)
+            {
+                alert(e.toString());
+            }
+
         }
         else
         {
@@ -232,16 +233,16 @@ function EditEventUI(props)
             }
 
             // May need to append :00.000Z to eventTime.value to add to database
-            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
+            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " +
+            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() +
             //"\nURL: " + eventPictureURL.value);
         }
     }
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
-            <span class="inner-title">Create Event</span><br />
-            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/hostedevents"}>Back</button><br/>
+            <span class="inner-title">Update Event</span><br />
+            <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/hostedevents"}>Cancel</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete(props.eventId)}>Disband Event</button><br/>
             <br/>
@@ -250,27 +251,27 @@ function EditEventUI(props)
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the event a short, descriptive name.</i></p>
             <input type="text" defaultValue={eventName} ref={(c) => eventName = c} />
-            <span id="error-text">{nameError}</span> <br /> 
+            <span id="error-text">{nameError}</span> <br />
             <span class="inner-title it_orange"></span><br />
 
-            
+
             <br/>
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
             <textarea rows="7" cols= "40" maxLength= "210" defaultValue={eventDesc} ref={(c) => eventDesc = c} />
-            <span id="error-text">{descError}</span> <br /> 
+            <span id="error-text">{descError}</span> <br />
             <span class="inner-title it_yellow"></span><br />
 
-            
+
             <br/>
             <span class="inner-title it_green">Date/Time</span><br />
             <p><i>When is the event going to happen?</i></p>
             <input type="datetime-local" class="meeting-time"
                 name="meeting-time" defaultValue={isoDateTime} ref={(c) => eventTime = c} />
-            <span id="error-text">{timeError}</span> <br /> 
+            <span id="error-text">{timeError}</span> <br />
             <span class="inner-title it_green"></span><br />
 
-                        
+
             <br/>
             <span class="inner-title it_blue">Location</span><br />
             <p><i>Where is the event going to happen? If online, instead check the box.</i></p>
@@ -278,17 +279,17 @@ function EditEventUI(props)
             <label for="onlineCheck"> Online</label>
             <br/>
             <GoogleAutocomplete defaultValue={eventPlace} onPlaceLoaded={getGoogleData}/>
-            
-            <span id="error-text">{locationError}</span> <br /> 
+
+            <span id="error-text">{locationError}</span> <br />
             <span class="inner-title it_blue"></span><br />
 
             <br/>
             <span class="inner-title it_purple">Event Image</span><br />
             <p><i>Give a image to represent your event; this must be uploaded as a url.</i></p>
             <input type="text" id="location" defaultValue={eventPictureURL} ref={(c) => eventPictureURL = c} />
-            <span id="error-text">{pictureError}</span> <br /> 
+            <span id="error-text">{pictureError}</span> <br />
             <span class="inner-title it_purple"></span><br />
-         
+
             <br/>
             <span class="inner-title it_pink">Group</span><br />
             <p><i>We currently do not support switching groups at this time.</i></p>
@@ -298,15 +299,15 @@ function EditEventUI(props)
             <br/>
             <span class="inner-title it_lightred">Review</span><br />
             <p><i>Please review your event, as this is what users will view on the Search page.</i></p>
-            
-            <button type="button" style={{width: "30%"}} 
+
+            <button type="button" style={{width: "30%"}}
             class="buttons" onClick={refreshCard}>Refresh</button>
             <div class = "flex-container">
             <div>{cardResults}</div>
             </div>
             <span class="inner-title it_lightred"><b></b></span><br />
 
-            <button type="button" style={{width: "50%"}} 
+            <button type="button" style={{width: "50%"}}
             class="buttons" onClick={addNewEvent}>Submit</button>
             <span class="smaller-inner-title">Please make sure to review your event before you submit!</span><br />
             <div><span id="error-text">{eventMakeResult}</span> <br /> </div>
