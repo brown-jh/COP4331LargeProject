@@ -52,7 +52,6 @@ function EditEventUI(props)
                     const response = await fetch(bp.buildPath('api/searcheventid'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                    alert(txt);
                     res = JSON.parse(txt); 
 
                     eventName.value = res.results[0].EventName;
@@ -72,7 +71,7 @@ function EditEventUI(props)
                 }        
                 catch(e)        
                 {            
-                    alert(e.toString() + "ALYX'S ERROR");      
+                    alert(e.toString());      
                 }
             }
 
