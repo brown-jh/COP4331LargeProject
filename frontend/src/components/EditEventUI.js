@@ -60,6 +60,7 @@ function EditEventUI(props)
                     eventTime = res.results[0].EventTime;
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
+                    eventGroup = res.results[0].GroupID;
                     eventPlace = res.results[0].EventLocation;
                     eventPictureURL.value = res.results[0].ImageURL;
                         
@@ -304,8 +305,8 @@ function EditEventUI(props)
             {/*NOTE: Should be unavailable.*/}
             <br/>
             <span class="inner-title it_pink">Group</span><br />
-            <p><i>If this is for a group, select it from the dropdown; otherwise pick "None".</i></p>
-            {groupSelector}
+            <p><i>We currently do not support editing groups at this time.</i></p>
+            <p style={{fontSize: "20px"}}>Current Group ID: {eventGroup}</p>
             <span class="inner-title it_pink"><b></b></span><br />
 
             <br/>
