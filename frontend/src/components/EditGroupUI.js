@@ -350,7 +350,7 @@ function EditGroupUI(props)
     return(
         <div id="mainDiv" style={{width: "60%"}}>
             
-            <span class="inner-title">Create Group</span><br/>
+            <span class="inner-title">Update Group</span><br/>
             <button type="button" style={{width: "30%"}} class="buttons" onClick={() => window.location.href="/joinedgroups"}>Cancel</button><br/>
             <br/>
             <button type="button" style={{width: "30%"}} class="buttons"  onClick={() => confirmDelete()}>Disband Group</button><br/>
