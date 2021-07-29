@@ -1267,6 +1267,7 @@ exports.setApp = function (app, client)
     {
         const {login,jwtToken} = req.body;
         const db = client.db();
+        var name = "";
 
         try      
         {        
@@ -1295,7 +1296,14 @@ exports.setApp = function (app, client)
             firstname = results.FirstName;
             username = results.Login;
             lastname = results.LastName;
-            ret = {userId:id,firstName:firstname,userName:username,lastName:lastname};
+
+            name += firstname;
+            name += ' "';
+            name += username;
+            name += '" ';
+            name += lastname
+
+            ret = {userId:id,Name:name};
             return res.status(200).json(ret);
     
         }      
