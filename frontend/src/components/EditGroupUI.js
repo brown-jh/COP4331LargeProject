@@ -40,7 +40,6 @@ function EditGroupUI(props)
 
     const [cardResults, setCardResults] = useState('');
 
-
     useEffect(() => {
 
         var tok = storage.retrieveToken();
@@ -84,8 +83,6 @@ function EditGroupUI(props)
 
         // This [], ensures useEffect only runs once.
     }, []);
-
-    
 
     const refreshCard = async event =>
     {
@@ -325,8 +322,6 @@ function EditGroupUI(props)
 
         }
     }
-
-    fetchdata();
 
     return(
         <div id="mainDiv" style={{width: "60%"}}>
