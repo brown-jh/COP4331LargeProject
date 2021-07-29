@@ -77,6 +77,9 @@ function EditEventUI(props)
             }
 
         fetchData();
+        updateName(res.results[0].EventName);
+        fetchData();
+        updateName(res.results[0].EventName);
         
         // This [], ensures useEffect only runs once.
     }, []);
