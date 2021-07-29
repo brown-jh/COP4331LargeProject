@@ -335,13 +335,18 @@ p .date
 
 .btn-home
 {
-    vertical-align:middle;
     margin-bottom: 30px;
+}
+
+.btn-homepage
+{
+    vertical-align:middle;
+    height: 80px;
 }
 
 .btn-search
 {
-    height: 80px;
+    height: 50px;
 }
 
 .buttons:hover
