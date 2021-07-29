@@ -70,7 +70,7 @@ function EditEventUI(props)
                     eventPlace = res.results[0].EventLocation;
                     groupId = res.results[0].GroupID;
                     alert(groupId)
-                    alert(grouId.value)
+                    alert(groupId.value)
                     eventPictureURL.value = res.results[0].ImageURL;
                         
                         var retTok = res.jwtToken;     
