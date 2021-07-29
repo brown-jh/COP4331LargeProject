@@ -51,25 +51,6 @@ function AdminnedGroups()
         };
 
         fetchData();
-
-        var dummyAdminGroups=[
-            {
-                title: "NerdKnighteria of UCF",
-                desc: "This is a club for board and video gamers at UCF.",
-            },
-            {
-                title: "Dark Side Comics Game Night",
-                desc: "We meet at Dark Side Comics on Sundays to play board games.",
-            },
-            {
-                title: "YMCA Swimming Club",
-                desc: "We're here to dive in and have fun!",
-            },
-            {
-                title: "Game Jammers",
-                desc: "Interested in game dev or game jams? Try here!",
-            }
-        ]
     },[]);
 
     return (

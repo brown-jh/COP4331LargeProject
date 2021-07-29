@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import GoogleAutocomplete from '../components/GoogleAutocomplete';
 import EventBoxPreview from './EventBoxPreview';
 
-// Global variables, these we're getting reset for some reason.
+// Global variables, these were getting reset for some reason.
 var eventPlace = '';
 var eventGroup = '';
 
@@ -40,15 +40,11 @@ function EventMakeUI()
     const flipOnlineCheck = async event =>
     {
         setIsOnline(!isOnline);
-        //alert("Flipped online value");
     }
 
     function changeGroup(event)
     {
         eventGroup = event.target.value;
-        // alert("Updated group to event: " + event + "\nTarget: " + event.target + 
-        // "\nValue: " + event.target.value);
-        // alert("Result is " + eventGroup + "\nValue: " + eventGroup.value);
     }
 
     // Updates eventPlace variable when user selects a location from Google API.
@@ -92,25 +88,21 @@ function EventMakeUI()
         if (eventDesc.value == "")
         {
             setDescError("Please give a description.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventTime.value == "")
         {
             setTimeError("Please give a time.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventPlace == "" && !isOnline)
         {
             setLocationError("Please give a location or check \"Online\".");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
         if (eventPictureURL.value == "")
         {
             setPictureError("Please enter a URL that contains desired image.");
-            setEventMakeResult("Information missing; check above.");
             isError = true;
         }
 
@@ -129,10 +121,6 @@ function EventMakeUI()
             var _eventPlace = eventPlace.toString();
             var _eventTime = eventTime.value + ":00.000";
             // + ":00.000Z"
-
-            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            //eventGroup + "\nTime: " + _eventTime + "\nPlace: " + _eventPlace + 
-            //"\nURL: " + eventPictureURL.value + "\nUser: " + userId);
 
             var tok = storage.retrieveToken();
             var obj = {eventname:eventName.value, eventDescription:eventDesc.value, groupID:eventGroup, eventtime:_eventTime, eventLocation:_eventPlace, imageURL:eventPictureURL.value, eventhost:userId,jwtToken:tok};
@@ -163,11 +151,6 @@ function EventMakeUI()
                 alert(e.toString());
             }
 
-            
-            //alert("Name: " + eventName.value + "\nDescription: " + eventDesc.value + "\nGroup: " + 
-            //eventGroup + "\nTime: " + eventTime.value + "\nPlace: " + eventPlace.toString() + 
-            //"\nURL: " + eventPictureURL.value);
-
         }
     }
 
@@ -185,7 +168,6 @@ function EventMakeUI()
                     const response = await fetch(bp.buildPath('api/searchgroupsubbed'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();   
-                        //alert("Events are: " + txt);
                     res = JSON.parse(txt);    
 
                     setGroupSelector(

@@ -16,8 +16,6 @@ function EventDisplay(props)
     var ud = JSON.parse(_ud);    
     var userId = ud.id;
 
-    //var userName = "Test User";
-
     var URLid = props.eventId;
 
     const[eventTitle, setEventTitle] = useState('');
@@ -42,75 +40,46 @@ function EventDisplay(props)
         const fetchData = async () =>
         {
             try        
-                {            
-                    const response = await fetch(bp.buildPath('api/searcheventid'),            
-                        {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                    //alert(txt);
-                    res = JSON.parse(txt); 
+            {            
+                const response = await fetch(bp.buildPath('api/searcheventid'),            
+                    {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
+                var txt = await response.text();   
+                res = JSON.parse(txt); 
 
-                        setEventTitle(res.results[0].EventName); //To test the parameter pass-in.
-                        setEventDesc(res.results[0].EventDescription);
-                        setEventHost(res.results[0].EventHosts[0].Name);
-                        userName =  res.results[0].EventHosts[0].Id;
-                        setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
-                        attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
-                        setEventGroup(res.results[0].GroupID);
-                        setEventTime(new Date(res.results[0].EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
-                        replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(res.results[0].EventTime).toLocaleTimeString());
-                        setEventLocation(res.results[0].EventLocation);
-                        setEventComments(res.results[0].Comments);
-                        console.log(res.results[0].Comments)
-                        setEventImage(res.results[0].ImageURL); //Dummy data, fix with rest of API call.
+                setEventTitle(res.results[0].EventName); 
+                setEventDesc(res.results[0].EventDescription);
+                setEventHost(res.results[0].EventHosts[0].Name);
+                userName =  res.results[0].EventHosts[0].Id;
+                setAttendeeList(<div><p>{makeUsernameList(res.results[0].EventAttendees)}</p></div>);
+                attendeeVar = res.results[0].EventAttendees; //So we can access the attendees outside of useEffect.
+                setEventGroup(res.results[0].GroupID);
+                setEventTime(new Date(res.results[0].EventTime).toLocaleString('en-us', {year: 'numeric', month: 'long', day: '2-digit'}).
+                replace(/(\d+)\/(\d+)\/(\d+)/, '$1-$2-$3') + " " + new Date(res.results[0].EventTime).toLocaleTimeString());
+                setEventLocation(res.results[0].EventLocation);
+                setEventComments(res.results[0].Comments);
+                console.log(res.results[0].Comments)
+                setEventImage(res.results[0].ImageURL);
 
-                        // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
-                        if (attendeeVar.filter(user => user.Id == userId).length != 0)
-                        {
-                            setJoinLeaveButton("Leave");
-                        }
-                        
-                        var retTok = res.jwtToken;     
-                        storage.storeToken( retTok );      
-                        
-                        return;    
-
-                }        
-                catch(e)        
-                {            
-                    alert(e.toString());      
+                // Flip the status of the join/leave button to Leave if the user is in the list of attendees.
+                if (attendeeVar.filter(user => user.Id == userId).length != 0)
+                {
+                    setJoinLeaveButton("Leave");
                 }
+                
+                var retTok = res.jwtToken;     
+                storage.storeToken( retTok );      
+                
+                return;    
+
+            }        
+            catch(e)        
+            {            
+                alert(e.toString());      
             }
+        }
 
-        fetchData();        
-
-        var thisEvent={
-            name: "Smash Tournament for NerdKnighteria",
-            host: {name: "Hannah Wrigley", id:"0"},
-            description: "NerdKnighteria is holding a Smash 4 tournament at the Student Union at 3 on Monday. Bring snacks and controllers, cash prizes to be awarded up to 50$.",
-            attendees: [{name:"John Smith", id:"1"}, 
-            {name:"Alyx Reckahn", id:"2"}, 
-            {name:"Sienna Liskwell", id:"3"}],
-            group: "NerdKnighteria of UCF",
-            time: "July 31 2021, 3:00 PM",
-            place: "Student Union, University of Central Florida, Orlando",
-            comments: [
-                {
-                    user: "QuinnH",
-                    text: "Hey guys, I can't come tonight; have to study for a test.",
-                    date: "7-12-2021"
-                },
-                {
-                    user: "ThomasMahBoi",
-                    text: "Hannah, my friend who isn't in the club wanted to come in and watch the tournament; is that okay?",
-                    date: "7-13-2021"
-                },
-                {
-                    user: "badumtssXD",
-                    text: "I have extra controllers if anyone wants them!",
-                    date: "7-19-2021"
-                }
-            ]
-        };
+        fetchData();
+        
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
@@ -119,7 +88,6 @@ function EventDisplay(props)
         //If user is in the attendee list, remove them.
         if (attendeeVar.filter(user => user.Id == userId).length != 0) 
         {
-            //alert("TODO: use API to remove from event.");
 
             var tok = storage.retrieveToken();
             var obj = {eventId:URLid,jwtToken:tok};
@@ -152,7 +120,6 @@ function EventDisplay(props)
         }
         else //User is not attending, so add them.
         {
-            //alert("TODO: use API to add to event.");
 
             var tok = storage.retrieveToken();
             var obj = {eventId:URLid,jwtToken:tok};
@@ -206,9 +173,6 @@ function EventDisplay(props)
 
         var today = new Date();
         var currentDate = (today.getMonth()+1)+'-'+today.getDate()+'-'+today.getFullYear();
-
-        //TODO: Use API call to send user ID number and comment to the server; the code to add the
-        // visible comment should use the username instead of userId.
 
         var tok = storage.retrieveToken();       
         var obj = {jwtToken:tok,text:commentText, date:currentDate, eventId:props.eventId};       

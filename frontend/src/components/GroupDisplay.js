@@ -67,11 +67,12 @@ function GroupDisplay(props)
                         setJoinLeaveButton("Leave");
                     }
 
-                // Flip the status of the join/leave button to Leave if the user has joined the group.
-                if(memberVar.filter(user => user.Id == userId).length != 0)
-                {
-                    setJoinLeaveButton("Leave");
-                }
+                    //NOTE: WTF?
+                    // Flip the status of the join/leave button to Leave if the user has joined the group.
+                    if(memberVar.filter(user => user.Id == userId).length != 0)
+                    {
+                        setJoinLeaveButton("Leave");
+                    }
                         
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
@@ -139,56 +140,6 @@ function GroupDisplay(props)
 
         fetchData();
 
-
-        var thisGroup={
-            name: "NerdKnighteria of UCF",
-            description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
-            admins: [
-                {name:"John Smith", id:"1"}, 
-                {name:"Alyx Reckahn", id:"2"}, 
-                {name:"Hannah Wrigley", id:"3"}],
-            members: [
-                {name:"Cassia Lengtree", id: "4"}, 
-                {name:"Louis Ferguson", id:"5"}, 
-                {name:"Isabelle Bathory", id:"6"}],
-            events:[
-                {
-                    id: "1111",
-                    title: "Sunday Practice for Orlando Tennis Club",
-                    group: "Women's Tennis Club of Orlando",
-                    time: "April 23rd, 2021 2:00 PM",
-                    place: "Big Win Gym, 4913 Greensteel Drive, Orlando, FL, 32828"
-                },
-                {
-                    id: "2222",
-                    title: "Weekly D&D Night, Newcomers Welcome",
-                    group: "",
-                    time: "April 21st, 2021 8:00 PM",
-                    place: "2123 Rose Lane, Orlando, FL, 32819"
-                },
-                {
-                    id:"3333",
-                    title: "JavaScript Workshop",
-                    group: "Programming Club of UCF",
-                    time: "April 26th, 2021 3:00 PM",
-                    place: "Online"
-                },
-                {
-                    id:"4444",
-                    title: "Super Smash Bros Tournament - Cash Prizes",
-                    group: "NerdKnighteria of UCF",
-                    time: "May 12th, 2021 5:00 PM",
-                    place: "Online"
-                },
-                {
-                    id:"5555",
-                    title: "April Meeting of Jacaranda Book Club",
-                    group: "Jacaranda Book Club",
-                    time: "April 6th, 2021 1:00PM",
-                    place: "4143 Woodmere Park Blvd, Venice, FL 34293"
-                }
-            ]
-        };
     }, []);
 
     // This function handles the user clicking the Join/Leave button.
@@ -197,7 +148,6 @@ function GroupDisplay(props)
         //If the user is in the list of members, remove them.
         if (memberVar.filter(user => user.Id == userId).length != 0)
         {
-            //alert("TODO: use API to remove from group.");
 
             var tok = storage.retrieveToken();
             var obj = {groupId:URLid,jwtToken:tok};
@@ -230,7 +180,6 @@ function GroupDisplay(props)
         }
         else //User is not a member, so add them.
         {
-            //alert("TODO: use API to add to group.");
 
             var tok = storage.retrieveToken();
             var obj = {groupId:URLid,jwtToken:tok};

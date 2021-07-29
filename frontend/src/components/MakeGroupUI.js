@@ -12,6 +12,7 @@ function MakeGroupUI()
     var adminName = '';
     var memberName = '';
 
+    //NOTE: Why is this ignored?
      // TODO: MAKE SURE TO GET RID OF IS ************************************************
      var userName = "";
      
@@ -217,11 +218,8 @@ function MakeGroupUI()
         }
         else
         {
+            //NOTE: Is this needed?
             setAdminList([...adminList, {Id: userId, Name: userName}]); //Add the user as an admin.
-
-            alert("Name: " + groupName.value + "\nDescription: " + groupDesc.value + 
-            "\nAdmins: " + adminList.map(user => user.Id + " " + user.Name) + "\nMembers: " + 
-            memberList.map(user => user.Id + " " + user.Name) + "\nURL: " + groupPictureURL.value);
 
             
 

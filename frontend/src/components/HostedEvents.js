@@ -29,7 +29,6 @@ function HostedEvents()
                     {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
 
                 var txt = await response.text();
-                //alert(txt)
                 var res = JSON.parse(txt);
 
   

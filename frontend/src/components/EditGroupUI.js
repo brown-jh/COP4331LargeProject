@@ -14,6 +14,7 @@ function EditGroupUI(props)
     var storage = require('../tokenStorage.js');
     const jwt = require("jsonwebtoken");
 
+    //NOTE: Why doesn't this happen?
     // TODO: MAKE SURE TO GET RID OF IS ************************************************
     var userName = "";
 
@@ -57,8 +58,7 @@ function EditGroupUI(props)
                 {            
                     const response = await fetch(bp.buildPath('api/searchgroupid'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-                    var txt = await response.text();   
-                    alert(txt);
+                    var txt = await response.text();
                     res = JSON.parse(txt); 
 
                 
@@ -85,24 +85,11 @@ function EditGroupUI(props)
         
 
         fetchData();
-
-        var thisGroup={
-            name: "NerdKnighteria of UCF",
-            description: "This club is for people at UCF interested in board and video games; we meet Tuesdays at 5 in the Student Union.",
-            url: "https://i.ticketweb.com/i/00/09/57/08/29_Original.jpg?v=6",
-            admins: [
-                {name:"John Smith", id:"1"}, 
-                {name: "Alyx Reckahn", id:"2"}, 
-                {name: "Hannah Wrigley", id: "3"}],
-            members: [
-                {name:"Jesse Sampson", id:"4"}, 
-                {name:"Louis Ferguson", id:"5"}, 
-                {name:"Isabelle Bathory", id:"6"}]
-        };
         
         // This [], ensures useEffect only runs once.
     }, []);
 
+    // Note: Are these needed?
     function updateName(event)
     {
         event.preventDefault();
@@ -177,8 +164,7 @@ function EditGroupUI(props)
         {            
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var txt = await response.text();   
-            //alert(txt);       
+            var txt = await response.text(); 
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -229,8 +215,7 @@ function EditGroupUI(props)
         {            
             const response = await fetch(bp.buildPath('api/getuserid'),            
                 {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
-            var txt = await response.text();   
-            //alert(txt);       
+            var txt = await response.text(); 
             var res = JSON.parse(txt);                     
             var retTok = res.jwtToken;
             storage.storeToken( retTok );
@@ -282,8 +267,7 @@ function EditGroupUI(props)
                     const response = await fetch(bp.buildPath('api/deletegroup'),            
                         {method:'POST',body:js,headers:{'Content-Type': 'application/json'}});
                     var txt = await response.text();
-                    //alert("return errors" + txt);
-                    window.location.href = "/joinedgroups";
+                    window.location.href = "/adminnedgroups";
                 }
                     catch(e)        
                     {            
