@@ -68,8 +68,10 @@ function EditEventUI(props)
                     var date = new Date(res.results[0].EventTime); // Or the date you'd like converted.
                     isoDateTime = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString().slice(0, -1);
                     eventPlace = res.results[0].EventLocation;
-                    eventPictureURL.value = res.results[0].ImageURL;
                     groupId = res.results[0].GroupID;
+                    alert(groupId)
+                    alert(grouId.value)
+                    eventPictureURL.value = res.results[0].ImageURL;
                         
                         var retTok = res.jwtToken;     
                         storage.storeToken( retTok );      
@@ -338,7 +340,7 @@ function EditEventUI(props)
             <br/>
             <span class="inner-title it_pink">Group</span><br />
             <p><i>We currently do not support editing groups at this time.</i></p>
-            <p style={{fontSize: "20px"}}>Current Group ID: {groupId}</p>
+            <p style={{fontSize: "20px"}}>Current Group ID: {groupId.value}</p>
             <span class="inner-title it_pink"><b></b></span><br />
 
             <br/>
