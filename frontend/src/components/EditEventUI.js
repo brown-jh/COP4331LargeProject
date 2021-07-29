@@ -262,7 +262,7 @@ function EditEventUI(props)
             <span class="inner-title it_orange">Name</span><br />
             <p><i>Give the event a short, descriptive name.</i></p>
             <input type="text" onChange={updateName} defaultValue={eventName} ref={(c) => eventName = c} />
-            <span id="error-text" >{nameError}</span> <br /> 
+            <span id="error-text" style={{color: "white"}}>{nameError}</span> <br /> 
             <span class="inner-title it_orange"></span><br />
 
             
@@ -270,7 +270,7 @@ function EditEventUI(props)
             <span class="inner-title it_yellow">Description</span><br />
             <p><i>Tell your attendees about the event; what it involves, what they should bring, etc.</i></p>
             <textarea rows="7" cols= "40" maxLength= "210" onChange={updateDesc} defaultValue={eventDesc} ref={(c) => eventDesc = c} />
-            <span id="error-text" style={{color="#FFFFFF"}} >{descError}</span> <br /> 
+            <span id="error-text" style={{color: "white"}} >{descError}</span> <br /> 
             <span class="inner-title it_yellow"></span><br />
 
             
